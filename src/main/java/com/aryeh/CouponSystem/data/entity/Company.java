@@ -23,7 +23,6 @@ public class Company extends Client {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Coupon> coupons;
 
-
     public Company() {
         coupons = new ArrayList<>();
     }
@@ -75,7 +74,9 @@ public class Company extends Client {
         return coupons;
     }
 
-    public void setCoupons(List<Coupon> coupons) {
+    public void setCoupons(List<Coupon> jsonCoupons) {
+        coupons = jsonCoupons;
+
         for (Coupon coupon : coupons) {
             coupon.setCompany(this);
         }
