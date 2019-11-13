@@ -48,7 +48,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     public void init() {
         String rootUsername = env.getProperty("adminRoot.username");
         String rootPassword = env.getProperty("adminRoot.password");
-        createAdmin(new Admin(rootId, rootUsername, rootPassword));
+        adminRepository.save((new Admin(rootId, rootUsername, rootPassword)));
     }
 
     @Override
@@ -57,14 +57,15 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if (admin != null) {
             /*It isn't possible to change the root administrator from here.*/
             if (admin.getId() != rootId) {
-                admin.setId(0);
 
+                admin.setId(0);
                 Admin adminNew = adminRepository.save(admin);
+
                 userRepository.save(new User(adminNew));
 
                 return adminNew;
             } else {
-               return adminRepository.findById(rootId).get();
+               return Admin.empty();
             }
         }
         return Admin.empty();
@@ -74,8 +75,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Transactional
     public Company createCompany(Company company) {
         if (company != null) {
+
             company.setId(0);
             Company companyNew = companyRepository.save(company);
+
             userRepository.save(new User(companyNew));
             return companyNew;
         }
@@ -86,8 +89,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Transactional
     public Customer createCustomer(Customer customer) {
         if (customer != null) {
+
             customer.setId(0);
             Customer customerNew = customerRepository.save(customer);
+
             userRepository.save(new User(customerNew));
             return customerNew;
         }
