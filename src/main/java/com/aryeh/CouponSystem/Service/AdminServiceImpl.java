@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class AdminServiceImpl extends AbsService implements AdminService {
     private final long rootId;
-    public static final int ADMIN_ROLE =-1;
     private final CompanyRepository companyRepository;
     private final CouponRepository couponRepository;
     private final CustomerRepository customerRepository;
