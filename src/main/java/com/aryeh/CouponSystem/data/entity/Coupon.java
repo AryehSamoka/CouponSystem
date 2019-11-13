@@ -1,12 +1,13 @@
 package com.aryeh.CouponSystem.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "coupon")
 public class Coupon {
@@ -46,6 +47,8 @@ public class Coupon {
         this.id = id;
     }
 
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("company_id")
     public Company getCompany() {
         return company;
     }
