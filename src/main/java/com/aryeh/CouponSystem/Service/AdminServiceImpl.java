@@ -2,20 +2,13 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.*;
-import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
-import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdminServiceImpl extends AbsService implements AdminService {
