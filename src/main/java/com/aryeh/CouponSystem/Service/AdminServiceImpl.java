@@ -40,7 +40,9 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         Admin rootAdmin = new Admin(rootId, rootUsername, rootPassword);
         /*Can"t save and update in createAdmin().*/
         adminRepository.save(rootAdmin);
-        userRepository.save(new User(rootAdmin));
+        User rootUser = new User(rootAdmin);
+        rootUser.setId(rootId);
+        userRepository.save(rootUser);
     }
 
     @Override
