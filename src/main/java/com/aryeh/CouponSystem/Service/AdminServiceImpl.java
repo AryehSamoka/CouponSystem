@@ -1,9 +1,6 @@
 package com.aryeh.CouponSystem.Service;
 
-import com.aryeh.CouponSystem.data.entity.Admin;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Customer;
-import com.aryeh.CouponSystem.data.entity.User;
+import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import org.springframework.beans.factory.BeanCreationException;
@@ -77,8 +74,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if (company != null) {
 
             company.setId(0);
-            Company companyNew = companyRepository.save(company);
+            /*A company can be created with coupons but can't update other coupons.*/
+            List<Coupon> coupons = company.getCoupons();
+            for (Coupon coupon:coupons) {
+                coupon.setId(0);
+            }
 
+            Company companyNew = companyRepository.save(company);
             userRepository.save(new User(companyNew));
             return companyNew;
         }
@@ -91,6 +93,9 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if (customer != null) {
 
             customer.setId(0);
+            /*A customer can't be crated with coupons.*/
+            customer.setCoupons(null);
+
             Customer customerNew = customerRepository.save(customer);
 
             userRepository.save(new User(customerNew));
