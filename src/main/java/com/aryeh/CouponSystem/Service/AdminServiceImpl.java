@@ -23,6 +23,7 @@ import java.util.Optional;
 @Service
 public class AdminServiceImpl extends AbsService implements AdminService {
     private final long rootId;
+    public static final int ADMIN_ROLE =-1;
     private final CompanyRepository companyRepository;
     private final CouponRepository couponRepository;
     private final CustomerRepository customerRepository;
@@ -53,21 +54,18 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Admin createAdmin(Admin admin) {
-
         if (admin != null) {
+            /*It isn't possible to change the root administrator from here.*/
+            if (admin.getId() != rootId) {
                 admin.setId(0);
-                try {
-                    Admin adminNew = adminRepository.save(admin);
-                    userRepository.save(new User(adminNew));
-                    return adminNew;
-                }catch (BeanCreationException e){
 
-                }catch (ConstraintViolationException ex){
+                Admin adminNew = adminRepository.save(admin);
+                userRepository.save(new User(adminNew));
 
-                }catch (DataIntegrityViolationException exc){
-
-                }
-
+                return adminNew;
+            } else {
+               return adminRepository.findById(rootId).get();
+            }
         }
         return Admin.empty();
     }
