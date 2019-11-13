@@ -37,7 +37,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     public void init() {
         String rootUsername = env.getProperty("adminRoot.username");
         String rootPassword = env.getProperty("adminRoot.password");
-        adminRepository.save((new Admin(rootId, rootUsername, rootPassword)));
+        Admin rootAdmin = new Admin(rootId, rootUsername, rootPassword);
+        /*Can"t save and update in createAdmin().*/
+        adminRepository.save(rootAdmin);
+        userRepository.save(new User(rootAdmin));
     }
 
     @Override
