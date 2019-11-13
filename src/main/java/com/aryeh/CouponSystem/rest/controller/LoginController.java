@@ -1,7 +1,5 @@
 package com.aryeh.CouponSystem.rest.controller;
 
-import com.aryeh.CouponSystem.Service.CompanyService;
-import com.aryeh.CouponSystem.rest.AbsSession;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.CsSystem;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;

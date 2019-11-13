@@ -1,11 +1,6 @@
 package com.aryeh.CouponSystem.threads;
 
-import com.aryeh.CouponSystem.Utils.BeanUtil;
-import com.aryeh.CouponSystem.rest.AbsSession;
 import com.aryeh.CouponSystem.rest.ClientSession;
-import com.aryeh.CouponSystem.rest.RestConfiguration;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 
 import java.util.Map;
 

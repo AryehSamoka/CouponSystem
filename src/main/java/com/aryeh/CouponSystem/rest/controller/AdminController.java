@@ -1,17 +1,13 @@
 package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AbsService;
-import com.aryeh.CouponSystem.Service.AdminService;
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
-import com.aryeh.CouponSystem.rest.AbsSession;
-import com.aryeh.CouponSystem.rest.AdminSession;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
