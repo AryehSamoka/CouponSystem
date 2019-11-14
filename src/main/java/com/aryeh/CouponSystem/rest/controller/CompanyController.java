@@ -37,6 +37,7 @@ public class CompanyController {
     public ResponseEntity<Company> deleteCompanyByToken(@PathVariable String token) {
         CompanyServiceImpl service = getService(token);
         service.deleteById();
+        tokensMap.remove(token);
 
         return ResponseEntity.ok(Company.empty());
     }
