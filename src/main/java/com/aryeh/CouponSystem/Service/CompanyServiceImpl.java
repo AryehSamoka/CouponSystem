@@ -76,13 +76,6 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     @Override
     @Transactional
-    public Company login(String email, String password) {
-        return companyRepository.findByEmailAndPassword(email, password)
-                .orElse(Company.empty());
-    }
-
-    @Override
-    @Transactional
     public List<Coupon> findCompanyCoupons() {
         return couponRepository.findByCompanyId(companyId);
     }

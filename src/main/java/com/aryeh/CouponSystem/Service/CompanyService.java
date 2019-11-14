@@ -13,8 +13,6 @@ public interface CompanyService {
 
     Company update(Company company);
 
-    Company login(String email, String password);
-
     List<Coupon> findCompanyCoupons();
 
     List<Coupon> findCompanyCouponsByCategory(int category);
