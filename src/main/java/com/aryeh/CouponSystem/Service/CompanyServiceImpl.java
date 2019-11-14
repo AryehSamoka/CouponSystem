@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,7 +56,19 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     public Company update(Company company) {
         if (company.getId() == companyId || company.getId() == 0) {
             company.setId(companyId);
-            /*Todo coupons empty list*/
+
+            /*checking the updated coupons*/
+            List<Coupon> coupons = company.getCoupons();
+            Iterator<Coupon> couponsIterator = coupons.iterator();
+            while (couponsIterator.hasNext()) {
+                Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
+                if(optCoupon.isPresent()){
+                    Coupon coupon = optCoupon.get();
+                    if (coupon.getCompany()!= company){
+                        couponsIterator.remove();
+                    }
+                }
+            }
             return companyRepository.save(company);
         }
         return Company.empty();
