@@ -42,7 +42,8 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public void deleteById() {
-        Optional<User> optUser = userRepository.findByClientId(companyId, 1);
+        Company company = findById();
+        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(),company.returnPassword());
         if(optUser.isPresent()) {
             userRepository.deleteById(optUser.get().getId());
         }

@@ -10,7 +10,4 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailAndPassword(String email, String password);
-
-    @Query("select u from User u where u.client.id = :client_id and role=:role")
-    Optional<User> findByClientId(long client_id, int role);
 }

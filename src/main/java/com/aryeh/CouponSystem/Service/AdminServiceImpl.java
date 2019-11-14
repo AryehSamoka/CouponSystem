@@ -73,7 +73,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if (company != null) {
 
             company.setId(0);
-            /*A company can be created with coupons but can't update other coupons.*/
+            /*A company can be created with his own coupons but can't update coupons of other companies.*/
             List<Coupon> coupons = company.getCoupons();
             for (Coupon coupon:coupons) {
                 coupon.setId(0);
