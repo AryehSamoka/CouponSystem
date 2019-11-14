@@ -2,8 +2,10 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Coupon;
+import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
+import com.aryeh.CouponSystem.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -20,11 +23,13 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     private CouponRepository couponRepository;
     private CompanyRepository companyRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public CompanyServiceImpl(CouponRepository couponRepository, CompanyRepository companyRepository) {
+    public CompanyServiceImpl(CouponRepository couponRepository, CompanyRepository companyRepository, UserRepository userRepository) {
         this.couponRepository = couponRepository;
         this.companyRepository = companyRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,6 +42,10 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public void deleteById() {
+        Optional<User> optUser = userRepository.findByClientId(companyId, 1);
+        if(optUser.isPresent()) {
+            userRepository.deleteById(optUser.get().getId());
+        }
         companyRepository.deleteById(companyId);
     }
 
@@ -45,6 +54,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     public Company update(Company company) {
         if (company.getId() == companyId || company.getId() == 0) {
             company.setId(companyId);
+            /*Todo coupons empty list*/
             return companyRepository.save(company);
         }
         return Company.empty();
