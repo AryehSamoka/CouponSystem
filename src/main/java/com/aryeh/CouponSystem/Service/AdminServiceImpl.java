@@ -92,7 +92,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if (customer != null) {
 
             customer.setId(0);
-            /*A customer can't be crated with coupons.*/
+            /*A customer can't be created with coupons.*/
             customer.setCoupons(Collections.emptyList());
 
             Customer customerNew = customerRepository.save(customer);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -46,6 +47,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     public Customer update(Customer customer) {
         if (customer.getId() == customerId || customer.getId() == 0) {
             customer.setId(customerId);
+            customer.setCoupons(Collections.emptyList());
             return customerRepository.save(customer);
         }
         return Customer.empty();
