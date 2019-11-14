@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -92,7 +93,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
             customer.setId(0);
             /*A customer can't be crated with coupons.*/
-            customer.setCoupons(null);
+            customer.setCoupons(Collections.emptyList());
 
             Customer customerNew = customerRepository.save(customer);
 
