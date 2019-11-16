@@ -1,11 +1,17 @@
 package com.aryeh.CouponSystem.rest;
 
-import com.aryeh.CouponSystem.Service.*;
-import com.aryeh.CouponSystem.data.entity.*;
-import com.aryeh.CouponSystem.data.repository.CompanyRepository;
-import com.aryeh.CouponSystem.data.repository.CustomerRepository;
+import com.aryeh.CouponSystem.Service.AdminServiceImpl;
+import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
+import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
+import com.aryeh.CouponSystem.Service.UserService;
+import com.aryeh.CouponSystem.data.entity.Client;
+import com.aryeh.CouponSystem.data.entity.Company;
+import com.aryeh.CouponSystem.data.entity.Customer;
+import com.aryeh.CouponSystem.data.entity.User;
+import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import com.aryeh.CouponSystem.threads.ClientSessionCleanerTask;
+import com.aryeh.CouponSystem.threads.CouponCleanerTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -23,19 +29,22 @@ public class CsSystem {
     private UserService userService;
     private Environment env;
     private Map<String, ClientSession> tokensMap;
+    private CouponRepository couponRepository;
 
     @Autowired
-    public CsSystem(ApplicationContext context, UserService userService, Environment env, @Qualifier("tokens") Map<String, ClientSession> tokensMap) {
+    public CsSystem(ApplicationContext context, UserService userService, Environment env, @Qualifier("tokens") Map<String,
+            ClientSession> tokensMap, CouponRepository couponRepository) {
         this.context = context;
         this.userService = userService;
         this.env = env;
         this.tokensMap = tokensMap;
+        this.couponRepository = couponRepository;
     }
 
     @PostConstruct
     public void init() {
-        Thread thread = new Thread(new ClientSessionCleanerTask(tokensMap));
-        thread.start();
+        new Thread(new ClientSessionCleanerTask(tokensMap)).start();
+        new Thread(new CouponCleanerTask(couponRepository)).start();
     }
 
     public ClientSession login(String userName, String password) throws InvalidLoginException {
