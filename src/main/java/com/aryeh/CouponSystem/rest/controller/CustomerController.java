@@ -40,6 +40,10 @@ public class CustomerController {
     public ResponseEntity<Customer> deleteCustomerById(@PathVariable String token) {
         CustomerServiceImpl service = getService(token);
         service.deleteById();
+        synchronized (tokensMap) {
+            tokensMap.remove(token);
+        }
+
         return ResponseEntity.ok(Customer.empty());
     }
 

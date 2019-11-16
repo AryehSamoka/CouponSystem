@@ -31,14 +31,22 @@ public class ClientSessionCleanerTask implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                it = tokensMap.keySet().iterator();
-                while (it.hasNext()) {
-                    token = it.next();
-                    session = tokensMap.get(token);
-                    if (System.currentTimeMillis() - session.getLastAccessedMillis() > MINUTE_IN_MILLIS) {
-                        tokensMap.remove(token);
-                    }
-                }
+
+                iterateOverTokensMap();
+            }
+        }
+    }
+
+    private synchronized void iterateOverTokensMap() {
+        Iterator<String> it;
+        String token;
+        ClientSession session;
+        it = tokensMap.keySet().iterator();
+        while (it.hasNext()) {
+            token = it.next();
+            session = tokensMap.get(token);
+            if (System.currentTimeMillis() - session.getLastAccessedMillis() > MINUTE_IN_MILLIS) {
+                tokensMap.remove(token);
             }
         }
     }
