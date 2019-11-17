@@ -21,8 +21,7 @@ public class Admin extends Client{
     public Admin() {
     }
 
-    public Admin(long id, String email, String password) {
-        this.id = id;
+    public Admin(String email, String password) {
         this.email = email;
         this.password = password;
     }

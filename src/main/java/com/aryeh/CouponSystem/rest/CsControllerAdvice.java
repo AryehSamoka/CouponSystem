@@ -6,6 +6,7 @@ import com.aryeh.CouponSystem.rest.controller.AdminController;
 import com.aryeh.CouponSystem.rest.controller.CompanyController;
 import com.aryeh.CouponSystem.rest.controller.CustomerController;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
+import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,5 +32,13 @@ public class CsControllerAdvice {
     @ResponseBody
     public CsErrorResponse handleUserNameExists(DataIntegrityViolationException ex) {
         return CsErrorResponse.of(HttpStatus.CONFLICT, "User name already exists.");
+    }
+
+
+    @ExceptionHandler(InvalidRootAdminAccessException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public CsErrorResponse handleUserNameExists(InvalidRootAdminAccessException ex) {
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "You aren't authorized to change root administrator.");
     }
 }

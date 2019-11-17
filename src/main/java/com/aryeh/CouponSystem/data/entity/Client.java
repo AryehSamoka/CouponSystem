@@ -11,6 +11,14 @@ public abstract class Client {
     @Column(unique = true, length = 32)
     protected String email;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public abstract String returnPassword();
 
     public abstract void setPassword(String password);

@@ -2,6 +2,7 @@ package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AbsService;
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
+import com.aryeh.CouponSystem.data.entity.Admin;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
@@ -21,6 +22,12 @@ public class AdminController {
     @Autowired
     public AdminController(@Qualifier("tokens") Map<String, ClientSession> tokensMap) {
         this.tokensMap = tokensMap;
+    }
+
+    @PostMapping("/{token}/admin")
+    public ResponseEntity<Admin> saveAdmin(@PathVariable String token, @RequestBody Admin admin) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.createAdmin(admin));
     }
 
     @PostMapping("/{token}/customer")
