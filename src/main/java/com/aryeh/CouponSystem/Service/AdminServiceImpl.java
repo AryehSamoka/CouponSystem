@@ -3,8 +3,6 @@ package com.aryeh.CouponSystem.Service;
 import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
-import org.hibernate.TransientObjectException;
-import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataIntegrityViolationException;
