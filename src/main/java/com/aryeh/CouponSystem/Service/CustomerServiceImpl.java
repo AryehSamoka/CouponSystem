@@ -44,7 +44,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     @Override
     @Transactional
     public void deleteById() {
-        deleteUser();
+        deleteCustomerUser();
         customerRepository.deleteById(customerId);
     }
 
@@ -95,7 +95,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
         this.customerId = customerId;
     }
 
-    private void deleteUser() {
+    private void deleteCustomerUser() {
         Customer customer = findById();
         Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(),customer.returnPassword());
         if(optUser.isPresent()) {

@@ -131,6 +131,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
+    public void deleteCompanyById(long companyId) {
+        deleteCompanyUser(companyId);
+        companyRepository.deleteById(companyId);
+    }
+
+    @Override
+    @Transactional
     public Customer createCustomer(Customer customer) {
         if (customer != null) {
 
@@ -144,6 +151,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             return customerNew;
         }
         return Customer.empty();
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomerById(long customerId) {
+        deleteCustomerUser(customerId);
+        companyRepository.deleteById(customerId);
     }
 
     private Admin insertRootAdmin() {
@@ -192,4 +206,29 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         }
     }
 
+    private void deleteCustomerUser(long customerId) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+        if (optionalCustomer.isPresent()) {
+
+            Customer customer = optionalCustomer.get();
+            Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(), customer.returnPassword());
+
+            if (optUser.isPresent()) {
+                userRepository.deleteById(optUser.get().getId());
+            }
+        }
+    }
+
+    private void deleteCompanyUser(long companyId) {
+        Optional<Company> optionalCompany = companyRepository.findById(companyId);
+        if (optionalCompany.isPresent()) {
+
+            Company company = optionalCompany.get();
+            Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(), company.returnPassword());
+
+            if (optUser.isPresent()) {
+                userRepository.deleteById(optUser.get().getId());
+            }
+        }
+    }
 }

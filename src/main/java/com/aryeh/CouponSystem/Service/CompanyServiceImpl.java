@@ -43,7 +43,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public void deleteById() {
-        deleteUser();
+        deleteCompanyUser();
         companyRepository.deleteById(companyId);
     }
 
@@ -115,7 +115,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         }
     }
 
-    private void deleteUser() {
+    private void deleteCompanyUser() {
         Company company = findById();
         Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(),company.returnPassword());
         if(optUser.isPresent()) {
