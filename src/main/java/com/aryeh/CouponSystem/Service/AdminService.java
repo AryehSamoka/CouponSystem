@@ -7,7 +7,11 @@ import com.aryeh.CouponSystem.data.entity.Customer;
 public interface AdminService {
     public Admin createAdmin(Admin admin);
 
-    public Admin deleteById();
+    public Admin findById();
+
+    public void deleteById();
+
+    public Admin update(Admin admin);
 
     public Company createCompany(Company company);
 

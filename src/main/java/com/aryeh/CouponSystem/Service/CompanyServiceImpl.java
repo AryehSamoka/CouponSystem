@@ -43,11 +43,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public void deleteById() {
-        Company company = findById();
-        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(),company.returnPassword());
-        if(optUser.isPresent()) {
-            userRepository.deleteById(optUser.get().getId());
-        }
+        deleteUser();
         companyRepository.deleteById(companyId);
     }
 
@@ -57,18 +53,9 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         if (company.getId() == companyId || company.getId() == 0) {
             company.setId(companyId);
 
-            /*checking the updated coupons*/
-            List<Coupon> coupons = company.getCoupons();
-            Iterator<Coupon> couponsIterator = coupons.iterator();
-            while (couponsIterator.hasNext()) {
-                Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
-                if(optCoupon.isPresent()){
-                    Coupon coupon = optCoupon.get();
-                    if (coupon.getCompany()!= company){
-                        couponsIterator.remove();
-                    }
-                }
-            }
+            updateCompanyUser(company);
+            updateCoupons(company);
+
             return companyRepository.save(company);
         }
         return Company.empty();
@@ -104,5 +91,35 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
+    }
+
+    private void updateCompanyUser(Company company) {
+        Company oldCompany = findById();
+        Optional<User> optUser = userRepository.findByEmailAndPassword(oldCompany.getEmail(), oldCompany.returnPassword());
+        if (optUser.isPresent()) {
+            userRepository.save(new User(company));
+        }
+    }
+
+    private void updateCoupons(Company company) {
+        List<Coupon> coupons = company.getCoupons();
+        Iterator<Coupon> couponsIterator = coupons.iterator();
+        while (couponsIterator.hasNext()) {
+            Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
+            if(optCoupon.isPresent()){
+                Coupon coupon = optCoupon.get();
+                if (coupon.getCompany()!= company){
+                    couponsIterator.remove();
+                }
+            }
+        }
+    }
+
+    private void deleteUser() {
+        Company company = findById();
+        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(),company.returnPassword());
+        if(optUser.isPresent()) {
+            userRepository.deleteById(optUser.get().getId());
+        }
     }
 }

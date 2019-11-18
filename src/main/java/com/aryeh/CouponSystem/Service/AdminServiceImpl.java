@@ -76,15 +76,39 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public Admin deleteById() {
+    public Admin findById() {
+        return adminRepository.findById(adminId)
+                .orElse(Admin.empty());
+    }
+
+    @Override
+    @Transactional
+    public void deleteById() {
+        Admin admin = findById();
 
         if (adminId != rootId) {
+            Optional<User> optUser = userRepository.findByEmailAndPassword(admin.getEmail(), admin.returnPassword());
+
+            if (optUser.isPresent()) {
+                userRepository.deleteById(optUser.get().getId());
+            }
+
             adminRepository.deleteById(adminId);
-            return Admin.empty();
         } else {
             throw new InvalidRootAdminAccessException("");
         }
     }
+
+    @Override
+    @Transactional
+    public Admin update(Admin admin) {
+        if (admin.getId() == adminId || admin.getId() == 0) {
+            admin.setId(adminId);
+            return updateAdmin(admin);
+        }
+        return Admin.empty();
+    }
+
 
     @Override
     @Transactional
@@ -121,7 +145,8 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         }
         return Customer.empty();
     }
-    private Admin insertRootAdmin(){
+
+    private Admin insertRootAdmin() {
         Admin rootAdmin = new Admin(env.getProperty("adminRoot.username"), env.getProperty("adminRoot.password"));
         Optional<Admin> optionalAdmin = adminRepository.findByEmail(rootAdmin.getEmail());
 
@@ -140,11 +165,31 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
         Optional<User> optionalRootUser = userRepository.findByEmailAndRole(rootAdminDB.getEmail(), ADMIN_ROLE);
 
-        if(!optionalRootUser.isPresent())
+        if (!optionalRootUser.isPresent())
             userRepository.save(rootUser);
         else {
             rootUser.setId(optionalRootUser.get().getId());
             userRepository.save(rootUser);
         }
     }
+
+    private Admin updateAdmin(Admin admin) {
+        if (adminId != rootId) {
+            Admin oldAdmin = findById();
+            Optional<User> optUser = userRepository.findByEmailAndPassword(oldAdmin.getEmail(), oldAdmin.returnPassword());
+
+            updateAdminUser(admin, optUser);
+
+            return adminRepository.save(admin);
+        } else {
+            throw new InvalidRootAdminAccessException("");
+        }
+    }
+
+    private void updateAdminUser(Admin admin, Optional<User> optUser) {
+        if (optUser.isPresent()) {
+            userRepository.save(new User(admin));
+        }
+    }
+
 }
