@@ -4,10 +4,7 @@ import com.aryeh.CouponSystem.Service.AdminServiceImpl;
 import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
 import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
 import com.aryeh.CouponSystem.Service.UserService;
-import com.aryeh.CouponSystem.data.entity.Client;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Customer;
-import com.aryeh.CouponSystem.data.entity.User;
+import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import com.aryeh.CouponSystem.threads.ClientSessionCleanerTask;
@@ -58,21 +55,18 @@ public class CsSystem {
         ClientSession clientSession = context.getBean(ClientSession.class);
 
         if (client instanceof Company) {
-            Company company = (Company) client;
-
             CompanyServiceImpl service = context.getBean(CompanyServiceImpl.class);
-            service.setCompanyId(company.getId());
+            service.setCompanyId(client.getId());
 
             clientSession.setService(service);
         } else if (client instanceof Customer) {
-            Customer customer = (Customer) client;
-
             CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
-            service.setCustomerId(customer.getId());
+            service.setCustomerId(client.getId());
 
             clientSession.setService(service);
         } else {
             AdminServiceImpl service = context.getBean(AdminServiceImpl.class);
+            service.setAdminId(client.getId());
 
             clientSession.setService(service);
         }

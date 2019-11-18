@@ -42,6 +42,17 @@ public class AdminController {
         return ResponseEntity.ok(service.createCompany(company));
     }
 
+    @DeleteMapping("/{token}")
+    public ResponseEntity<Admin> deleteAdminByToken(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+        service.deleteById();
+        synchronized (tokensMap) {
+            tokensMap.remove(token);
+        }
+
+        return ResponseEntity.ok(Admin.empty());
+    }
+
     private AdminServiceImpl getService(String token) {
         ClientSession clientSession = tokensMap.get(token);
         if (null == clientSession) {

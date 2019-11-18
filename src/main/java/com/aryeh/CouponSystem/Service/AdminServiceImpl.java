@@ -5,8 +5,6 @@ import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +15,7 @@ import java.util.Optional;
 
 @Service
 public class AdminServiceImpl extends AbsService implements AdminService {
+    private long adminId;
     private long rootId;
     private final CompanyRepository companyRepository;
     private final CouponRepository couponRepository;
@@ -24,6 +23,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private AdminRepository adminRepository;
     private Environment env;
     private UserRepository userRepository;
+    private static final int ADMIN_ROLE = -1;
 
 
     @Autowired
@@ -39,26 +39,19 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @PostConstruct
     public void init() {
-        String rootUsername = env.getProperty("adminRoot.username");
-        String rootPassword = env.getProperty("adminRoot.password");
-        Admin rootAdmin = new Admin(rootUsername, rootPassword);
-        try {
-            adminRepository.save(rootAdmin);
-        } catch (DataIntegrityViolationException e) {
+        Admin rootAdminDB = insertRootAdmin();
 
-        }
+        insertRootUser(rootAdminDB);
 
-        User rootUser = new User(rootAdmin);
+        rootId = rootAdminDB.getId();
+    }
 
-        try {
-            userRepository.save(rootUser);
-        } catch (InvalidDataAccessApiUsageException e) {
+    public long getAdminId() {
+        return adminId;
+    }
 
-        }
-
-        Optional<User> rootUserDB = userRepository.findByEmailAndPassword(rootAdmin.getEmail(), rootAdmin.getPassword());
-        rootId = rootUserDB.get().getClient().getId();
-        System.out.println(rootId);
+    public void setAdminId(long adminId) {
+        this.adminId = adminId;
     }
 
     @Override
@@ -79,6 +72,18 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             }
         }
         return Admin.empty();
+    }
+
+    @Override
+    @Transactional
+    public Admin deleteById() {
+
+        if (adminId != rootId) {
+            adminRepository.deleteById(adminId);
+            return Admin.empty();
+        } else {
+            throw new InvalidRootAdminAccessException("");
+        }
     }
 
     @Override
@@ -116,5 +121,30 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         }
         return Customer.empty();
     }
+    private Admin insertRootAdmin(){
+        Admin rootAdmin = new Admin(env.getProperty("adminRoot.username"), env.getProperty("adminRoot.password"));
+        Optional<Admin> optionalAdmin = adminRepository.findByEmail(rootAdmin.getEmail());
 
+        Admin rootAdminDB;
+        if (!optionalAdmin.isPresent()) {
+            rootAdminDB = adminRepository.save(rootAdmin);
+        } else {
+            rootAdmin.setId(optionalAdmin.get().getId());
+            rootAdminDB = adminRepository.save(rootAdmin);
+        }
+        return rootAdminDB;
+    }
+
+    private void insertRootUser(Admin rootAdminDB) {
+        User rootUser = new User(rootAdminDB);
+
+        Optional<User> optionalRootUser = userRepository.findByEmailAndRole(rootAdminDB.getEmail(), ADMIN_ROLE);
+
+        if(!optionalRootUser.isPresent())
+            userRepository.save(rootUser);
+        else {
+            rootUser.setId(optionalRootUser.get().getId());
+            userRepository.save(rootUser);
+        }
+    }
 }
