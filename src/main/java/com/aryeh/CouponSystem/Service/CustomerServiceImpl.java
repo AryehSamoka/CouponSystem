@@ -83,8 +83,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     @Override
     @Transactional
     public List<Coupon> findExpiredCoupons() {
-        LocalDate date = LocalDate.now();
-        return couponRepository.findByEndDateBefore(date);
+        return couponRepository.findByEndDateBefore(LocalDate.now());
     }
 
     public long getCustomerId() {
