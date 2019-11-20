@@ -7,6 +7,8 @@ import com.aryeh.CouponSystem.rest.controller.CompanyController;
 import com.aryeh.CouponSystem.rest.controller.CustomerController;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
+import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
+import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,5 +42,19 @@ public class CsControllerAdvice {
     @ResponseBody
     public CsErrorResponse handleUserNameExists(InvalidRootAdminAccessException ex) {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "You aren't authorized to change root administrator.");
+    }
+
+    @ExceptionHandler(NoSuchCompanyException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public CsErrorResponse handleUserNameExists(NoSuchCompanyException ex) {
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The company isn't found!");
+    }
+
+    @ExceptionHandler(NoSuchCustomerException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public CsErrorResponse handleUserNameExists(NoSuchCustomerException ex) {
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The customer isn't found!");
     }
 }

@@ -3,8 +3,11 @@ package com.aryeh.CouponSystem.Service;
 import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
+import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
+import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -132,8 +135,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Company deleteCompanyById(long companyId) {
-        deleteCompanyUser(companyId);
-        companyRepository.deleteById(companyId);
+        deleteCompanyUser(checkCompany(companyId));
         return Company.empty();
     }
 
@@ -157,8 +159,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Customer deleteCustomerById(long customerId) {
-        deleteCustomerUser(customerId);
-        customerRepository.deleteById(customerId);
+        deleteCustomerUser(checkCustomer(customerId));
         return Customer.empty();
     }
 
@@ -208,29 +209,38 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         }
     }
 
-    private void deleteCustomerUser(long customerId) {
+    private Optional<Customer> checkCustomer(long customerId) {
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
-        if (optionalCustomer.isPresent()) {
+        if (!optionalCustomer.isPresent()) {
+            throw new NoSuchCustomerException("");
+        }
+        return optionalCustomer;
+    }
 
-            Customer customer = optionalCustomer.get();
-            Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(), customer.returnPassword());
+    private void deleteCustomerUser(Optional<Customer> optionalCustomer) {
+        Customer customer = optionalCustomer.get();
+        Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(), customer.returnPassword());
 
-            if (optUser.isPresent()) {
-                userRepository.deleteById(optUser.get().getId());
-            }
+        if (optUser.isPresent()) {
+            userRepository.deleteById(optUser.get().getId());
         }
     }
 
-    private void deleteCompanyUser(long companyId) {
+    private Optional<Company> checkCompany(long companyId) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
-        if (optionalCompany.isPresent()) {
+        if (!optionalCompany.isPresent()) {
 
-            Company company = optionalCompany.get();
-            Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(), company.returnPassword());
+            throw new NoSuchCompanyException("");
+        }
+        return optionalCompany;
+    }
 
-            if (optUser.isPresent()) {
-                userRepository.deleteById(optUser.get().getId());
-            }
+    private void deleteCompanyUser(Optional<Company> optionalCompany) {
+        Company company = optionalCompany.get();
+        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(), company.returnPassword());
+
+        if (optUser.isPresent()) {
+            userRepository.deleteById(optUser.get().getId());
         }
     }
 }

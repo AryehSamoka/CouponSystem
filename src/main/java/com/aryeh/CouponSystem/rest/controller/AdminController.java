@@ -53,14 +53,14 @@ public class AdminController {
         return ResponseEntity.ok(service.createCustomer(customer));
     }
 
-    @DeleteMapping("/{token}/{customerId}")
+    @DeleteMapping("/{token}/{customerId}/customer")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable String token, @PathVariable long customerId) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.deleteCustomerById(customerId));
     }
 
-    @DeleteMapping("/{token}/{companyId}")
+    @DeleteMapping("/{token}/{companyId}/company")
     public ResponseEntity<Company> deleteCompany(@PathVariable String token, @PathVariable long companyId) {
         AdminServiceImpl service = getService(token);
 
