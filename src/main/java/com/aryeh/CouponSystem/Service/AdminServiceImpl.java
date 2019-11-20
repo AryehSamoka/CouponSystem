@@ -131,9 +131,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public void deleteCompanyById(long companyId) {
+    public Company deleteCompanyById(long companyId) {
         deleteCompanyUser(companyId);
         companyRepository.deleteById(companyId);
+        return Company.empty();
     }
 
     @Override
@@ -155,9 +156,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public void deleteCustomerById(long customerId) {
+    public Customer deleteCustomerById(long customerId) {
         deleteCustomerUser(customerId);
-        companyRepository.deleteById(customerId);
+        customerRepository.deleteById(customerId);
+        return Customer.empty();
     }
 
     private Admin insertRootAdmin() {

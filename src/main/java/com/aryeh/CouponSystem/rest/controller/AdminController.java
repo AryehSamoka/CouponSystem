@@ -30,18 +30,6 @@ public class AdminController {
         return ResponseEntity.ok(service.createAdmin(admin));
     }
 
-    @PostMapping("/{token}/customer")
-    public ResponseEntity<Customer> saveCustomer(@PathVariable String token, @RequestBody Customer customer) {
-        AdminServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.createCustomer(customer));
-    }
-
-    @PostMapping("/{token}/company")
-    public ResponseEntity<Company> saveCompany(@PathVariable String token, @RequestBody Company company) {
-        AdminServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.createCompany(company));
-    }
-
     @DeleteMapping("/{token}")
     public ResponseEntity<Admin> deleteAdminByToken(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
@@ -51,6 +39,38 @@ public class AdminController {
         }
 
         return ResponseEntity.ok(Admin.empty());
+    }
+
+    @PutMapping("/{token}")
+    public ResponseEntity<Admin> updateAdmin(@PathVariable String token, @RequestBody Admin admin) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.update(admin));
+    }
+
+    @PostMapping("/{token}/customer")
+    public ResponseEntity<Customer> saveCustomer(@PathVariable String token, @RequestBody Customer customer) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.createCustomer(customer));
+    }
+
+    @DeleteMapping("/{token}/{customerId}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable String token, @PathVariable long customerId) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.deleteCustomerById(customerId));
+    }
+
+    @DeleteMapping("/{token}/{companyId}")
+    public ResponseEntity<Company> deleteCompany(@PathVariable String token, @PathVariable long companyId) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.deleteCompanyById(companyId));
+    }
+
+    @PostMapping("/{token}/company")
+    public ResponseEntity<Company> saveCompany(@PathVariable String token, @RequestBody Company company) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.createCompany(company));
     }
 
     private AdminServiceImpl getService(String token) {

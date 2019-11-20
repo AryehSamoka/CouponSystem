@@ -17,7 +17,7 @@ public interface AdminService {
 
     public Customer createCustomer(Customer customer);
 
-    public void deleteCompanyById(long companyId);
+    public Company deleteCompanyById(long companyId);
 
-    public void deleteCustomerById(long customerId);
+    public Customer deleteCustomerById(long customerId);
 }
