@@ -6,13 +6,10 @@ import javax.persistence.*;
 public abstract class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
     @Column(unique = true, length = 32)
     protected String email;
-
-    @Transient
-    protected User user;
 
     public long getId() {
         return id;
