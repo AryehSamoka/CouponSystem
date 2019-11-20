@@ -40,21 +40,21 @@ public class CsControllerAdvice {
     @ExceptionHandler(InvalidRootAdminAccessException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public CsErrorResponse handleUserNameExists(InvalidRootAdminAccessException ex) {
+    public CsErrorResponse handleRootAdminAccess(InvalidRootAdminAccessException ex) {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "You aren't authorized to change root administrator.");
     }
 
     @ExceptionHandler(NoSuchCompanyException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public CsErrorResponse handleUserNameExists(NoSuchCompanyException ex) {
+    public CsErrorResponse handleCompanyExists(NoSuchCompanyException ex) {
         return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The company isn't found!");
     }
 
     @ExceptionHandler(NoSuchCustomerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public CsErrorResponse handleUserNameExists(NoSuchCustomerException ex) {
+    public CsErrorResponse handleCustomerExists(NoSuchCustomerException ex) {
         return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The customer isn't found!");
     }
 }
