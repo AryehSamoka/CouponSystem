@@ -56,7 +56,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
             company.setId(companyId);
 
             updateCompanyUser(company);
-            updateCoupons(company);
+            removeCouponsOfOtherCompanies(company);
 
             return companyRepository.save(company);
         }
@@ -75,22 +75,17 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Transactional
     public Coupon updateCoupon(Coupon coupon) {
         Company company = checkCouponExistenceInDB(coupon).getCompany();
-        if (company != null && company.getId() == companyId) {
-            coupon.setCompany(company);
-            return couponRepository.save(coupon);
-        }
-        throw new InvalidCouponAccessException("");
+        checkCompanyOfCoupon(company);
+        coupon.setCompany(company);
+        return couponRepository.save(coupon);
     }
 
     @Override
     @Transactional
     public void deleteCoupon(long couponId) {
         Company company = checkCouponExistenceInDB(couponId).getCompany();
-        if (company != null && company.getId() == companyId) {
-            couponRepository.deleteById(couponId);
-        } else {
-            throw new InvalidCouponAccessException("");
-        }
+        checkCompanyOfCoupon(company);
+        couponRepository.deleteById(couponId);
     }
 
     @Override
@@ -133,7 +128,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         }
     }
 
-    private void updateCoupons(Company company) {
+    private void removeCouponsOfOtherCompanies(Company company) {
         List<Coupon> coupons = company.getCoupons();
         Iterator<Coupon> couponsIterator = coupons.iterator();
         while (couponsIterator.hasNext()) {
@@ -143,7 +138,9 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
                 if (coupon.getCompany() != company) {
                     couponsIterator.remove();
                 }
-            }
+            }/*I didn't want to throw an exception and terminate the update for some coupons
+            who aren't from this company however the wrong coupons won't be updated at all
+            and can't be seen in the response body*/
         }
     }
 
@@ -169,5 +166,11 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
             throw new NoSuchCouponException("");
         }
         return optionalCoupon.get();
+    }
+
+    private void checkCompanyOfCoupon(Company company) {
+        if (!(company != null && company.getId() == companyId)) {
+            throw new InvalidCouponAccessException("");
+        }
     }
 }
