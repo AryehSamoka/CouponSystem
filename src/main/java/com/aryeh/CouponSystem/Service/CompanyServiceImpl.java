@@ -62,6 +62,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     }
 
     @Override
+    @Transactional
     public Coupon addCoupon(Coupon coupon) {
         coupon.setId(0);
         coupon.setCompany(findById());

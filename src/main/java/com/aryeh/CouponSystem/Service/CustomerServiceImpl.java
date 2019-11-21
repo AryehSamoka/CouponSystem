@@ -65,6 +65,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     }
 
     @Override
+    @Transactional
     public Customer addCoupon(long couponId) {
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
         if(!optionalCoupon.isPresent()){
