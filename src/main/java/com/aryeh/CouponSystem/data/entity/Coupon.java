@@ -129,6 +129,10 @@ public class Coupon {
         this.customers = customers;
     }
 
+    public void decrementAmount() {
+        --amount;
+    }
+
     @Override
     public String toString() {
         return "Coupon{" +

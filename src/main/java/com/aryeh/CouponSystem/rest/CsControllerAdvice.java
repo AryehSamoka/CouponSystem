@@ -5,10 +5,7 @@ import com.aryeh.CouponSystem.rest.controller.LoginController;
 import com.aryeh.CouponSystem.rest.controller.AdminController;
 import com.aryeh.CouponSystem.rest.controller.CompanyController;
 import com.aryeh.CouponSystem.rest.controller.CustomerController;
-import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
-import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
-import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
-import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
+import com.aryeh.CouponSystem.rest.ex.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -47,14 +44,28 @@ public class CsControllerAdvice {
     @ExceptionHandler(NoSuchCompanyException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public CsErrorResponse handleCompanyExists(NoSuchCompanyException ex) {
+    public CsErrorResponse handleCompanyNonExists(NoSuchCompanyException ex) {
         return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The company isn't found!");
     }
 
     @ExceptionHandler(NoSuchCustomerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public CsErrorResponse handleCustomerExists(NoSuchCustomerException ex) {
+    public CsErrorResponse handleCustomerNonExists(NoSuchCustomerException ex) {
         return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The customer isn't found!");
+    }
+
+    @ExceptionHandler(NoSuchCouponException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public CsErrorResponse handleCouponNonExists(NoSuchCouponException ex) {
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The coupon isn't found!");
+    }
+
+    @ExceptionHandler(ZeroCouponAmountException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    public CsErrorResponse handleCouponNonExists(ZeroCouponAmountException ex) {
+        return CsErrorResponse.of(HttpStatus.NOT_ACCEPTABLE, "Their aren't any coupons left for you we're sorry!");
     }
 }

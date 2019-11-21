@@ -6,6 +6,8 @@ import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.data.repository.CustomerRepository;
 import com.aryeh.CouponSystem.data.repository.UserRepository;
+import com.aryeh.CouponSystem.rest.ex.NoSuchCouponException;
+import com.aryeh.CouponSystem.rest.ex.ZeroCouponAmountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -60,6 +62,23 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
             return customerRepository.save(customer);
         }
         return Customer.empty();
+    }
+
+    @Override
+    public Customer addCoupon(long couponId) {
+        Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
+        if(!optionalCoupon.isPresent()){
+            throw new NoSuchCouponException("");
+        }
+
+        Coupon coupon = optionalCoupon.get();
+        if(coupon.getAmount()<=0){
+            throw new ZeroCouponAmountException("");
+        }
+        Customer customer = findById();
+
+        customer.addCoupon(coupon);
+        return customerRepository.save(customer);
     }
 
     @Override

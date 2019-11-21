@@ -24,6 +24,12 @@ public class CustomerController {
         this.tokensMap = tokensMap;
     }
 
+    @PostMapping("/{token}/{couponId}/coupon")
+    public ResponseEntity<Customer> addCoupon(@PathVariable String token, @PathVariable long couponId) {
+        CustomerServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.addCoupon(couponId));
+    }
+
     @GetMapping("/{token}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String token) {
         CustomerServiceImpl service = getService(token);

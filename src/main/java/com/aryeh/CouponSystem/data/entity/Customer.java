@@ -90,4 +90,9 @@ public class Customer extends Client{
     public void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
     }
+
+    public void addCoupon(Coupon coupon) {
+        coupon.decrementAmount();
+        coupons.add(coupon);
+    }
 }

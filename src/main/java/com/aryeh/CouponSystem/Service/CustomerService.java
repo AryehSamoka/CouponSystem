@@ -12,6 +12,8 @@ public interface CustomerService {
 
     Customer update(Customer customer);
 
+    Customer addCoupon(long couponId);
+
     List<Coupon> findCustomerCoupons();
 
     List<Coupon> findCustomerCouponsByCategory(int category);
