@@ -68,4 +68,11 @@ public class CsControllerAdvice {
     public CsErrorResponse handleCouponNonExists(ZeroCouponAmountException ex) {
         return CsErrorResponse.of(HttpStatus.NOT_ACCEPTABLE, "Their aren't any coupons left for you we're sorry!");
     }
+
+    @ExceptionHandler(InvalidCouponAccessException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public CsErrorResponse handleRootAdminAccess(InvalidCouponAccessException ex) {
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "This coupon isn't yours.");
+    }
 }

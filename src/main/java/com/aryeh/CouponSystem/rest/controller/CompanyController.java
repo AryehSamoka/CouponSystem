@@ -32,6 +32,27 @@ public class CompanyController {
         return ResponseEntity.ok(service.addCoupon(coupon));
     }
 
+    @PutMapping("/{token}/coupon")
+    public ResponseEntity<Coupon> updateCoupon(@PathVariable String token, @RequestBody Coupon coupon) {
+        CompanyServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.updateCoupon(coupon));
+    }
+
+    @PutMapping("/{token}/{couponId}/coupon")
+    public ResponseEntity<Coupon> updateCoupon(@PathVariable String token, @PathVariable long couponId,@RequestBody Coupon coupon) {
+        CompanyServiceImpl service = getService(token);
+        coupon.setId(couponId);
+        return ResponseEntity.ok(service.updateCoupon(coupon));
+    }
+
+    @DeleteMapping("/{token}/{couponId}/coupon")
+    public ResponseEntity<Coupon> deleteCouponById(@PathVariable String token, @PathVariable long couponId) {
+        CompanyServiceImpl service = getService(token);
+        service.deleteCoupon(couponId);
+
+        return ResponseEntity.ok(Coupon.empty());
+    }
+
     @GetMapping("/{token}")
     public ResponseEntity<Company> getCompanyByToken(@PathVariable String token) {
         CompanyServiceImpl service = getService(token);

@@ -6,6 +6,8 @@ import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.data.repository.UserRepository;
+import com.aryeh.CouponSystem.rest.ex.InvalidCouponAccessException;
+import com.aryeh.CouponSystem.rest.ex.NoSuchCouponException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -71,6 +73,28 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     @Override
     @Transactional
+    public Coupon updateCoupon(Coupon coupon) {
+        Company company = checkCouponExistenceInDB(coupon).getCompany();
+        if (company != null && company.getId() == companyId) {
+            coupon.setCompany(company);
+            return couponRepository.save(coupon);
+        }
+        throw new InvalidCouponAccessException("");
+    }
+
+    @Override
+    @Transactional
+    public void deleteCoupon(long couponId) {
+        Company company = checkCouponExistenceInDB(couponId).getCompany();
+        if (company != null && company.getId() == companyId) {
+            couponRepository.deleteById(couponId);
+        } else {
+            throw new InvalidCouponAccessException("");
+        }
+    }
+
+    @Override
+    @Transactional
     public List<Coupon> findCompanyCoupons() {
         return couponRepository.findByCompanyId(companyId);
     }
@@ -114,9 +138,9 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         Iterator<Coupon> couponsIterator = coupons.iterator();
         while (couponsIterator.hasNext()) {
             Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
-            if(optCoupon.isPresent()){
+            if (optCoupon.isPresent()) {
                 Coupon coupon = optCoupon.get();
-                if (coupon.getCompany()!= company){
+                if (coupon.getCompany() != company) {
                     couponsIterator.remove();
                 }
             }
@@ -125,9 +149,25 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     private void deleteCompanyUser() {
         Company company = findById();
-        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(),company.returnPassword());
-        if(optUser.isPresent()) {
+        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(), company.returnPassword());
+        if (optUser.isPresent()) {
             userRepository.deleteById(optUser.get().getId());
         }
+    }
+
+    private Coupon checkCouponExistenceInDB(Coupon coupon) {
+        Optional<Coupon> optionalCoupon = couponRepository.findById(coupon.getId());
+        if (!optionalCoupon.isPresent()) {
+            throw new NoSuchCouponException("");
+        }
+        return optionalCoupon.get();
+    }
+
+    private Coupon checkCouponExistenceInDB(long couponId) {
+        Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
+        if (!optionalCoupon.isPresent()) {
+            throw new NoSuchCouponException("");
+        }
+        return optionalCoupon.get();
     }
 }

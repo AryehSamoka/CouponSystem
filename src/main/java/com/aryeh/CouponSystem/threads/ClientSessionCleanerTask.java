@@ -18,22 +18,14 @@ public class ClientSessionCleanerTask implements Runnable {
 
     @Override
     public void run() {
-        String token;
-        ClientSession session;
-        long TimeMillisBeforeForLoop;
-        Iterator<String> it;
-
         while (run) {
-            TimeMillisBeforeForLoop = System.currentTimeMillis();
-            for (int i = 1; i <= MINUTE_IN_SECONDS; i++) {
-                try {
-                    Thread.sleep( i*SECOND_IN_MILLIS + TimeMillisBeforeForLoop - System.currentTimeMillis());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                iterateOverTokensMap();
+            try {
+                Thread.sleep(SECOND_IN_MILLIS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            iterateOverTokensMap();
         }
     }
 

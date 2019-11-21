@@ -15,6 +15,10 @@ public interface CompanyService {
 
     Coupon addCoupon(Coupon coupon);
 
+    public Coupon updateCoupon(Coupon coupon);
+
+    public void deleteCoupon(long couponId);
+
     List<Coupon> findCompanyCoupons();
 
     List<Coupon> findCompanyCouponsByCategory(int category);

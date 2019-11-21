@@ -11,6 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "coupon")
 public class Coupon {
+    public static final long NO_ID = -1;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -37,6 +39,12 @@ public class Coupon {
 
     public Coupon() {
         customers = new ArrayList<>();
+    }
+
+    public static Coupon empty() {
+        Coupon coupon = new Coupon();
+        coupon.setId(NO_ID);
+        return coupon;
     }
 
     public long getId() {
