@@ -13,6 +13,8 @@ public interface CompanyService {
 
     Company update(Company company);
 
+    Coupon addCoupon(Coupon coupon);
+
     List<Coupon> findCompanyCoupons();
 
     List<Coupon> findCompanyCouponsByCategory(int category);

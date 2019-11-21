@@ -62,6 +62,13 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     }
 
     @Override
+    public Coupon addCoupon(Coupon coupon) {
+        coupon.setId(0);
+        coupon.setCompany(findById());
+        return couponRepository.save(coupon);
+    }
+
+    @Override
     @Transactional
     public List<Coupon> findCompanyCoupons() {
         return couponRepository.findByCompanyId(companyId);
