@@ -16,8 +16,10 @@ public class Company extends Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @Column(unique = true, length = 32, nullable = false)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Coupon> coupons;
@@ -31,7 +33,7 @@ public class Company extends Client {
         company.setId(NO_ID);
         return company;
     }
-
+    
     public long getId() {
         return id;
     }

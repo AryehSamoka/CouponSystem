@@ -57,7 +57,6 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
             updateCompanyUser(company);
             removeCouponsOfOtherCompanies(company);
-
             return companyRepository.save(company);
         }
         return Company.empty();
@@ -123,24 +122,40 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     private void updateCompanyUser(Company company) {
         Company oldCompany = findById();
         Optional<User> optUser = userRepository.findByEmailAndPassword(oldCompany.getEmail(), oldCompany.returnPassword());
-        if (optUser.isPresent()) {
-            userRepository.save(new User(company));
-        }
+        /*The user has to be present because we got here with token*/
+        User user = optUser.get();
+        user.setEmail(company.getEmail());
+        user.setPassword(company.getPassword());
+        userRepository.save(user);
+
     }
 
     private void removeCouponsOfOtherCompanies(Company company) {
         List<Coupon> coupons = company.getCoupons();
         Iterator<Coupon> couponsIterator = coupons.iterator();
         while (couponsIterator.hasNext()) {
-            Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
-            if (optCoupon.isPresent()) {
-                Coupon coupon = optCoupon.get();
-                if (coupon.getCompany() != company) {
-                    couponsIterator.remove();
-                }
-            }/*I didn't want to throw an exception and terminate the update for some coupons
-            who aren't from this company however the wrong coupons won't be updated at all
-            and can't be seen in the response body*/
+            removeCouponOfOtherCompanies(couponsIterator);
+        }
+    }
+
+    /**
+     * Removing coupons of other companies or with non existing id's
+     * <p>
+     * I didn't want to throw an exception and terminate the update for some coupons
+     * who aren't present or aren't from this company.
+     * However the wrong coupons won't be updated at all and can't be seen in the response body
+     *
+     * @param couponsIterator
+     */
+    private void removeCouponOfOtherCompanies(Iterator<Coupon> couponsIterator) {
+        Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
+        if (optCoupon.isPresent()) {
+            Coupon coupon = optCoupon.get();
+            if (coupon.getCompany().getId() != companyId) {
+                couponsIterator.remove();
+            }
+        } else {
+            couponsIterator.remove();
         }
     }
 

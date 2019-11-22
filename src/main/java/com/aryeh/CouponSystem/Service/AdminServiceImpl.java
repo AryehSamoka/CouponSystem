@@ -204,9 +204,11 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     private void updateAdminUser(Admin admin, Optional<User> optUser) {
-        if (optUser.isPresent()) {
-            userRepository.save(new User(admin));
-        }
+        /*The user has to be present because we got here with token*/
+        User user = optUser.get();
+        user.setEmail(admin.getEmail());
+        user.setPassword(admin.getPassword());
+        userRepository.save(user);
     }
 
     private Optional<Customer> checkCustomer(long customerId) {

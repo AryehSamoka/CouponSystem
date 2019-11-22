@@ -27,10 +27,10 @@ public class CsControllerAdvice {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public CsErrorResponse handleUserNameExists(DataIntegrityViolationException ex) {
-        return CsErrorResponse.of(HttpStatus.CONFLICT, "User name already exists.");
+        return CsErrorResponse.of(HttpStatus.BAD_REQUEST, ex.getRootCause().getMessage());
     }
 
 

@@ -18,8 +18,10 @@ public class Customer extends Client{
     private long id;
     private String firstName;
     private String lastName;
+    @Column(unique = true, length = 32, nullable = false)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private String password;
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
     @JoinTable(

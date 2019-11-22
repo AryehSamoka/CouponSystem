@@ -12,8 +12,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true, length = 32)
+    @Column(unique = true, length = 32, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
 
     @Any(metaColumn = @Column(name="role"))

@@ -68,12 +68,12 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     @Transactional
     public Customer addCoupon(long couponId) {
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
-        if(!optionalCoupon.isPresent()){
+        if (!optionalCoupon.isPresent()) {
             throw new NoSuchCouponException("");
         }
 
         Coupon coupon = optionalCoupon.get();
-        if(coupon.getAmount()<=0){
+        if (coupon.getAmount() <= 0) {
             throw new ZeroCouponAmountException("");
         }
         Customer customer = findById();
@@ -116,8 +116,8 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
     private void deleteCustomerUser() {
         Customer customer = findById();
-        Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(),customer.returnPassword());
-        if(optUser.isPresent()) {
+        Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(), customer.returnPassword());
+        if (optUser.isPresent()) {
             userRepository.deleteById(optUser.get().getId());
         }
     }
@@ -125,8 +125,11 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     private void updateCustomerUser(Customer customer) {
         Customer oldCustomer = findById();
         Optional<User> optUser = userRepository.findByEmailAndPassword(oldCustomer.getEmail(), oldCustomer.returnPassword());
-        if (optUser.isPresent()) {
-            userRepository.save(new User(customer));
-        }
+        /*The user has to be present because we got here with token*/
+        User user = optUser.get();
+        user.setEmail(customer.getEmail());
+        user.setPassword(customer.getPassword());
+        userRepository.save(user);
+
     }
 }
