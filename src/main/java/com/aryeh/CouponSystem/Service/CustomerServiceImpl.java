@@ -57,8 +57,10 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
             customer.setId(customerId);
             customer.setCoupons(Collections.emptyList());
+            Customer oldCustomer = findById();
 
-            updateCustomerUser(customer);
+            checkPassword(customer, oldCustomer);
+            updateCustomerUser(customer, oldCustomer);
             return customerRepository.save(customer);
         }
         return Customer.empty();
@@ -122,14 +124,25 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
         }
     }
 
-    private void updateCustomerUser(Customer customer) {
-        Customer oldCustomer = findById();
+    private void updateCustomerUser(Customer customer, Customer oldCustomer) {
         Optional<User> optUser = userRepository.findByEmailAndPassword(oldCustomer.getEmail(), oldCustomer.returnPassword());
         /*The user has to be present because we got here with token*/
         User user = optUser.get();
         user.setEmail(customer.getEmail());
         user.setPassword(customer.getPassword());
         userRepository.save(user);
+    }
 
+    /**
+     * The password will be checked and if it is null the old password will stay,
+     * the reason is that only the password can't be seen by findById because of json ignore.
+     * On client to check what will be counted as null.
+     * @param customer
+     * @param oldCustomer
+     */
+    private void checkPassword(Customer customer, Customer oldCustomer) {
+        if(customer.getPassword() == null){
+            customer.setPassword(oldCustomer.getPassword());
+        }
     }
 }

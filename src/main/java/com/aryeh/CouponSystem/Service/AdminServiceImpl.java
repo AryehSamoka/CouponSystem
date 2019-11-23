@@ -192,10 +192,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     private Admin updateAdmin(Admin admin) {
         if (adminId != rootId) {
-            Admin oldAdmin = findById();
-            Optional<User> optUser = userRepository.findByEmailAndPassword(oldAdmin.getEmail(), oldAdmin.returnPassword());
 
-            updateAdminUser(admin, optUser);
+            Admin oldAdmin = findById();
+            checkPassword(admin, oldAdmin);
+            updateAdminUser(admin, oldAdmin);
 
             return adminRepository.save(admin);
         } else {
@@ -203,12 +203,26 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         }
     }
 
-    private void updateAdminUser(Admin admin, Optional<User> optUser) {
+    private void updateAdminUser(Admin admin, Admin oldAdmin) {
+        Optional<User> optUser = userRepository.findByEmailAndPassword(oldAdmin.getEmail(), oldAdmin.returnPassword());
         /*The user has to be present because we got here with token*/
         User user = optUser.get();
         user.setEmail(admin.getEmail());
         user.setPassword(admin.getPassword());
         userRepository.save(user);
+    }
+
+    /**
+     * The password will be checked and if it is null the old password will stay,
+     * the reason is that only the password can't be seen by findById because of json ignore.
+     * On client to check what will be counted as null.
+     * @param admin
+     * @param oldAdmin
+     */
+    private void checkPassword(Admin admin, Admin oldAdmin) {
+        if(admin.getPassword() == null){
+            admin.setPassword(oldAdmin.getPassword());
+        }
     }
 
     private Optional<Customer> checkCustomer(long customerId) {

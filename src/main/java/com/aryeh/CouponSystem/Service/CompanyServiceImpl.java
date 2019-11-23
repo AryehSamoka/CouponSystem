@@ -54,9 +54,11 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     public Company update(Company company) {
         if (company.getId() == companyId || company.getId() == 0) {
             company.setId(companyId);
-
-            updateCompanyUser(company);
+            Company oldCompany = findById();
+            checkPassword(company, oldCompany);
+            updateCompanyUser(company, oldCompany);
             removeCouponsOfOtherCompanies(company);
+
             return companyRepository.save(company);
         }
         return Company.empty();
@@ -119,15 +121,13 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         this.companyId = companyId;
     }
 
-    private void updateCompanyUser(Company company) {
-        Company oldCompany = findById();
+    private void updateCompanyUser(Company company, Company oldCompany) {
         Optional<User> optUser = userRepository.findByEmailAndPassword(oldCompany.getEmail(), oldCompany.returnPassword());
         /*The user has to be present because we got here with token*/
         User user = optUser.get();
         user.setEmail(company.getEmail());
         user.setPassword(company.getPassword());
         userRepository.save(user);
-
     }
 
     private void removeCouponsOfOtherCompanies(Company company) {
@@ -186,6 +186,20 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     private void checkCompanyOfCoupon(Company company) {
         if (!(company != null && company.getId() == companyId)) {
             throw new InvalidCouponAccessException("");
+        }
+    }
+
+    /**
+     * The password will be checked and if it is null the old password will stay,
+     * the reason is that only the password can't be seen by findById because of json ignore.
+     * On client to check what will be counted as null.
+     * @param company
+     * @param oldCompany
+     */
+    private void checkPassword(Company company, Company oldCompany) {
+        if(company.getPassword() == null){
+            company.setPassword(oldCompany.getPassword());
+            System.out.println(company.getPassword());
         }
     }
 }
