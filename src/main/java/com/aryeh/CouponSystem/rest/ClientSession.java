@@ -1,6 +1,7 @@
 package com.aryeh.CouponSystem.rest;
 
 import com.aryeh.CouponSystem.Service.AbsService;
+import com.aryeh.CouponSystem.data.entity.Client;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ClientSession {
+    private Client client;
     private AbsService service;
     private long lastAccessedMillis;
 
@@ -25,5 +27,13 @@ public class ClientSession {
 
     public void accessed() {
         lastAccessedMillis = System.currentTimeMillis();
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
