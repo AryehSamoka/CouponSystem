@@ -50,15 +50,16 @@ public class CsSystem {
     }
 
     public String login(String userName, String password) throws InvalidLoginException {
-        Client client = getClient(userName, password);
-        ClientSession clientSession = context.getBean(ClientSession.class);
 
-        String optToken = checkTokenExistence(clientSession, client);
+        Client client = getClient(userName, password);
+        String optToken = checkTokenExistence(client);
         if(optToken != null){
             return optToken;
         }
 
+        ClientSession clientSession = context.getBean(ClientSession.class);
         clientSession.setClient(client);
+
         if (client instanceof Company) {
             setClientSessionForCompany(client, clientSession);
         } else if (client instanceof Customer) {
@@ -66,13 +67,15 @@ public class CsSystem {
         } else {
             setClientSessionForAdmin(client, clientSession);
         }
+
         clientSession.accessed();
         String token = generateToken();
         tokensMap.put(token, clientSession);
+
         return token;
     }
 
-    private String checkTokenExistence(ClientSession clientSession, Client client) {
+    private String checkTokenExistence(Client client) {
         Iterator<Map.Entry<String, ClientSession>> itr = tokensMap.entrySet().iterator();
         while(itr.hasNext())
         {
