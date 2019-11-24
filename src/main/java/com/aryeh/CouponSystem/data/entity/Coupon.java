@@ -21,13 +21,17 @@ public class Coupon {
     @JoinColumn(name = "company_id")
     private Company company;
     private String title;
+    @JsonProperty("start_date")
     private LocalDate startDate;
+    @Column(nullable = false)
+    @JsonProperty("end_date")
     private LocalDate endDate;
     private int category;
     private int amount;
     private String description;
     private double price;
     @Column(name = "image_URL")
+    @JsonProperty("image_url")
     private String imageURL;
     @JsonIgnore
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH })

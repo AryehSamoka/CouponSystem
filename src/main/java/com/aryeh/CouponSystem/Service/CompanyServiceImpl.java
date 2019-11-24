@@ -74,6 +74,16 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     @Override
     @Transactional
+    public Company addCoupons(List<Coupon> coupons) {
+        Iterator<Coupon> it = coupons.iterator();
+        while (it.hasNext()) {
+            addCoupon(it.next());
+        }
+        return findById();
+    }
+
+    @Override
+    @Transactional
     public Coupon updateCoupon(Coupon coupon) {
         Company company = checkCouponExistenceInDB(coupon).getCompany();
         checkCompanyOfCoupon(company);

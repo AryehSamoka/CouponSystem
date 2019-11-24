@@ -32,6 +32,12 @@ public class CompanyController {
         return ResponseEntity.ok(service.addCoupon(coupon));
     }
 
+    @PostMapping("/{token}/coupons")
+    public ResponseEntity<Company> addCoupons(@PathVariable String token, @RequestBody List<Coupon> coupons) {
+        CompanyServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.addCoupons(coupons));
+    }
+
     @PutMapping("/{token}/coupon")
     public ResponseEntity<Coupon> updateCoupon(@PathVariable String token, @RequestBody Coupon coupon) {
         CompanyServiceImpl service = getService(token);

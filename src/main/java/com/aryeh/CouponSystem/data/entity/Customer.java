@@ -16,7 +16,9 @@ public class Customer extends Client{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("last_name")
     private String lastName;
     @Column(unique = true, length = 32, nullable = false)
     private String email;
