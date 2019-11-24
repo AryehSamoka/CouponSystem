@@ -27,18 +27,20 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String userName, @RequestParam String password) {
-        try {
-            ClientSession clientSession = csSystem.login(userName, password);
-            String token = generateToken();
+        ClientSession clientSession = csSystem.login(userName, password);
+        String token = generateToken();
 
-            tokensMap.put(token, clientSession);
+        tokensMap.put(token, clientSession);
 
-            return ResponseEntity.ok(token);
+        return ResponseEntity.ok(token);
+    }
 
-        } catch (InvalidLoginException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .build();
+    @DeleteMapping("/logout/{token}")
+    public ResponseEntity logout(@PathVariable String token){
+        synchronized (tokensMap) {
+            tokensMap.remove(token);
         }
+        return ResponseEntity.ok((HttpStatus.ACCEPTED));
     }
 
     private static String generateToken() {
