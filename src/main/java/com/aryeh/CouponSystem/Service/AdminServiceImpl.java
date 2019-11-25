@@ -153,6 +153,11 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    public List<Company> findAllCompanies() {
+        return companyRepository.findAll();
+    }
+
+    @Override
     @Transactional
     public Customer createCustomer(Customer customer) {
         if (customer != null) {
@@ -181,6 +186,16 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     public Customer deleteCustomerById(long customerId) {
         deleteCustomerUser(checkCustomer(customerId));
         return Customer.empty();
+    }
+
+    @Override
+    public List<Customer> findAllCustomers() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public List<Integer> findAllCategories() {
+        return couponRepository.findAllCategories();
     }
 
     private Admin insertRootAdmin() {

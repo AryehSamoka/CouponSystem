@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -66,6 +67,13 @@ public class AdminController {
         return ResponseEntity.ok(service.deleteCompanyById(companyId));
     }
 
+    @GetMapping("/{token}/all_companies")
+    public ResponseEntity<List<Company>> getAllCompanies(@PathVariable String token){
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findAllCompanies());
+    }
+
     @PostMapping("/{token}/customer")
     public ResponseEntity<Customer> saveCustomer(@PathVariable String token, @RequestBody Customer customer) {
         AdminServiceImpl service = getService(token);
@@ -83,6 +91,20 @@ public class AdminController {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.deleteCustomerById(customerId));
+    }
+
+    @GetMapping("/{token}/all_customers")
+    public ResponseEntity<List<Customer>> getAllCustomers(@PathVariable String token){
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findAllCustomers());
+    }
+
+    @GetMapping("/{token}/all_categories")
+    public ResponseEntity<List<Integer>> getAllCategories(@PathVariable String token){
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findAllCategories());
     }
 
     private AdminServiceImpl getService(String token) {

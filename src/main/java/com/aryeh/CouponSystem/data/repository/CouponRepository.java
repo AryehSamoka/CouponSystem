@@ -29,4 +29,7 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     @Query("select c from Customer as cr join cr.coupons as c where cr.id=:customerId and c.price<:price")
     List<Coupon> findCustomerCouponsLessThan(long customerId, double price);
+
+    @Query("select distinct category from Coupon")
+    List<Integer> findAllCategories();
 }
