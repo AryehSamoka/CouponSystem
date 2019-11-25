@@ -74,6 +74,13 @@ public class AdminController {
         return ResponseEntity.ok(service.findAllCompanies());
     }
 
+    @GetMapping("/{token}/all_companies_without_coupons")
+    public ResponseEntity<List<Company>> getAllCompaniesWithoutCoupons(@PathVariable String token){
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
+    }
+
     @PostMapping("/{token}/customer")
     public ResponseEntity<Customer> saveCustomer(@PathVariable String token, @RequestBody Customer customer) {
         AdminServiceImpl service = getService(token);

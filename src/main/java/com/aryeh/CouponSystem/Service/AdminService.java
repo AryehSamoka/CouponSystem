@@ -23,6 +23,8 @@ public interface AdminService {
 
     public List<Company> findAllCompanies();
 
+    List<Company> findAllCompaniesWithoutCoupons();
+
     public Customer createCustomer(Customer customer);
 
     public Customer updateCustomer(Customer customer);

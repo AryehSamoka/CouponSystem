@@ -158,6 +158,11 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    public List<Company> findAllCompaniesWithoutCoupons() {
+        return companyRepository.findAllCompaniesWithoutCoupons();
+    }
+
+    @Override
     @Transactional
     public Customer createCustomer(Customer customer) {
         if (customer != null) {
