@@ -15,7 +15,11 @@ public interface AdminService {
 
     public Company createCompany(Company company);
 
+    public Company updateCompany(Company company);
+
     public Customer createCustomer(Customer customer);
+
+    public Customer updateCustomer(Customer customer);
 
     public Company deleteCompanyById(long companyId);
 

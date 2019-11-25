@@ -26,18 +26,24 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private AdminRepository adminRepository;
     private Environment env;
     private UserRepository userRepository;
+    private CompanyServiceImpl companyServiceImpl;
+    private CustomerServiceImpl customerServiceImpl;
     private static final int ADMIN_ROLE = -1;
 
 
     @Autowired
     public AdminServiceImpl(CompanyRepository companyRepository, CouponRepository couponRepository,
-                            CustomerRepository customerRepository, AdminRepository adminRepository, Environment env, UserRepository userRepository) {
+                            CustomerRepository customerRepository, AdminRepository adminRepository,
+                            Environment env, UserRepository userRepository, CompanyServiceImpl companyServiceImpl,
+                            CustomerServiceImpl customerServiceImpl) {
         this.companyRepository = companyRepository;
         this.couponRepository = couponRepository;
         this.customerRepository = customerRepository;
         this.adminRepository = adminRepository;
         this.env = env;
         this.userRepository = userRepository;
+        this.companyServiceImpl = companyServiceImpl;
+        this.customerServiceImpl = customerServiceImpl;
     }
 
     @PostConstruct
@@ -134,6 +140,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
+    public Company updateCompany(Company company){
+        companyServiceImpl.setCompanyId(company.getId());
+        return companyServiceImpl.update(company);
+    }
+
+    @Override
+    @Transactional
     public Company deleteCompanyById(long companyId) {
         deleteCompanyUser(checkCompany(companyId));
         return Company.empty();
@@ -154,6 +167,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             return customerNew;
         }
         return Customer.empty();
+    }
+
+    @Override
+    @Transactional
+    public Customer updateCustomer(Customer customer){
+        customerServiceImpl.setCustomerId(customer.getId());
+        return customerServiceImpl.update(customer);
     }
 
     @Override
