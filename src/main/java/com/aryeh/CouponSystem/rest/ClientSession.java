@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ClientSession {
-    private Client client;
+    private Long userId;
     private AbsService service;
     private long lastAccessedMillis;
 
@@ -29,11 +29,11 @@ public class ClientSession {
         lastAccessedMillis = System.currentTimeMillis();
     }
 
-    public Client getClient() {
-        return client;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

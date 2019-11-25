@@ -51,14 +51,16 @@ public class CsSystem {
 
     public String login(String userName, String password) throws InvalidLoginException {
 
-        Client client = getClient(userName, password);
-        String optToken = checkTokenExistence(client);
+        User user = getUser(userName, password);
+        long userId = user.getId();
+        String optToken = checkTokenExistence(userId);
         if(optToken != null){
             return optToken;
         }
+        Client client = user.getClient();
 
         ClientSession clientSession = context.getBean(ClientSession.class);
-        clientSession.setClient(client);
+        clientSession.setUserId(userId);
 
         if (client instanceof Company) {
             setClientSessionForCompany(client, clientSession);
@@ -75,13 +77,13 @@ public class CsSystem {
         return token;
     }
 
-    private String checkTokenExistence(Client client) {
+    private String checkTokenExistence(Long userId) {
         Iterator<Map.Entry<String, ClientSession>> itr = tokensMap.entrySet().iterator();
         while(itr.hasNext())
         {
             Map.Entry<String, ClientSession> entry = itr.next();
             ClientSession session = entry.getValue();
-            if(session.getClient().equals(client)){
+            if(session.getUserId() == userId){
                 session.accessed();
                 return entry.getKey();
             }
@@ -89,13 +91,13 @@ public class CsSystem {
         return null;
     }
 
-    private Client getClient(String userName, String password) {
+    private User getUser(String userName, String password) {
         Optional<User> optUser = userService.getUserByEmailAndPassword(userName, password);
 
         if (!optUser.isPresent()) {
             throw new InvalidLoginException(String.format("Invalid login with email: %s and password: %s", userName, password));
         }
-        return optUser.get().getClient();
+        return optUser.get();
     }
 
     private void setClientSessionForAdmin(Client client, ClientSession clientSession) {
