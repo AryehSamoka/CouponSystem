@@ -153,11 +153,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    @Transactional
     public List<Company> findAllCompanies() {
         return companyRepository.findAll();
     }
 
     @Override
+    @Transactional
     public List<Company> findAllCompaniesWithoutCoupons() {
         return companyRepository.findAllCompaniesWithoutCoupons();
     }
@@ -194,8 +196,15 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    @Transactional
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public List<Customer> findAllCustomersWithoutCoupons() {
+        return customerRepository.findAllCustomersWithoutCoupons();
     }
 
     @Override

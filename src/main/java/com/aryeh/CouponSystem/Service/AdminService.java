@@ -33,5 +33,7 @@ public interface AdminService {
 
     public List<Customer> findAllCustomers();
 
+    public List<Customer> findAllCustomersWithoutCoupons();
+
     public List<Integer> findAllCategories();
 }

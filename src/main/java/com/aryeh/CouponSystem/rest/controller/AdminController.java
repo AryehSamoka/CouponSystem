@@ -107,6 +107,13 @@ public class AdminController {
         return ResponseEntity.ok(service.findAllCustomers());
     }
 
+    @GetMapping("/{token}/all_customers_without_coupons")
+    public ResponseEntity<List<Customer>> getAllCustomersWithoutCoupons(@PathVariable String token){
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findAllCustomersWithoutCoupons());
+    }
+
     @GetMapping("/{token}/all_categories")
     public ResponseEntity<List<Integer>> getAllCategories(@PathVariable String token){
         AdminServiceImpl service = getService(token);
