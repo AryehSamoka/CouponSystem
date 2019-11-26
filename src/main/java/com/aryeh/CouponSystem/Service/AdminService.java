@@ -36,4 +36,6 @@ public interface AdminService {
     public List<Customer> findAllCustomersWithoutCoupons();
 
     public List<Integer> findAllCategories();
+
+    public List<String> getEmailsCompsAndCustoms();
 }

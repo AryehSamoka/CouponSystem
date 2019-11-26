@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -208,8 +209,18 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    @Transactional
     public List<Integer> findAllCategories() {
         return couponRepository.findAllCategories();
+    }
+
+    @Override
+    @Transactional
+    public List<String> getEmailsCompsAndCustoms() {
+        List<String> allEmails = new ArrayList<>();
+        allEmails.addAll(companyRepository.findAllEmails());
+        allEmails.addAll(customerRepository.findAllEmails());
+        return allEmails;
     }
 
     private Admin insertRootAdmin() {

@@ -121,6 +121,13 @@ public class AdminController {
         return ResponseEntity.ok(service.findAllCategories());
     }
 
+    @GetMapping("/{token}/all_emails_comps_customs")
+    public ResponseEntity<List<String>> getEmailsCompsAndCustoms(@PathVariable String token){
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.getEmailsCompsAndCustoms());
+    }
+
     private AdminServiceImpl getService(String token) {
         ClientSession clientSession = tokensMap.get(token);
         if (null == clientSession) {

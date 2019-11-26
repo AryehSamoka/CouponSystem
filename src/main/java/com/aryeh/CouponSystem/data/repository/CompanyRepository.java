@@ -16,4 +16,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     @Query("from Company t1 left join t1.coupons t2 where t2.id is null")
     List<Company> findAllCompaniesWithoutCoupons();
+
+    @Query("select co.email from Company co")
+    List<String> findAllEmails();
 }
