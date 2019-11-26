@@ -105,7 +105,7 @@ public class Customer extends Client{
 
     @Override
     public void setClientSession(ApplicationContext context, ClientSession clientSession) {
-        this.setClientSessionForCustomer(context, clientSession);
+        setClientSessionForCustomer(context, clientSession);
     }
 
     private void setClientSessionForCustomer(ApplicationContext context, ClientSession clientSession) {

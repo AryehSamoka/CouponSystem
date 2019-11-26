@@ -68,7 +68,7 @@ public class Admin extends Client{
 
     @Override
     public void setClientSession(ApplicationContext context, ClientSession clientSession) {
-        this.setClientSessionForAdmin(context, clientSession);
+        setClientSessionForAdmin(context, clientSession);
     }
 
     private void setClientSessionForAdmin(ApplicationContext context, ClientSession clientSession) {
