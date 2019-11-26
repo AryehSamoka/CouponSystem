@@ -1,5 +1,8 @@
 package com.aryeh.CouponSystem.data.entity;
 
+import com.aryeh.CouponSystem.rest.ClientSession;
+import org.springframework.context.ApplicationContext;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -27,4 +30,6 @@ public abstract class Client {
     public abstract String getEmail();
 
     public abstract void setEmail(String email);
+
+    public abstract void setClientSession(ApplicationContext context, ClientSession clientSession);
 }

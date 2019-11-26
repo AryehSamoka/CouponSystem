@@ -1,8 +1,11 @@
 package com.aryeh.CouponSystem.data.entity;
 
+import com.aryeh.CouponSystem.Service.AdminServiceImpl;
+import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
 
@@ -61,5 +64,16 @@ public class Admin extends Client{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public void setClientSession(ApplicationContext context, ClientSession clientSession) {
+        this.setClientSessionForAdmin(context, clientSession);
+    }
+
+    private void setClientSessionForAdmin(ApplicationContext context, ClientSession clientSession) {
+        AdminServiceImpl service = context.getBean(AdminServiceImpl.class);
+        service.setAdminId(id);
+        clientSession.setService(service);
     }
 }

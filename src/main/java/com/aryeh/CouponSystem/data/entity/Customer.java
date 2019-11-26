@@ -1,8 +1,11 @@
 package com.aryeh.CouponSystem.data.entity;
 
+import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
+import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -98,5 +101,16 @@ public class Customer extends Client{
     public void addCoupon(Coupon coupon) {
         coupon.decrementAmount();
         coupons.add(coupon);
+    }
+
+    @Override
+    public void setClientSession(ApplicationContext context, ClientSession clientSession) {
+        this.setClientSessionForCustomer(context, clientSession);
+    }
+
+    private void setClientSessionForCustomer(ApplicationContext context, ClientSession clientSession) {
+        CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
+        service.setCustomerId(id);
+        clientSession.setService(service);
     }
 }

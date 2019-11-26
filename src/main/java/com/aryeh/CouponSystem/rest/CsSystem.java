@@ -62,13 +62,7 @@ public class CsSystem {
         ClientSession clientSession = context.getBean(ClientSession.class);
         clientSession.setUserId(userId);
 
-        if (client instanceof Company) {
-            setClientSessionForCompany(client, clientSession);
-        } else if (client instanceof Customer) {
-            setClientSessionForCustomer(client, clientSession);
-        } else {
-            setClientSessionForAdmin(client, clientSession);
-        }
+        client.setClientSession(context, clientSession);
 
         clientSession.accessed();
         String token = generateToken();
@@ -98,24 +92,6 @@ public class CsSystem {
             throw new InvalidLoginException(String.format("Invalid login with email: %s and password: %s", userName, password));
         }
         return optUser.get();
-    }
-
-    private void setClientSessionForAdmin(Client client, ClientSession clientSession) {
-        AdminServiceImpl service = context.getBean(AdminServiceImpl.class);
-        service.setAdminId(client.getId());
-        clientSession.setService(service);
-    }
-
-    private void setClientSessionForCustomer(Client client, ClientSession clientSession) {
-        CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
-        service.setCustomerId(client.getId());
-        clientSession.setService(service);
-    }
-
-    private void setClientSessionForCompany(Client client, ClientSession clientSession) {
-        CompanyServiceImpl service = context.getBean(CompanyServiceImpl.class);
-        service.setCompanyId(client.getId());
-        clientSession.setService(service);
     }
 
     private static String generateToken() {

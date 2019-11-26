@@ -1,6 +1,9 @@
 package com.aryeh.CouponSystem.data.entity;
 
+import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
+import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -81,5 +84,16 @@ public class Company extends Client {
         for (Coupon coupon : coupons) {
             coupon.setCompany(this);
         }
+    }
+
+    @Override
+    public void setClientSession(ApplicationContext context, ClientSession clientSession) {
+        this.setClientSessionForCompany(context, clientSession);
+    }
+
+    private void setClientSessionForCompany(ApplicationContext context, ClientSession clientSession) {
+        CompanyServiceImpl service = context.getBean(CompanyServiceImpl.class);
+        service.setCompanyId(id);
+        clientSession.setService(service);
     }
 }
