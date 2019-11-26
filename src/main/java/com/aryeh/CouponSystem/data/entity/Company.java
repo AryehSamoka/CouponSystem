@@ -88,10 +88,6 @@ public class Company extends Client {
 
     @Override
     public void setClientSession(ApplicationContext context, ClientSession clientSession) {
-        setClientSessionForCompany(context, clientSession);
-    }
-
-    private void setClientSessionForCompany(ApplicationContext context, ClientSession clientSession) {
         CompanyServiceImpl service = context.getBean(CompanyServiceImpl.class);
         service.setCompanyId(id);
         clientSession.setService(service);

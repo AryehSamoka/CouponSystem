@@ -105,10 +105,6 @@ public class Customer extends Client{
 
     @Override
     public void setClientSession(ApplicationContext context, ClientSession clientSession) {
-        setClientSessionForCustomer(context, clientSession);
-    }
-
-    private void setClientSessionForCustomer(ApplicationContext context, ClientSession clientSession) {
         CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
         service.setCustomerId(id);
         clientSession.setService(service);
