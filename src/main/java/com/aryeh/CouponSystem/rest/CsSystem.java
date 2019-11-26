@@ -1,9 +1,8 @@
 package com.aryeh.CouponSystem.rest;
 
-import com.aryeh.CouponSystem.Service.*;
+import com.aryeh.CouponSystem.Service.CustomerService;
+import com.aryeh.CouponSystem.Service.UserService;
 import com.aryeh.CouponSystem.data.entity.Client;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
@@ -52,37 +51,16 @@ public class CsSystem {
     public String login(String userName, String password) throws InvalidLoginException {
 
         User user = getUser(userName, password);
+
         long userId = user.getId();
         String optToken = checkTokenExistence(userId);
-        if(optToken != null){
+        if (optToken != null) {
             return optToken;
         }
-        Client client = user.getClient();
 
-        ClientSession clientSession = context.getBean(ClientSession.class);
-        clientSession.setUserId(userId);
+        ClientSession clientSession = setupClientSession(userId, user.getClient());
 
-        client.setClientSession(context, clientSession);
-
-        clientSession.accessed();
-        String token = generateToken();
-        tokensMap.put(token, clientSession);
-
-        return token;
-    }
-
-    private String checkTokenExistence(Long userId) {
-        Iterator<Map.Entry<String, ClientSession>> itr = tokensMap.entrySet().iterator();
-        while(itr.hasNext())
-        {
-            Map.Entry<String, ClientSession> entry = itr.next();
-            ClientSession session = entry.getValue();
-            if(session.getUserId() == userId){
-                session.accessed();
-                return entry.getKey();
-            }
-        }
-        return null;
+        return addTokenAndClientSession(clientSession);
     }
 
     private User getUser(String userName, String password) {
@@ -92,6 +70,36 @@ public class CsSystem {
             throw new InvalidLoginException(String.format("Invalid login with email: %s and password: %s", userName, password));
         }
         return optUser.get();
+    }
+
+    private synchronized String checkTokenExistence(Long userId) {
+        Iterator<Map.Entry<String, ClientSession>> itr = tokensMap.entrySet().iterator();
+        while (itr.hasNext()) {
+            Map.Entry<String, ClientSession> entry = itr.next();
+            ClientSession session = entry.getValue();
+            if (session.getUserId() == userId) {
+                session.accessed();
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    private ClientSession setupClientSession(long userId, Client client) {
+        ClientSession clientSession = context.getBean(ClientSession.class);
+
+        clientSession.setUserId(userId);
+        client.setClientSession(context, clientSession);
+        clientSession.accessed();
+        return clientSession;
+    }
+
+    private String addTokenAndClientSession(ClientSession clientSession) {
+        String token = generateToken();
+        synchronized (tokensMap) {
+            tokensMap.put(token, clientSession);
+        }
+        return token;
     }
 
     private static String generateToken() {

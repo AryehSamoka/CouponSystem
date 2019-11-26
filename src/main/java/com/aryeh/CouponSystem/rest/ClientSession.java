@@ -1,7 +1,6 @@
 package com.aryeh.CouponSystem.rest;
 
 import com.aryeh.CouponSystem.Service.AbsService;
-import com.aryeh.CouponSystem.data.entity.Client;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
