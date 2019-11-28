@@ -2,6 +2,7 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Coupon;
+import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
@@ -211,5 +212,10 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
             company.setPassword(oldCompany.getPassword());
             System.out.println(company.getPassword());
         }
+    }
+
+    @Override
+    public List<Customer> findMyCustomers() {
+        return companyRepository.findMyCustomers(companyId);
     }
 }

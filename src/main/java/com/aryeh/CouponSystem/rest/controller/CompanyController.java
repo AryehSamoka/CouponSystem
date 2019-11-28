@@ -4,6 +4,7 @@ import com.aryeh.CouponSystem.Service.AbsService;
 import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Coupon;
+import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,12 @@ public class CompanyController {
     ResponseEntity<List<Coupon>> findCompanyCouponsBeforeDate(@PathVariable String token, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCompanyCouponsBeforeDate(date));
+    }
+
+    @GetMapping("/{token}/my_customers")
+    ResponseEntity<List<Customer>> findEmailsMyCustomers(@PathVariable String token){
+        CompanyServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.findMyCustomers());
     }
 
     private CompanyServiceImpl getService(String token) {
