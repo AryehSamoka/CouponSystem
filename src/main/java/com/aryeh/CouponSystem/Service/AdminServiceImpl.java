@@ -50,9 +50,9 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @PostConstruct
     public void init() {
         Admin rootAdminDB = insertRootAdmin();
-
-        insertRootUser(rootAdminDB);
-
+//
+//        insertRootUser(rootAdminDB);
+//
         rootId = rootAdminDB.getId();
     }
 
@@ -74,7 +74,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
                 admin.setId(0);
                 Admin adminNew = adminRepository.save(admin);
 
-                userRepository.save(new User(adminNew));
+//                userRepository.save(new User(adminNew));
 
                 return adminNew;
             } else {

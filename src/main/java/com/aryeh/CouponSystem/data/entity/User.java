@@ -1,5 +1,7 @@
 package com.aryeh.CouponSystem.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Any;
 import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.MetaValue;
@@ -9,12 +11,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+    public static final long NO_ID = -1;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true, length = 32, nullable = false)
     private String email;
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Any(metaColumn = @Column(name="role"))
@@ -22,7 +27,9 @@ public class User {
     metaValues = {@MetaValue(value = "1", targetEntity = Company.class),
                   @MetaValue(value = "2", targetEntity = Customer.class),
                   @MetaValue(value = "-1", targetEntity = Admin.class)})
+//    @OneToOne
     @JoinColumn(name = "client_id")
+    @JsonIgnore
     private Client client;
 
     public User() {
@@ -33,6 +40,12 @@ public class User {
         email = client.getEmail();
         password = client.returnPassword();
 
+    }
+
+    public static User empty() {
+        User user = new User();
+        user.setId(NO_ID);
+        return user;
     }
 
     public long getId() {

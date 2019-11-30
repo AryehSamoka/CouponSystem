@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import javax.persistence.*;
 import java.util.Objects;
 
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@Entity
 @MappedSuperclass
 public abstract class Client {
     @Id
@@ -14,6 +16,8 @@ public abstract class Client {
 
     @Column(unique = true, length = 32)
     protected String email;
+//    @OneToOne(mappedBy = "client" , cascade = CascadeType.ALL)
+//    protected User user;
 
     public long getId() {
         return id;
