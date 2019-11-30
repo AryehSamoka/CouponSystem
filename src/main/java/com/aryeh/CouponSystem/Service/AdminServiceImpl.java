@@ -228,12 +228,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         Optional<Admin> optionalAdmin = adminRepository.findByEmail(rootAdmin.getEmail());
 
         Admin rootAdminDB;
-        if (!optionalAdmin.isPresent()) {
-            rootAdminDB = adminRepository.save(rootAdmin);
-        } else {
+        if (optionalAdmin.isPresent()) {
             rootAdmin.setId(optionalAdmin.get().getId());
-            rootAdminDB = adminRepository.save(rootAdmin);
         }
+        rootAdminDB = adminRepository.save(rootAdmin);
         return rootAdminDB;
     }
 
@@ -242,12 +240,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
         Optional<User> optionalRootUser = userRepository.findByEmailAndRole(rootAdminDB.getEmail(), ADMIN_ROLE);
 
-        if (!optionalRootUser.isPresent())
-            userRepository.save(rootUser);
-        else {
+        if (optionalRootUser.isPresent()) {
             rootUser.setId(optionalRootUser.get().getId());
-            userRepository.save(rootUser);
         }
+        userRepository.save(rootUser);
     }
 
     private Admin updateAdmin(Admin admin) {
