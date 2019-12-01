@@ -42,6 +42,12 @@ public class AdminController {
         return ResponseEntity.ok(Admin.empty());
     }
 
+    @GetMapping("/{token}")
+    public ResponseEntity<Admin> findAdmin(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.findById());
+    }
+
     @PutMapping("/{token}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable String token, @RequestBody Admin admin) {
         AdminServiceImpl service = getService(token);

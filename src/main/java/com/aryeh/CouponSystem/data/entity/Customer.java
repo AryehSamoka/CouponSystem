@@ -3,7 +3,6 @@ package com.aryeh.CouponSystem.data.entity;
 import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.context.ApplicationContext;
 
@@ -16,17 +15,12 @@ import java.util.List;
 public class Customer extends Client{
     public static final long NO_ID = -1;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
-    @Column(unique = true, length = 32, nullable = false)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false)
     private String password;
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
     @JoinTable(

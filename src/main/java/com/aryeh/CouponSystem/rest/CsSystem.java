@@ -1,9 +1,9 @@
 package com.aryeh.CouponSystem.rest;
 
 import com.aryeh.CouponSystem.Service.CustomerService;
-import com.aryeh.CouponSystem.Service.UserService;
+import com.aryeh.CouponSystem.Service.clientService;
 import com.aryeh.CouponSystem.data.entity.Client;
-import com.aryeh.CouponSystem.data.entity.User;
+//import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import com.aryeh.CouponSystem.threads.ClientSessionCleanerTask;
@@ -25,17 +25,17 @@ public class CsSystem {
 
     public static final int LENGTH_TOKEN = 15;
     private ApplicationContext context;
-    private UserService userService;
+    private clientService clientService;
     private Environment env;
     private Map<String, ClientSession> tokensMap;
     private CouponRepository couponRepository;
     private CustomerService customerService;
 
     @Autowired
-    public CsSystem(ApplicationContext context, UserService userService, Environment env, @Qualifier("tokens") Map<String,
+    public CsSystem(ApplicationContext context, clientService clientService, Environment env, @Qualifier("tokens") Map<String,
             ClientSession> tokensMap, CouponRepository couponRepository, CustomerService customerService) {
         this.context = context;
-        this.userService = userService;
+        this.clientService = clientService;
         this.env = env;
         this.tokensMap = tokensMap;
         this.couponRepository = couponRepository;
@@ -50,26 +50,26 @@ public class CsSystem {
 
     public String login(String userName, String password) throws InvalidLoginException {
 
-        User user = getUser(userName, password);
+        Client client = getClient(userName, password);
 
-        long userId = user.getId();
-        String optToken = checkTokenExistence(userId);
+        long clientId = client.getId();
+        String optToken = checkTokenExistence(clientId);
         if (optToken != null) {
             return optToken;
         }
 
-        ClientSession clientSession = setupClientSession(userId, user.getClient());
+        ClientSession clientSession = setupClientSession(clientId, client);
 
         return addTokenAndClientSession(clientSession);
     }
 
-    private User getUser(String userName, String password) {
-        Optional<User> optUser = userService.getUserByEmailAndPassword(userName, password);
+    private Client getClient(String userName, String password) {
+        Optional<Client> optClient = clientService.getClientByEmailAndPassword(userName, password);
 
-        if (!optUser.isPresent()) {
+        if (!optClient.isPresent()) {
             throw new InvalidLoginException(String.format("Invalid login with email: %s and password: %s", userName, password));
         }
-        return optUser.get();
+        return optClient.get();
     }
 
     private synchronized String checkTokenExistence(Long userId) {
@@ -77,7 +77,7 @@ public class CsSystem {
         while (itr.hasNext()) {
             Map.Entry<String, ClientSession> entry = itr.next();
             ClientSession session = entry.getValue();
-            if (session.getUserId() == userId) {
+            if (session.getClientId() == userId) {
                 session.accessed();
                 return entry.getKey();
             }
@@ -85,10 +85,10 @@ public class CsSystem {
         return null;
     }
 
-    private ClientSession setupClientSession(long userId, Client client) {
+    private ClientSession setupClientSession(long clientId, Client client) {
         ClientSession clientSession = context.getBean(ClientSession.class);
 
-        clientSession.setUserId(userId);
+        clientSession.setClientId(clientId);
         client.setClientSession(context, clientSession);
         clientSession.accessed();
         return clientSession;

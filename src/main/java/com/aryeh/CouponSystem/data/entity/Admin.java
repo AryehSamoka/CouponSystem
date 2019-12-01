@@ -3,7 +3,6 @@ package com.aryeh.CouponSystem.data.entity;
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.context.ApplicationContext;
 
@@ -14,13 +13,8 @@ import javax.persistence.*;
 public class Admin extends Client{
     public static final long NO_ID = -1;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(unique = true, length = 32, nullable = false)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false)
     private String password;
 
     public Admin() {
