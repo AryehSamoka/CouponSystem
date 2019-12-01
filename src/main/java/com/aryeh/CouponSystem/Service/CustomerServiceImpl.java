@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CustomerServiceImpl extends AbsService implements CustomerService {
-    private long customerId;
+    private long clientId;
 
     private CouponRepository couponRepository;
     private CustomerRepository customerRepository;
@@ -34,22 +34,22 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     @Override
     @Transactional
     public Customer findById() {
-        return customerRepository.findById(customerId)
+        return customerRepository.findById(clientId)
                 .orElse(Customer.empty());
     }
 
     @Override
     @Transactional
     public void deleteById() {
-        customerRepository.deleteById(customerId);
+        customerRepository.deleteById(clientId);
     }
 
     @Override
     @Transactional
     public Customer update(Customer customer) {
-        if (customer.getId() == customerId || customer.getId() == 0) {
+        if (customer.getId() == clientId || customer.getId() == 0) {
 
-            customer.setId(customerId);
+            customer.setId(clientId);
             customer.setCoupons(Collections.emptyList());
             customer.checkPassword(findById());
             return customerRepository.save(customer);
@@ -78,19 +78,19 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     @Override
     @Transactional
     public List<Coupon> findCustomerCoupons() {
-        return couponRepository.findCustomerCoupons(customerId);
+        return couponRepository.findCustomerCoupons(clientId);
     }
 
     @Override
     @Transactional
     public List<Coupon> findCustomerCouponsByCategory(int category) {
-        return couponRepository.findCustomerCouponsByCategory(customerId, category);
+        return couponRepository.findCustomerCouponsByCategory(clientId, category);
     }
 
     @Override
     @Transactional
     public List<Coupon> findCustomerCouponsLessThan(double price) {
-        return couponRepository.findCustomerCouponsLessThan(customerId, price);
+        return couponRepository.findCustomerCouponsLessThan(clientId, price);
     }
 
     @Override
@@ -99,11 +99,11 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
         return couponRepository.findByEndDateBefore(LocalDate.now());
     }
 
-    public long getCustomerId() {
-        return customerId;
+    public long getClientId() {
+        return clientId;
     }
 
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 }

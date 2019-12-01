@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @Service
 public class AdminServiceImpl extends AbsService implements AdminService {
-    private long adminId;
+    private long clientId;
     private long rootId;
     private final CompanyRepository companyRepository;
     private final CouponRepository couponRepository;
@@ -54,12 +54,12 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         rootId = rootAdminDB.getId();
     }
 
-    public long getAdminId() {
-        return adminId;
+    public long getClientId() {
+        return clientId;
     }
 
-    public void setAdminId(long adminId) {
-        this.adminId = adminId;
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     @Override
@@ -82,15 +82,15 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Admin findById() {
-        return adminRepository.findById(adminId)
+        return adminRepository.findById(clientId)
                 .orElse(Admin.empty());
     }
 
     @Override
     @Transactional
     public void deleteById() {
-        if (adminId != rootId) {
-            adminRepository.deleteById(adminId);
+        if (clientId != rootId) {
+            adminRepository.deleteById(clientId);
         } else {
             throw new InvalidRootAdminAccessException("");
         }
@@ -99,8 +99,8 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Admin update(Admin admin) {
-        if (admin.getId() == adminId || admin.getId() == 0) {
-            admin.setId(adminId);
+        if (admin.getId() == clientId || admin.getId() == 0) {
+            admin.setId(clientId);
             return updateAdmin(admin);
         }
         return Admin.empty();
@@ -129,7 +129,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Transactional
     public Company updateCompany(Company company) {
         CompanyServiceImpl companyServiceImpl = context.getBean(CompanyServiceImpl.class);
-        companyServiceImpl.setCompanyId(company.getId());
+        companyServiceImpl.setClientId(company.getId());
         return companyServiceImpl.update(company);
     }
 
@@ -172,7 +172,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Transactional
     public Customer updateCustomer(Customer customer) {
         CustomerServiceImpl customerServiceImpl = context.getBean(CustomerServiceImpl.class);
-        customerServiceImpl.setCustomerId(customer.getId());
+        customerServiceImpl.setClientId(customer.getId());
         return customerServiceImpl.update(customer);
     }
 
@@ -222,7 +222,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     private Admin updateAdmin(Admin admin) {
-        if (adminId != rootId) {
+        if (clientId != rootId) {
             admin.checkPassword(findById());
             return adminRepository.save(admin);
         } else {

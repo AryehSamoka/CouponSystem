@@ -63,7 +63,7 @@ public class Admin extends Client{
     @Override
     public void setClientSession(ApplicationContext context, ClientSession clientSession) {
         AdminServiceImpl service = context.getBean(AdminServiceImpl.class);
-        service.setAdminId(id);
+        service.setClientId(id);
         clientSession.setService(service);
     }
 }

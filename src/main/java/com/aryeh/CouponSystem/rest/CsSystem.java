@@ -52,15 +52,14 @@ public class CsSystem {
 
         Client client = getClient(userName, password);
 
-        long clientId = client.getId();
-        String optToken = checkTokenExistence(clientId);
+        String optToken = checkTokenExistence(client.getId());
         if (optToken != null) {
             return optToken;
         }
 
-        ClientSession clientSession = setupClientSession(clientId, client);
+        ClientSession clientSession = setupClientSession(client);
 
-        return addTokenAndClientSession(clientSession);
+        return clientSessionWithToken(clientSession);
     }
 
     private Client getClient(String userName, String password) {
@@ -72,12 +71,12 @@ public class CsSystem {
         return optClient.get();
     }
 
-    private synchronized String checkTokenExistence(Long userId) {
+    private synchronized String checkTokenExistence(Long clientId) {
         Iterator<Map.Entry<String, ClientSession>> itr = tokensMap.entrySet().iterator();
         while (itr.hasNext()) {
             Map.Entry<String, ClientSession> entry = itr.next();
             ClientSession session = entry.getValue();
-            if (session.getClientId() == userId) {
+            if (session.getClientId() == clientId) {
                 session.accessed();
                 return entry.getKey();
             }
@@ -85,16 +84,15 @@ public class CsSystem {
         return null;
     }
 
-    private ClientSession setupClientSession(long clientId, Client client) {
+    private ClientSession setupClientSession(Client client) {
         ClientSession clientSession = context.getBean(ClientSession.class);
 
-        clientSession.setClientId(clientId);
         client.setClientSession(context, clientSession);
         clientSession.accessed();
         return clientSession;
     }
 
-    private String addTokenAndClientSession(ClientSession clientSession) {
+    private String clientSessionWithToken(ClientSession clientSession) {
         String token = generateToken();
         synchronized (tokensMap) {
             tokensMap.put(token, clientSession);

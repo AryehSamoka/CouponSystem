@@ -5,7 +5,6 @@ import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
-import com.aryeh.CouponSystem.data.repository.clientRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidCouponAccessException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCouponException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.util.Optional;
 @Service
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CompanyServiceImpl extends AbsService implements CompanyService {
-    private long companyId;
+    private long clientId;
 
     private CouponRepository couponRepository;
     private CompanyRepository companyRepository;
@@ -36,21 +35,21 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public Company findById() {
-        return companyRepository.findById(companyId)
+        return companyRepository.findById(clientId)
                 .orElse(Company.empty());
     }
 
     @Override
     @Transactional
     public void deleteById() {
-        companyRepository.deleteById(companyId);
+        companyRepository.deleteById(clientId);
     }
 
     @Override
     @Transactional
     public Company update(Company company) {
-        if (company.getId() == companyId || company.getId() == 0) {
-            company.setId(companyId);
+        if (company.getId() == clientId || company.getId() == 0) {
+            company.setId(clientId);
             company.checkPassword(findById());
             removeCouponsOfOtherCompanies(company);
 
@@ -97,39 +96,39 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public List<Coupon> findCompanyCoupons() {
-        return couponRepository.findByCompanyId(companyId);
+        return couponRepository.findByCompanyId(clientId);
     }
 
     @Override
     @Transactional
     public List<Coupon> findCompanyCouponsByCategory(int category) {
-        return couponRepository.findByCompanyIdAndCategory(companyId, category);
+        return couponRepository.findByCompanyIdAndCategory(clientId, category);
     }
 
     @Override
     @Transactional
     public List<Coupon> findCompanyCouponsLessThan(double price) {
-        return couponRepository.findByCompanyIdAndPriceLessThan(companyId, price);
+        return couponRepository.findByCompanyIdAndPriceLessThan(clientId, price);
     }
 
     @Override
     @Transactional
     public List<Coupon> findCompanyCouponsBeforeDate(LocalDate date) {
-        return couponRepository.findByCompanyIdAndEndDateBefore(companyId, date);
+        return couponRepository.findByCompanyIdAndEndDateBefore(clientId, date);
     }
 
     @Override
     @Transactional
     public List<Customer> findMyCustomers() {
-        return companyRepository.findMyCustomers(companyId);
+        return companyRepository.findMyCustomers(clientId);
     }
 
-    public long getCompanyId() {
-        return companyId;
+    public long getClientId() {
+        return clientId;
     }
 
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     private void removeCouponsOfOtherCompanies(Company company) {
@@ -153,7 +152,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         Optional<Coupon> optCoupon = couponRepository.findById(couponsIterator.next().getId());
         if (optCoupon.isPresent()) {
             Coupon coupon = optCoupon.get();
-            if (coupon.getCompany().getId() != companyId) {
+            if (coupon.getCompany().getId() != clientId) {
                 couponsIterator.remove();
             }
         } else {
@@ -170,7 +169,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     }
 
     private void checkCompanyOfCoupon(Company company) {
-        if (!(company != null && company.getId() == companyId)) {
+        if (!(company != null && company.getId() == clientId)) {
             throw new InvalidCouponAccessException("");
         }
     }
