@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ClientSession {
-    private Long userId;
+    private Long clientId;
     private AbsService service;
     private long lastAccessedMillis;
 
@@ -28,11 +28,11 @@ public class ClientSession {
         lastAccessedMillis = System.currentTimeMillis();
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 }

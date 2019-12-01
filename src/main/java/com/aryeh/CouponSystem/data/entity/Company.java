@@ -2,7 +2,10 @@ package com.aryeh.CouponSystem.data.entity;
 
 import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
 import com.aryeh.CouponSystem.rest.ClientSession;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
@@ -15,14 +18,9 @@ import java.util.List;
 public class Company extends Client {
     public static final long NO_ID = -1;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String name;
-    @Column(unique = true, length = 32, nullable = false)
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Coupon> coupons;

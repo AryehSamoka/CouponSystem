@@ -3,10 +3,9 @@ package com.aryeh.CouponSystem.Service;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.entity.Customer;
-import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
-import com.aryeh.CouponSystem.data.repository.UserRepository;
+import com.aryeh.CouponSystem.data.repository.clientRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidCouponAccessException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCouponException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +26,11 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     private CouponRepository couponRepository;
     private CompanyRepository companyRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public CompanyServiceImpl(CouponRepository couponRepository, CompanyRepository companyRepository, UserRepository userRepository) {
+    public CompanyServiceImpl(CouponRepository couponRepository, CompanyRepository companyRepository) {
         this.couponRepository = couponRepository;
         this.companyRepository = companyRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -46,7 +43,6 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public void deleteById() {
-        deleteCompanyUser();
         companyRepository.deleteById(companyId);
     }
 
@@ -55,9 +51,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     public Company update(Company company) {
         if (company.getId() == companyId || company.getId() == 0) {
             company.setId(companyId);
-            Company oldCompany = findById();
-            checkPassword(company, oldCompany);
-            updateCompanyUser(company, oldCompany);
+            company.checkPassword(findById());
             removeCouponsOfOtherCompanies(company);
 
             return companyRepository.save(company);
@@ -86,7 +80,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public Coupon updateCoupon(Coupon coupon) {
-        Company company = checkCouponExistenceInDB(coupon).getCompany();
+        Company company = checkCouponExistenceInDB(coupon.getId()).getCompany();
         checkCompanyOfCoupon(company);
         coupon.setCompany(company);
         return couponRepository.save(coupon);
@@ -124,21 +118,18 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         return couponRepository.findByCompanyIdAndEndDateBefore(companyId, date);
     }
 
+    @Override
+    @Transactional
+    public List<Customer> findMyCustomers() {
+        return companyRepository.findMyCustomers(companyId);
+    }
+
     public long getCompanyId() {
         return companyId;
     }
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
-    }
-
-    private void updateCompanyUser(Company company, Company oldCompany) {
-        Optional<User> optUser = userRepository.findByEmailAndPassword(oldCompany.getEmail(), oldCompany.returnPassword());
-        /*The user has to be present because we got here with token*/
-        User user = optUser.get();
-        user.setEmail(company.getEmail());
-        user.setPassword(company.getPassword());
-        userRepository.save(user);
     }
 
     private void removeCouponsOfOtherCompanies(Company company) {
@@ -170,22 +161,6 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         }
     }
 
-    private void deleteCompanyUser() {
-        Company company = findById();
-        Optional<User> optUser = userRepository.findByEmailAndPassword(company.getEmail(), company.returnPassword());
-        if (optUser.isPresent()) {
-            userRepository.deleteById(optUser.get().getId());
-        }
-    }
-
-    private Coupon checkCouponExistenceInDB(Coupon coupon) {
-        Optional<Coupon> optionalCoupon = couponRepository.findById(coupon.getId());
-        if (!optionalCoupon.isPresent()) {
-            throw new NoSuchCouponException("");
-        }
-        return optionalCoupon.get();
-    }
-
     private Coupon checkCouponExistenceInDB(long couponId) {
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
         if (!optionalCoupon.isPresent()) {
@@ -198,24 +173,5 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
         if (!(company != null && company.getId() == companyId)) {
             throw new InvalidCouponAccessException("");
         }
-    }
-
-    /**
-     * The password will be checked and if it is null the old password will stay,
-     * the reason is that only the password can't be seen by findById because of json ignore.
-     * On client to check what will be counted as null.
-     * @param company
-     * @param oldCompany
-     */
-    private void checkPassword(Company company, Company oldCompany) {
-        if(company.getPassword() == null){
-            company.setPassword(oldCompany.getPassword());
-            System.out.println(company.getPassword());
-        }
-    }
-
-    @Override
-    public List<Customer> findMyCustomers() {
-        return companyRepository.findMyCustomers(companyId);
     }
 }

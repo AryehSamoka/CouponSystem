@@ -2,10 +2,8 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.entity.Customer;
-import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.data.repository.CustomerRepository;
-import com.aryeh.CouponSystem.data.repository.UserRepository;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCouponException;
 import com.aryeh.CouponSystem.rest.ex.ZeroCouponAmountException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +24,11 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
     private CouponRepository couponRepository;
     private CustomerRepository customerRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public CustomerServiceImpl(CouponRepository couponRepository, CustomerRepository customerRepository,
-                               UserRepository userRepository) {
+    public CustomerServiceImpl(CouponRepository couponRepository, CustomerRepository customerRepository) {
         this.couponRepository = couponRepository;
         this.customerRepository = customerRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -46,7 +41,6 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
     @Override
     @Transactional
     public void deleteById() {
-        deleteCustomerUser();
         customerRepository.deleteById(customerId);
     }
 
@@ -57,10 +51,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
             customer.setId(customerId);
             customer.setCoupons(Collections.emptyList());
-            Customer oldCustomer = findById();
-
-            checkPassword(customer, oldCustomer);
-            updateCustomerUser(customer, oldCustomer);
+            customer.checkPassword(findById());
             return customerRepository.save(customer);
         }
         return Customer.empty();
@@ -114,35 +105,5 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
     public void setCustomerId(long customerId) {
         this.customerId = customerId;
-    }
-
-    private void deleteCustomerUser() {
-        Customer customer = findById();
-        Optional<User> optUser = userRepository.findByEmailAndPassword(customer.getEmail(), customer.returnPassword());
-        if (optUser.isPresent()) {
-            userRepository.deleteById(optUser.get().getId());
-        }
-    }
-
-    private void updateCustomerUser(Customer customer, Customer oldCustomer) {
-        Optional<User> optUser = userRepository.findByEmailAndPassword(oldCustomer.getEmail(), oldCustomer.returnPassword());
-        /*The user has to be present because we got here with token*/
-        User user = optUser.get();
-        user.setEmail(customer.getEmail());
-        user.setPassword(customer.getPassword());
-        userRepository.save(user);
-    }
-
-    /**
-     * The password will be checked and if it is null the old password will stay,
-     * the reason is that only the password can't be seen by findById because of json ignore.
-     * On client to check what will be counted as null.
-     * @param customer
-     * @param oldCustomer
-     */
-    private void checkPassword(Customer customer, Customer oldCustomer) {
-        if(customer.getPassword() == null){
-            customer.setPassword(oldCustomer.getPassword());
-        }
     }
 }
