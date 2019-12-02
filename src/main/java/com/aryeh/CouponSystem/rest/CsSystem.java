@@ -3,7 +3,6 @@ package com.aryeh.CouponSystem.rest;
 import com.aryeh.CouponSystem.Service.CustomerService;
 import com.aryeh.CouponSystem.Service.clientService;
 import com.aryeh.CouponSystem.data.entity.Client;
-//import com.aryeh.CouponSystem.data.entity.User;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import com.aryeh.CouponSystem.threads.ClientSessionCleanerTask;
