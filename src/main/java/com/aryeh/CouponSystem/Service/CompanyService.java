@@ -30,5 +30,5 @@ public interface CompanyService {
 
     List<Coupon> findCompanyCouponsBeforeDate(LocalDate date);
 
-    List<Customer> findMyCustomers();
+    List<String> findEmailsMyCustomers();
 }

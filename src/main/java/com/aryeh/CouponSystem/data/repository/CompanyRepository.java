@@ -17,6 +17,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query("select co.email from Company co")
     List<String> findAllEmails();
 
-    @Query("select distinct t1 from Customer as t1 join t1.coupons as t2 join t2.company as t3 where t3.id=:companyId")
-    List<Customer> findMyCustomers(long companyId);
+    @Query("select distinct t1.email from Customer as t1 join t1.coupons as t2 join t2.company as t3 where t3.id=:companyId")
+    List<String> findEmailsMyCustomers(long companyId);
 }

@@ -109,10 +109,10 @@ public class CompanyController {
         return ResponseEntity.ok(service.findCompanyCouponsBeforeDate(date));
     }
 
-    @GetMapping("/{token}/my_customers")
-    ResponseEntity<List<Customer>> findEmailsMyCustomers(@PathVariable String token){
+    @GetMapping("/{token}/my_customers_emails")
+    ResponseEntity<List<String>> findEmailsMyCustomers(@PathVariable String token){
         CompanyServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.findMyCustomers());
+        return ResponseEntity.ok(service.findEmailsMyCustomers());
     }
 
     private CompanyServiceImpl getService(String token) {

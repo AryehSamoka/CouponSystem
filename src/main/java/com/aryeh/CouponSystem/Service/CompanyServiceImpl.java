@@ -119,8 +119,8 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
 
     @Override
     @Transactional
-    public List<Customer> findMyCustomers() {
-        return companyRepository.findMyCustomers(clientId);
+    public List<String> findEmailsMyCustomers() {
+        return companyRepository.findEmailsMyCustomers(clientId);
     }
 
     public long getClientId() {
