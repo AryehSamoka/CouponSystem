@@ -45,6 +45,20 @@ public class Coupon {
         customers = new ArrayList<>();
     }
 
+    public Coupon(Company company, String title, LocalDate startDate, LocalDate endDate, int category, int amount,
+                  String description, double price, String imageURL) {
+        this();
+        this.company = company;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.category = category;
+        this.amount = amount;
+        this.description = description;
+        this.price = price;
+        this.imageURL = imageURL;
+    }
+
     public static Coupon empty() {
         Coupon coupon = new Coupon();
         coupon.setId(NO_ID);

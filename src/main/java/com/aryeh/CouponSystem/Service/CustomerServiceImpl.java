@@ -70,7 +70,6 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
             throw new ZeroCouponAmountException("");
         }
         Customer customer = findById();
-
         customer.addCoupon(coupon);
         return customerRepository.save(customer);
     }

@@ -134,6 +134,13 @@ public class AdminController {
         return ResponseEntity.ok(service.getEmailsCompsAndCustoms());
     }
 
+    @PostMapping("/{token}/insert_random_values_to_DB")
+    public ResponseEntity<String> InsertRandomValuesToDB(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+        service.InsertRandomValuesToDB();
+        return ResponseEntity.ok("succeeded");
+    }
+
     private AdminServiceImpl getService(String token) {
         ClientSession clientSession = tokensMap.get(token);
         if (null == clientSession) {

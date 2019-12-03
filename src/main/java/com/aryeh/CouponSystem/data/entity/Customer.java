@@ -33,6 +33,14 @@ public class Customer extends Client{
         coupons = new ArrayList<>();
     }
 
+    public Customer(String firstName, String lastName, String email, String password) {
+        this();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
     public static Customer empty() {
         Customer customer = new Customer();
         customer.setId(NO_ID);

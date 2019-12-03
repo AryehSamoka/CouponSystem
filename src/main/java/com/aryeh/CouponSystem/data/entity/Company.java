@@ -29,6 +29,12 @@ public class Company extends Client {
         coupons = new ArrayList<>();
     }
 
+    public Company(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public static Company empty() {
         Company company = new Company();
         company.setId(NO_ID);

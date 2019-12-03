@@ -39,4 +39,6 @@ public interface AdminService {
     public List<Integer> findAllCategories();
 
     public List<String> getEmailsCompsAndCustoms();
+
+    public void InsertRandomValuesToDB();
 }

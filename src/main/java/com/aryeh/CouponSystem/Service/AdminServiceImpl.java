@@ -18,13 +18,14 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 @Service
 public class AdminServiceImpl extends AbsService implements AdminService {
+    private static final int MIN_COUPONS_AMOUNT = 30;
     private long clientId;
     private long rootId;
     private final CompanyRepository companyRepository;
@@ -209,6 +210,30 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         return allEmails;
     }
 
+    @Override
+    @Transactional
+    public void InsertRandomValuesToDB() {
+        List<Long> couponIds = new ArrayList<>();
+        for (AtomicInteger i = new AtomicInteger(); i.get() < 50; i.getAndIncrement()) {
+            Company company = randomCompany();
+            Company newCompany = companyRepository.save(company);
+
+            int coupons = (int) (Math.random() * (4 + 1));
+            for (AtomicInteger j = new AtomicInteger(); j.get() < coupons; j.getAndIncrement()) {
+                Coupon coupon = randomCoupon(newCompany);
+                couponIds.add(couponRepository.save(coupon).getId());
+            }
+        }
+
+        for (AtomicInteger i = new AtomicInteger(); i.get() < 50; i.getAndIncrement()) {
+            Customer customer = randomCustomer();
+            Customer newCustomer = customerRepository.save(customer);
+
+            insertCustomerCoupon(couponIds, newCustomer.getId());
+        }
+    }
+
+
     private void insertRootAdmin() {
         Admin rootAdmin = new Admin(env.getProperty("adminRoot.username"), env.getProperty("adminRoot.password"));
         Optional<Admin> optionalAdmin = adminRepository.findByEmail(rootAdmin.getEmail());
@@ -243,5 +268,44 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
             throw new NoSuchCompanyException("");
         }
+    }
+
+    private void insertCustomerCoupon(List<Long> couponIds, long customerId) {
+        CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
+        service.setClientId(customerId);
+        int index = (int) (Math.random() * (10 + 1));
+        Collections.shuffle(couponIds);
+        IntStream.range(0, index).mapToLong(couponIds::get).forEach(service::addCoupon);
+    }
+
+    private Company randomCompany() {
+        String name = UUID.randomUUID().toString().substring(0, 5);
+        String email = name + "@gmail.com";
+        String password = UUID.randomUUID().toString().substring(0, 7);
+
+        return new Company(name, email, password);
+    }
+
+    private static Coupon randomCoupon(Company company) {
+        int category = 1 + (int) (Math.random() * (9 + 1));
+        String title = UUID.randomUUID().toString().substring(0, 5);
+        LocalDate startDate = LocalDate.now();
+        int addDays = 1 + (int) (Math.random() * (99 + 1));
+        LocalDate endDate = startDate.plusDays(addDays);
+        int amount = MIN_COUPONS_AMOUNT + (int) (Math.random() * (100 + 1));
+        String description = title + ", " + UUID.randomUUID().toString().substring(0, 5);
+        double price = 10 + (int) (Math.random() * (990 + 1));
+        String image = title + "@image.com";
+
+        return new Coupon(company, title, startDate, endDate, category, amount, description, price, image);
+    }
+
+    private static Customer randomCustomer() {
+        String firstName = UUID.randomUUID().toString().substring(0, 3);
+        String lastName = UUID.randomUUID().toString().substring(0, 3);
+        String email = firstName + "." + lastName + "@gmail.com";
+        String password = UUID.randomUUID().toString().substring(0, 7);
+
+        return new Customer(firstName, lastName, email, password);
     }
 }
