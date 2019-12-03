@@ -21,4 +21,6 @@ public interface CustomerService {
     List<Coupon> findCustomerCouponsLessThan(double price);
 
     List<Coupon> findExpiredCoupons();
+
+    List<String> findEmailsMyCompanies();
 }

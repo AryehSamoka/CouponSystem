@@ -98,6 +98,12 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
         return couponRepository.findByEndDateBefore(LocalDate.now());
     }
 
+    @Override
+    @Transactional
+    public List<String> findEmailsMyCompanies() {
+        return customerRepository.findEmailsMyCompanies(clientId);
+    }
+
     public long getClientId() {
         return clientId;
     }

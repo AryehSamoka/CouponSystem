@@ -1,6 +1,7 @@
 package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AbsService;
+import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
 import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
 import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.entity.Customer;
@@ -75,6 +76,12 @@ public class CustomerController {
     ResponseEntity<List<Coupon>> findCustomerCouponsLessThan(@PathVariable String token, @PathVariable double price) {
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCustomerCouponsLessThan(price));
+    }
+
+    @GetMapping("/{token}/emails_my_companies")
+    ResponseEntity<List<String>> findEmailsMyCompanies(@PathVariable String token){
+        CustomerServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.findEmailsMyCompanies());
     }
 
     private CustomerServiceImpl getService(String token) {
