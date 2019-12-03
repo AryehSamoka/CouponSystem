@@ -47,11 +47,11 @@ public class CsSystem {
         new Thread(new CouponCleanerTask(customerService, couponRepository)).start();
     }
 
-    public String login(String userName, String password) throws InvalidLoginException {
+    public String[] login(String userName, String password) throws InvalidLoginException {
 
         Client client = getClient(userName, password);
 
-        String optToken = checkTokenExistence(client.getId());
+        String[] optToken = checkTokenExistence(client.getId());
         if (optToken != null) {
             return optToken;
         }
@@ -70,14 +70,15 @@ public class CsSystem {
         return optClient.get();
     }
 
-    private synchronized String checkTokenExistence(Long clientId) {
+    private synchronized String[] checkTokenExistence(Long clientId) {
         Iterator<Map.Entry<String, ClientSession>> itr = tokensMap.entrySet().iterator();
         while (itr.hasNext()) {
             Map.Entry<String, ClientSession> entry = itr.next();
             ClientSession session = entry.getValue();
             if (session.getClientId() == clientId) {
                 session.accessed();
-                return entry.getKey();
+                String[] login={entry.getKey(), session.getClientType().toString()};
+                return login;
             }
         }
         return null;
@@ -91,12 +92,13 @@ public class CsSystem {
         return clientSession;
     }
 
-    private String clientSessionWithToken(ClientSession clientSession) {
+    private String[] clientSessionWithToken(ClientSession clientSession) {
         String token = generateToken();
         synchronized (tokensMap) {
             tokensMap.put(token, clientSession);
         }
-        return token;
+        String[] login={token, clientSession.getClientType().toString()};
+        return login;
     }
 
     private static String generateToken() {

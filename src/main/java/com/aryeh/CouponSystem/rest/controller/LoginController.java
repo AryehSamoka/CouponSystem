@@ -23,7 +23,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String userName, @RequestParam String password) {
+    public ResponseEntity<String[]> login(@RequestParam String userName, @RequestParam String password) {
         return ResponseEntity.ok(csSystem.login(userName, password));
     }
 

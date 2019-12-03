@@ -102,5 +102,6 @@ public class Customer extends Client{
         CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
         service.setClientId(id);
         clientSession.setService(service);
+        clientSession.setClientType(ClientType.CUSTOMER);
     }
 }

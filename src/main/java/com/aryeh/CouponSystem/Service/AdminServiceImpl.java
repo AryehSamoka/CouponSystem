@@ -49,9 +49,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @PostConstruct
     public void init() {
-        Admin rootAdminDB = insertRootAdmin();
-
-        rootId = rootAdminDB.getId();
+        insertRootAdmin();
     }
 
     public long getClientId() {
@@ -211,14 +209,16 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         return allEmails;
     }
 
-    private Admin insertRootAdmin() {
+    private void insertRootAdmin() {
         Admin rootAdmin = new Admin(env.getProperty("adminRoot.username"), env.getProperty("adminRoot.password"));
         Optional<Admin> optionalAdmin = adminRepository.findByEmail(rootAdmin.getEmail());
 
         if (optionalAdmin.isPresent()) {
             rootAdmin.setId(optionalAdmin.get().getId());
         }
-        return adminRepository.save(rootAdmin);
+
+        Admin rootAdminDB = adminRepository.save(rootAdmin);
+        rootId = rootAdminDB.getId();
     }
 
     private Admin updateAdmin(Admin admin) {

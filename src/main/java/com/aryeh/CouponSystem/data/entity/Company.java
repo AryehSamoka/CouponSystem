@@ -89,5 +89,6 @@ public class Company extends Client {
         CompanyServiceImpl service = context.getBean(CompanyServiceImpl.class);
         service.setClientId(id);
         clientSession.setService(service);
+        clientSession.setClientType(ClientType.COMPANY);
     }
 }

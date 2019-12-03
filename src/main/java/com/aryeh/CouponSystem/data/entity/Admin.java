@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
 
+import static com.aryeh.CouponSystem.data.entity.ClientType.ADMIN;
+
 @Entity
 @Table(name = "admin")
 public class Admin extends Client{
@@ -65,5 +67,6 @@ public class Admin extends Client{
         AdminServiceImpl service = context.getBean(AdminServiceImpl.class);
         service.setClientId(id);
         clientSession.setService(service);
+        clientSession.setClientType(ClientType.ADMIN);
     }
 }
