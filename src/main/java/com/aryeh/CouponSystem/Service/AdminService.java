@@ -3,7 +3,6 @@ package com.aryeh.CouponSystem.Service;
 import com.aryeh.CouponSystem.data.entity.Admin;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
-import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
@@ -39,6 +38,10 @@ public interface AdminService {
     public List<Integer> findAllCategories();
 
     public List<String> getEmailsCompsAndCustoms();
+
+    public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory();
+
+    public List<Integer[]> CountPairsByCategory();
 
     public void InsertRandomValuesToDB();
 }

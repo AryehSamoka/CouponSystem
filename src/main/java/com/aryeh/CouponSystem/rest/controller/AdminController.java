@@ -61,7 +61,7 @@ public class AdminController {
     }
 
     @PutMapping("/{token}/company")
-    public ResponseEntity<Company> updateCompany(@PathVariable String token, @RequestBody Company company){
+    public ResponseEntity<Company> updateCompany(@PathVariable String token, @RequestBody Company company) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.updateCompany(company));
     }
@@ -74,14 +74,14 @@ public class AdminController {
     }
 
     @GetMapping("/{token}/all_companies")
-    public ResponseEntity<List<Company>> getAllCompanies(@PathVariable String token){
+    public ResponseEntity<List<Company>> getAllCompanies(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCompanies());
     }
 
     @GetMapping("/{token}/all_companies_without_coupons")
-    public ResponseEntity<List<Company>> getAllCompaniesWithoutCoupons(@PathVariable String token){
+    public ResponseEntity<List<Company>> getAllCompaniesWithoutCoupons(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
@@ -94,7 +94,7 @@ public class AdminController {
     }
 
     @PutMapping("/{token}/customer")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable String token, @RequestBody Customer customer){
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String token, @RequestBody Customer customer) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.updateCustomer(customer));
     }
@@ -107,31 +107,45 @@ public class AdminController {
     }
 
     @GetMapping("/{token}/all_customers")
-    public ResponseEntity<List<Customer>> getAllCustomers(@PathVariable String token){
+    public ResponseEntity<List<Customer>> getAllCustomers(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCustomers());
     }
 
     @GetMapping("/{token}/all_customers_without_coupons")
-    public ResponseEntity<List<Customer>> getAllCustomersWithoutCoupons(@PathVariable String token){
+    public ResponseEntity<List<Customer>> getAllCustomersWithoutCoupons(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCustomersWithoutCoupons());
     }
 
     @GetMapping("/{token}/all_categories")
-    public ResponseEntity<List<Integer>> getAllCategories(@PathVariable String token){
+    public ResponseEntity<List<Integer>> getAllCategories(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCategories());
     }
 
     @GetMapping("/{token}/all_emails_comps_customs")
-    public ResponseEntity<List<String>> getEmailsCompsAndCustoms(@PathVariable String token){
+    public ResponseEntity<List<String>> getEmailsCompsAndCustoms(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.getEmailsCompsAndCustoms());
+    }
+
+    @GetMapping("/{token}/pairs_emails_comps_customs_ordered_by_category")
+    public ResponseEntity<List<String[]>> findPairsEmailsOfCompsCustomersOrderedByCategory(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findPairsEmailsOfCompsCustomersOrderedByCategory());
+    }
+
+    @GetMapping("/{token}/count_pairs_by_category")
+    public ResponseEntity<List<Integer[]>> CountPairsByCategory(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.CountPairsByCategory());
     }
 
     @PostMapping("/{token}/insert_random_values_to_DB")
@@ -145,7 +159,7 @@ public class AdminController {
         ClientSession clientSession = tokensMap.get(token);
         if (null == clientSession) {
             throw new InvalidLoginException("You aren't authorized");
-        }else {
+        } else {
             clientSession.accessed();
         }
 
@@ -154,7 +168,7 @@ public class AdminController {
         if (!(absService instanceof AdminServiceImpl)) {
             throw new InvalidLoginException("You aren't authorized");
         }
-        AdminServiceImpl service = (AdminServiceImpl)absService;
+        AdminServiceImpl service = (AdminServiceImpl) absService;
         return service;
     }
 }

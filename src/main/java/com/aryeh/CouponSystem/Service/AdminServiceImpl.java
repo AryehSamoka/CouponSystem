@@ -1,9 +1,6 @@
 package com.aryeh.CouponSystem.Service;
 
-import com.aryeh.CouponSystem.data.entity.Admin;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Coupon;
-import com.aryeh.CouponSystem.data.entity.Customer;
+import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.AdminRepository;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
@@ -208,6 +205,14 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         allEmails.addAll(companyRepository.findAllEmails());
         allEmails.addAll(customerRepository.findAllEmails());
         return allEmails;
+    }
+
+    public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory(){
+        return adminRepository.findPairsEmailsOfCompsCustomersOrderedByCategory();
+    }
+
+    public List<Integer[]> CountPairsByCategory(){
+        return adminRepository.CountPairsByCategory();
     }
 
     @Override
