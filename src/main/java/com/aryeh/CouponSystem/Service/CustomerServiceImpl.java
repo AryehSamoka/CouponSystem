@@ -50,7 +50,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
         if (customer.getId() == clientId || customer.getId() == 0) {
 
             customer.setId(clientId);
-            customer.setCoupons(Collections.emptyList());
+            customer.setCoupons(findById().getCoupons());
             customer.checkPassword(findById());
             return customerRepository.save(customer);
         }
