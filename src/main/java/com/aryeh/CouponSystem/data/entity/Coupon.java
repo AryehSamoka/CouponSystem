@@ -147,6 +147,8 @@ public class Coupon {
         this.imageURL = imageURL;
     }
 
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("customer_id")
     public List<Customer> getCustomers() {
         return customers;
     }

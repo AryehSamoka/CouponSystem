@@ -16,11 +16,11 @@ public interface CompanyService {
 
     Coupon addCoupon(Coupon coupon);
 
-    public Company addCoupons(List<Coupon> coupons);
+    Company addCoupons(List<Coupon> coupons);
 
-    public Coupon updateCoupon(Coupon coupon);
+    Coupon updateCoupon(Coupon coupon);
 
-    public void deleteCoupon(long couponId);
+    void deleteCoupon(long couponId);
 
     List<Coupon> findCompanyCoupons();
 

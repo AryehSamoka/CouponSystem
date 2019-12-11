@@ -5,6 +5,7 @@ import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,12 +23,10 @@ public class CouponCleanerTask implements Runnable {
 
     @Override
     public void run() {
-        Iterator<Coupon> it;
-        List<Coupon> expiredCoupons;
 
         while (run) {
-            expiredCoupons = customerService.findExpiredCoupons();
-            it = expiredCoupons.iterator();
+            List<Coupon> expiredCoupons = customerService.findExpiredCoupons();
+            Iterator<Coupon> it = expiredCoupons.iterator();
 
             while (it.hasNext()) {
                 couponRepository.delete(it.next());

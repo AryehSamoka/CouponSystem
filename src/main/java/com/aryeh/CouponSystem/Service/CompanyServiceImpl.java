@@ -2,7 +2,6 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Coupon;
-import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.data.repository.CompanyRepository;
 import com.aryeh.CouponSystem.data.repository.CouponRepository;
 import com.aryeh.CouponSystem.rest.ex.InvalidCouponAccessException;
@@ -140,11 +139,10 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     }
 
     /**
-     * Removing coupons of other companies or with non existing id's
-     * <p>
+     * Removing coupons of other companies or with non existing id's.
      * I didn't want to throw an exception and terminate the update for some coupons
      * who aren't present or aren't from this company.
-     * However the wrong coupons won't be updated at all and can't be seen in the response body
+     * However the wrong coupons won't be updated at all and won't be seen in the response body
      *
      * @param couponsIterator
      */

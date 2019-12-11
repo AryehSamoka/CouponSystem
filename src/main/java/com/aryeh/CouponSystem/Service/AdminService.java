@@ -7,41 +7,41 @@ import com.aryeh.CouponSystem.data.entity.Customer;
 import java.util.List;
 
 public interface AdminService {
-    public Admin createAdmin(Admin admin);
+    Admin createAdmin(Admin admin);
 
-    public Admin findById();
+    Admin findById();
 
-    public void deleteById();
+    void deleteById();
 
-    public Admin update(Admin admin);
+    Admin update(Admin admin);
 
-    public Company createCompany(Company company);
+    Company createCompany(Company company);
 
-    public Company updateCompany(Company company);
+    Company updateCompany(Company company);
 
-    public Company deleteCompanyById(long companyId);
+    Company deleteCompanyById(long companyId);
 
-    public List<Company> findAllCompanies();
+    List<Company> findAllCompanies();
 
     List<Company> findAllCompaniesWithoutCoupons();
 
-    public Customer createCustomer(Customer customer);
+    Customer createCustomer(Customer customer);
 
-    public Customer updateCustomer(Customer customer);
+    Customer updateCustomer(Customer customer);
 
-    public Customer deleteCustomerById(long customerId);
+    Customer deleteCustomerById(long customerId);
 
-    public List<Customer> findAllCustomers();
+    List<Customer> findAllCustomers();
 
-    public List<Customer> findAllCustomersWithoutCoupons();
+    List<Customer> findAllCustomersWithoutCoupons();
 
-    public List<Integer> findAllCategories();
+    List<Integer> findAllCategories();
 
-    public List<String> getEmailsCompsAndCustoms();
+    List<String> getEmailsCompsAndCustoms();
 
-    public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory();
+    List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory();
 
-    public List<Integer[]> CountPairsByCategory();
+    List<Integer[]> CountPairsByCategory();
 
-    public void InsertRandomValuesToDB();
+    void InsertRandomValuesToDB();
 }

@@ -3,13 +3,16 @@ package com.aryeh.CouponSystem.data.entity;
 import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "customer")
 public class Customer extends Client{
