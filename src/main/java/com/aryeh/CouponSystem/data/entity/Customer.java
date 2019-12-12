@@ -11,8 +11,7 @@ import org.springframework.context.ApplicationContext;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 @Entity
 @Table(name = "customer")
 public class Customer extends Client{
