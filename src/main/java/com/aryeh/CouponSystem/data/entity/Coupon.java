@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 @Entity
@@ -39,11 +40,12 @@ public class Coupon {
             name = "customer_coupon",
             joinColumns = @JoinColumn(name = "coupon_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})})
-    private List<Customer> customers;
+            uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})}
+            )
+    private Set<Customer> customers;
 
     public Coupon() {
-        customers = new ArrayList<>();
+        customers = new HashSet<>();
     }
 
     public Coupon(Company company, String title, LocalDate startDate, LocalDate endDate, int category, int amount,
@@ -148,11 +150,11 @@ public class Coupon {
         this.imageURL = imageURL;
     }
 
-    public List<Customer> getCustomers() {
+    public Set<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
     }
 

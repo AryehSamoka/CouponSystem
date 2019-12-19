@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -131,7 +132,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     }
 
     private void removeCouponsOfOtherCompanies(Company company) {
-        List<Coupon> coupons = company.getCoupons();
+        Set<Coupon> coupons = company.getCoupons();
         Iterator<Coupon> couponsIterator = coupons.iterator();
         while (couponsIterator.hasNext()) {
             removeCouponOfOtherCompanies(couponsIterator);

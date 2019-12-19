@@ -3,13 +3,12 @@ package com.aryeh.CouponSystem.data.entity;
 import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -28,11 +27,12 @@ public class Customer extends Client{
             name = "customer_coupon",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "coupon_id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})})
-    private List<Coupon> coupons;
+            uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})}
+            )
+    private Set<Coupon> coupons;
 
     public Customer() {
-        coupons = new ArrayList<>();
+        coupons = new HashSet<>();
     }
 
     public Customer(String firstName, String lastName, String email, String password) {
@@ -94,11 +94,11 @@ public class Customer extends Client{
         this.password = password;
     }
 
-    public List<Coupon> getCoupons() {
+    public Set<Coupon> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(List<Coupon> coupons) {
+    public void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
     }
 
