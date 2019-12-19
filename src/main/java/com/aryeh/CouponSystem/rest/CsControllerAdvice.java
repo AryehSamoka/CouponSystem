@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.validation.ConstraintViolationException;
-
 
 @ControllerAdvice(assignableTypes = {AdminController.class, CustomerController.class, CompanyController.class, LoginController.class})
 public class CsControllerAdvice {
@@ -23,7 +21,7 @@ public class CsControllerAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public CsErrorResponse handleUnauthorized(InvalidLoginException ex) {
-        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "Unauthorized.");
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -74,5 +72,12 @@ public class CsControllerAdvice {
     @ResponseBody
     public CsErrorResponse handleRootAdminAccess(InvalidCouponAccessException ex) {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "This coupon isn't yours.");
+    }
+
+    @ExceptionHandler(invalidIdException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    public CsErrorResponse handleInvalidUpdate(invalidIdException ex) {
+        return CsErrorResponse.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
     }
 }

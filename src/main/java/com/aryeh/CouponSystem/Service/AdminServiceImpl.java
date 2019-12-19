@@ -1,13 +1,11 @@
 package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.*;
-import com.aryeh.CouponSystem.data.repository.AdminRepository;
-import com.aryeh.CouponSystem.data.repository.CompanyRepository;
-import com.aryeh.CouponSystem.data.repository.CouponRepository;
-import com.aryeh.CouponSystem.data.repository.CustomerRepository;
+import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
+import com.aryeh.CouponSystem.rest.ex.invalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -25,6 +23,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private static final int MIN_COUPONS_AMOUNT = 30;
     private long clientId;
     private long rootId;
+    private ClientRepository clientRepository;
     private final CompanyRepository companyRepository;
     private final CouponRepository couponRepository;
     private final CustomerRepository customerRepository;
@@ -34,9 +33,10 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
 
     @Autowired
-    public AdminServiceImpl(CompanyRepository companyRepository, CouponRepository couponRepository,
+    public AdminServiceImpl(ClientRepository clientRepository, CompanyRepository companyRepository, CouponRepository couponRepository,
                             CustomerRepository customerRepository, AdminRepository adminRepository,
                             Environment env, ApplicationContext context) {
+        this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
         this.couponRepository = couponRepository;
         this.customerRepository = customerRepository;
@@ -123,7 +123,25 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
+    public Company getCompanyById(long companyId) {
+        CompanyServiceImpl companyServiceImpl = context.getBean(CompanyServiceImpl.class);
+        companyServiceImpl.setClientId(companyId);
+        return companyServiceImpl.findById();
+    }
+
+    @Override
+    @Transactional
     public Company updateCompany(Company company) {
+        final Optional<Client> optionalClient = clientRepository.findById(company.getId());
+        if(!optionalClient.isPresent()){
+            throw new invalidIdException("Invalid id: " + company.getId());
+        }
+        if(!(optionalClient.get() instanceof Company)){
+            throw new NoSuchCompanyException("");
+        }
+        if(company.getId() == 0){
+            throw new invalidIdException("Invalid updating without id");
+        }
         CompanyServiceImpl companyServiceImpl = context.getBean(CompanyServiceImpl.class);
         companyServiceImpl.setClientId(company.getId());
         return companyServiceImpl.update(company);
@@ -167,9 +185,23 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Customer updateCustomer(Customer customer) {
+        final Optional<Client> optionalClient = clientRepository.findById(customer.getId());
+        if(!optionalClient.isPresent()){
+            throw new invalidIdException("Invalid id: " + customer.getId());
+        }
+        if(!(optionalClient.get() instanceof Customer)){
+            throw new NoSuchCustomerException("");
+        }
         CustomerServiceImpl customerServiceImpl = context.getBean(CustomerServiceImpl.class);
         customerServiceImpl.setClientId(customer.getId());
         return customerServiceImpl.update(customer);
+    }
+
+    @Override
+    public Customer getCustomerById(long customerId) {
+        CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
+        service.setClientId(customerId);
+        return service.findById();
     }
 
     @Override

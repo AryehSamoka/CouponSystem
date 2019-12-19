@@ -17,6 +17,8 @@ public interface AdminService {
 
     Company createCompany(Company company);
 
+    Company getCompanyById(long companyId);
+
     Company updateCompany(Company company);
 
     Company deleteCompanyById(long companyId);
@@ -24,6 +26,8 @@ public interface AdminService {
     List<Company> findAllCompanies();
 
     List<Company> findAllCompaniesWithoutCoupons();
+
+    Customer getCustomerById(long customerId);
 
     Customer createCustomer(Customer customer);
 

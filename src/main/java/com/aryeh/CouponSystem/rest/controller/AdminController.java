@@ -31,17 +31,6 @@ public class AdminController {
         return ResponseEntity.ok(service.createAdmin(admin));
     }
 
-    @DeleteMapping("/{token}")
-    public ResponseEntity<Admin> deleteAdminByToken(@PathVariable String token) {
-        AdminServiceImpl service = getService(token);
-        service.deleteById();
-        synchronized (tokensMap) {
-            tokensMap.remove(token);
-        }
-
-        return ResponseEntity.ok(Admin.empty());
-    }
-
     @GetMapping("/{token}")
     public ResponseEntity<Admin> findAdmin(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
@@ -54,10 +43,27 @@ public class AdminController {
         return ResponseEntity.ok(service.update(admin));
     }
 
+    @DeleteMapping("/{token}")
+    public ResponseEntity<Admin> deleteAdminByToken(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+        service.deleteById();
+        synchronized (tokensMap) {
+            tokensMap.remove(token);
+        }
+
+        return ResponseEntity.ok(Admin.empty());
+    }
+
     @PostMapping("/{token}/company")
     public ResponseEntity<Company> saveCompany(@PathVariable String token, @RequestBody Company company) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.createCompany(company));
+    }
+
+    @GetMapping("/{token}/{companyId}/company")
+    public ResponseEntity<Company> getCompany(@PathVariable String token,  @PathVariable long companyId) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.getCompanyById(companyId));
     }
 
     @PutMapping("/{token}/company")
@@ -85,6 +91,12 @@ public class AdminController {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
+    }
+
+    @GetMapping("/{token}/{customerId}/customer")
+    public ResponseEntity<Customer> getCustomer(@PathVariable String token,  @PathVariable long customerId) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.getCustomerById(customerId));
     }
 
     @PostMapping("/{token}/customer")
@@ -141,6 +153,12 @@ public class AdminController {
         return ResponseEntity.ok(service.findPairsEmailsOfCompsCustomersOrderedByCategory());
     }
 
+    /**will count pairs of companies and customers with same category and order them descendingly
+     * by this count.
+     *
+     * @param token
+     * @return
+     */
     @GetMapping("/{token}/count_pairs_by_category")
     public ResponseEntity<List<Integer[]>> CountPairsByCategory(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
