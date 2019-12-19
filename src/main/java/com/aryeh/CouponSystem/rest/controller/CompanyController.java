@@ -27,6 +27,36 @@ public class CompanyController {
         this.tokensMap = tokensMap;
     }
 
+    @GetMapping("/{token}")
+    public ResponseEntity<Company> getCompanyByToken(@PathVariable String token) {
+        CompanyServiceImpl service = getService(token);
+        Company company = service.findById();
+        return ResponseEntity.ok(company);
+    }
+
+    @PutMapping("/{token}")
+    public ResponseEntity<Company> updateCompany(@PathVariable String token, @RequestBody Company company) {
+        CompanyServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.update(company));
+    }
+
+    @GetMapping("/{token}/coupons")
+    ResponseEntity<List<Coupon>> findCompanyCoupons(@PathVariable String token) {
+        CompanyServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.findCompanyCoupons());
+    }
+
+    @DeleteMapping("/{token}")
+    public ResponseEntity<Company> deleteCompanyByToken(@PathVariable String token) {
+        CompanyServiceImpl service = getService(token);
+        service.deleteById();
+        synchronized (tokensMap) {
+            tokensMap.remove(token);
+        }
+
+        return ResponseEntity.ok(Company.empty());
+    }
+
     @PostMapping("/{token}/coupon")
     public ResponseEntity<Coupon> addCoupon(@PathVariable String token, @RequestBody Coupon coupon) {
         CompanyServiceImpl service = getService(token);
@@ -45,13 +75,6 @@ public class CompanyController {
         return ResponseEntity.ok(service.updateCoupon(coupon));
     }
 
-    @PutMapping("/{token}/{couponId}/coupon")
-    public ResponseEntity<Coupon> updateCoupon(@PathVariable String token, @PathVariable long couponId,@RequestBody Coupon coupon) {
-        CompanyServiceImpl service = getService(token);
-        coupon.setId(couponId);
-        return ResponseEntity.ok(service.updateCoupon(coupon));
-    }
-
     @DeleteMapping("/{token}/{couponId}/coupon")
     public ResponseEntity<Coupon> deleteCouponById(@PathVariable String token, @PathVariable long couponId) {
         CompanyServiceImpl service = getService(token);
@@ -60,50 +83,20 @@ public class CompanyController {
         return ResponseEntity.ok(Coupon.empty());
     }
 
-    @GetMapping("/{token}")
-    public ResponseEntity<Company> getCompanyByToken(@PathVariable String token) {
-        CompanyServiceImpl service = getService(token);
-        Company company = service.findById();
-        return ResponseEntity.ok(company);
-    }
-
-    @DeleteMapping("/{token}")
-    public ResponseEntity<Company> deleteCompanyByToken(@PathVariable String token) {
-        CompanyServiceImpl service = getService(token);
-        service.deleteById();
-        synchronized (tokensMap) {
-            tokensMap.remove(token);
-        }
-
-        return ResponseEntity.ok(Company.empty());
-    }
-
-    @PutMapping("/{token}")
-    public ResponseEntity<Company> updateCompany(@PathVariable String token, @RequestBody Company company) {
-        CompanyServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.update(company));
-    }
-
-    @GetMapping("/{token}/coupons")
-    ResponseEntity<List<Coupon>> findCompanyCoupons(@PathVariable String token) {
-        CompanyServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.findCompanyCoupons());
-    }
-
-    @GetMapping("/{token}/coupons/{category}")
+    @GetMapping("/{token}/coupons/{category}/category")
     ResponseEntity<List<Coupon>> findCompanyCouponsByCategory(@PathVariable String token, @PathVariable int category) {
         CompanyServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findCompanyCouponsByCategory(category));
     }
 
-    @GetMapping("/{token}/coupons/price/{price}")
+    @GetMapping("/{token}/coupons/{price}/price")
     ResponseEntity<List<Coupon>> findCompanyCouponsLessThan(@PathVariable String token, @PathVariable double price) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCompanyCouponsLessThan(price));
     }
 
-    @GetMapping("/{token}/coupons/date/{date}")
+    @GetMapping("/{token}/coupons/{date}/end_date")
     ResponseEntity<List<Coupon>> findCompanyCouponsBeforeDate(@PathVariable String token, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCompanyCouponsBeforeDate(date));
