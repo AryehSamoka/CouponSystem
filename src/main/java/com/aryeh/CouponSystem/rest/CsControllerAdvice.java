@@ -75,9 +75,9 @@ public class CsControllerAdvice {
     }
 
     @ExceptionHandler(invalidIdException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public CsErrorResponse handleInvalidUpdate(invalidIdException ex) {
-        return CsErrorResponse.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 }

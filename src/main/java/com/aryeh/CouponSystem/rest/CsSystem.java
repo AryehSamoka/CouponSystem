@@ -47,7 +47,7 @@ public class CsSystem {
         new Thread(new CouponCleanerTask(customerService, couponRepository)).start();
     }
 
-    public String[] login(String userName, String password) throws InvalidLoginException {
+    public String[] login(String userName, String password){
 
         Client client = getClient(userName, password);
 

@@ -27,7 +27,8 @@ public class Customer extends Client{
     @JoinTable(
             name = "customer_coupon",
             joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+            inverseJoinColumns = @JoinColumn(name = "coupon_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})})
     private List<Coupon> coupons;
 
     public Customer() {

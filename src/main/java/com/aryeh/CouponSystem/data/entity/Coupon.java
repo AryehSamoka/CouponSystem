@@ -38,7 +38,8 @@ public class Coupon {
     @JoinTable(
             name = "customer_coupon",
             joinColumns = @JoinColumn(name = "coupon_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id"))
+            inverseJoinColumns = @JoinColumn(name = "customer_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})})
     private List<Customer> customers;
 
     public Coupon() {
