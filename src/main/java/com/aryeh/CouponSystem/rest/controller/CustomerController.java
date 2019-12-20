@@ -1,11 +1,14 @@
 package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AbsService;
+import com.aryeh.CouponSystem.Service.AdminServiceImpl;
 import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
 import com.aryeh.CouponSystem.Service.CustomerServiceImpl;
+import com.aryeh.CouponSystem.data.entity.ClientType;
 import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
+import com.aryeh.CouponSystem.rest.ex.InvalidAccessException;
 import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -87,17 +90,14 @@ public class CustomerController {
     private CustomerServiceImpl getService(String token) {
         ClientSession clientSession = tokensMap.get(token);
         if (null == clientSession) {
-            throw new InvalidLoginException("You aren't authorized");
+            throw new InvalidAccessException(String.format("your token: %s is illegal!", token));
+        }else if(clientSession.getClientType() != ClientType.CUSTOMER){
+            throw new InvalidAccessException(String.format("You aren't authorized as %s but as %s!",
+                    ClientType.CUSTOMER, clientSession.getClientType()));
         }else {
             clientSession.accessed();
         }
 
-        AbsService absService = clientSession.getService();
-
-        if (!(absService instanceof CustomerServiceImpl)) {
-            throw new InvalidLoginException("You aren't authorized");
-        }
-        CustomerServiceImpl service = (CustomerServiceImpl)absService;
-        return service;
+        return (CustomerServiceImpl)clientSession.getService();
     }
 }

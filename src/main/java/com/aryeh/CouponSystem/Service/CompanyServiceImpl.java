@@ -79,8 +79,9 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Override
     @Transactional
     public Coupon updateCoupon(Coupon coupon) {
-        Company company = checkCouponExistenceInDB(coupon.getId()).getCompany();
-        checkCompanyOfCoupon(company);
+        long couponId = coupon.getId();
+        Company company = checkCouponExistenceInDB(couponId).getCompany();
+        checkCompanyOfCoupon(company, couponId);
         coupon.setCompany(company);
         return couponRepository.save(coupon);
     }
@@ -89,7 +90,7 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     @Transactional
     public void deleteCoupon(long couponId) {
         Company company = checkCouponExistenceInDB(couponId).getCompany();
-        checkCompanyOfCoupon(company);
+        checkCompanyOfCoupon(company, couponId);
         couponRepository.deleteById(couponId);
     }
 
@@ -162,14 +163,14 @@ public class CompanyServiceImpl extends AbsService implements CompanyService {
     private Coupon checkCouponExistenceInDB(long couponId) {
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
         if (!optionalCoupon.isPresent()) {
-            throw new NoSuchCouponException("");
+            throw new NoSuchCouponException(String.format("The coupon  with id: %s isn't found!", couponId));
         }
         return optionalCoupon.get();
     }
 
-    private void checkCompanyOfCoupon(Company company) {
+    private void checkCompanyOfCoupon(Company company, long couponId) {
         if (!(company != null && company.getId() == clientId)) {
-            throw new InvalidCouponAccessException("");
+            throw new InvalidCouponAccessException(String.format("The coupon with id: %s isn't yours.", couponId));
         }
     }
 }

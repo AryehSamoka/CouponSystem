@@ -24,6 +24,13 @@ public class CsControllerAdvice {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidAccessException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public CsErrorResponse handleInvalidAccess(InvalidAccessException ex) {
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -57,7 +64,7 @@ public class CsControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public CsErrorResponse handleCouponNonExists(NoSuchCouponException ex) {
-        return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The coupon isn't found!");
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(ZeroCouponAmountException.class)
@@ -71,7 +78,7 @@ public class CsControllerAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public CsErrorResponse handleRootAdminAccess(InvalidCouponAccessException ex) {
-        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "This coupon isn't yours.");
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(invalidIdException.class)
