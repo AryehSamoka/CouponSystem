@@ -10,7 +10,7 @@ import java.util.List;
 public class CouponCleanerTask implements Runnable {
 
     private boolean run = true;
-    private boolean stop = false;
+    private boolean stopped = false;
     private static final long DAY_IN_MILLIS = 60 * 60 * 24 * 1000;
     private CustomerService customerService;
     private CouponRepository couponRepository;
@@ -39,13 +39,13 @@ public class CouponCleanerTask implements Runnable {
                 e.printStackTrace();
             }
         }
-        stop = true ;
+        stopped = true ;
     }
 
     public void stop(Thread t) {
         t.interrupt();
         run = false;
-        while(!stop);
+        while(!stopped);
     }
 }
 

@@ -51,13 +51,13 @@ public class CsSystem {
     }
 
     @PostConstruct
-    public void init() {
+    public void onConstruct() {
         clientSessionCleanerTaskThread.start();
         couponCleanerTaskThread.start();
     }
 
     @PreDestroy
-    public void preDestroy(){
+    public void onDestroy(){
         clientSessionCleanerTask.stop(clientSessionCleanerTaskThread);
         couponCleanerTask.stop(couponCleanerTaskThread);
     }
