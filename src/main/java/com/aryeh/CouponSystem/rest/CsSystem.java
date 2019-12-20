@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
@@ -29,22 +30,36 @@ public class CsSystem {
     private Map<String, ClientSession> tokensMap;
     private CouponRepository couponRepository;
     private CustomerService customerService;
+    private ClientSessionCleanerTask clientSessionCleanerTask;
+    private CouponCleanerTask couponCleanerTask;
+    private Thread clientSessionCleanerTaskThread;
+    private Thread couponCleanerTaskThread;
 
     @Autowired
-    public CsSystem(ApplicationContext context, clientService clientService, Environment env, @Qualifier("tokens") Map<String,
-            ClientSession> tokensMap, CouponRepository couponRepository, CustomerService customerService) {
+    public CsSystem(ApplicationContext context, clientService clientService, Environment env,
+                    @Qualifier("tokens") Map<String, ClientSession> tokensMap, CouponRepository couponRepository, CustomerService customerService) {
         this.context = context;
         this.clientService = clientService;
         this.env = env;
         this.tokensMap = tokensMap;
         this.couponRepository = couponRepository;
         this.customerService = customerService;
+        clientSessionCleanerTask = new ClientSessionCleanerTask(tokensMap);
+        clientSessionCleanerTaskThread = new Thread(clientSessionCleanerTask);
+        couponCleanerTask = new CouponCleanerTask(customerService, couponRepository);
+        this.couponCleanerTaskThread = new Thread(couponCleanerTask);
     }
 
     @PostConstruct
     public void init() {
-        new Thread(new ClientSessionCleanerTask(tokensMap)).start();
-        new Thread(new CouponCleanerTask(customerService, couponRepository)).start();
+        clientSessionCleanerTaskThread.start();
+        couponCleanerTaskThread.start();
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        clientSessionCleanerTask.stop(clientSessionCleanerTaskThread);
+        couponCleanerTask.stop(couponCleanerTaskThread);
     }
 
     public String[] login(String userName, String password){
