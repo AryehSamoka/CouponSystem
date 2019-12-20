@@ -139,9 +139,6 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if(!(optionalClient.get() instanceof Company)){
             throw new NoSuchCompanyException("");
         }
-        if(company.getId() == 0){
-            throw new invalidIdException("Invalid updating without id");
-        }
         CompanyServiceImpl companyServiceImpl = context.getBean(CompanyServiceImpl.class);
         companyServiceImpl.setClientId(company.getId());
         return companyServiceImpl.update(company);
