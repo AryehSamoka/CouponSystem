@@ -43,21 +43,21 @@ public class CsControllerAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public CsErrorResponse handleRootAdminAccess(InvalidRootAdminAccessException ex) {
-        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, "You aren't authorized to change root administrator.");
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(NoSuchCompanyException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public CsErrorResponse handleCompanyNonExists(NoSuchCompanyException ex) {
-        return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The company isn't found!");
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(NoSuchCustomerException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public CsErrorResponse handleCustomerNonExists(NoSuchCustomerException ex) {
-        return CsErrorResponse.of(HttpStatus.NOT_FOUND, "The customer isn't found!");
+        return CsErrorResponse.of(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(NoSuchCouponException.class)
@@ -71,7 +71,7 @@ public class CsControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
     public CsErrorResponse handleCouponNonExists(ZeroCouponAmountException ex) {
-        return CsErrorResponse.of(HttpStatus.NOT_ACCEPTABLE, "Their aren't any coupons left for you we're sorry!");
+        return CsErrorResponse.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
     }
 
     @ExceptionHandler(InvalidCouponAccessException.class)

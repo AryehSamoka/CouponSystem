@@ -62,15 +62,8 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Transactional
     public Admin createAdmin(Admin admin) {
         if (admin != null) {
-            /*It isn't possible to change the root administrator from here.*/
-            if (admin.getId() != rootId) {
-
-                admin.setId(0);
-                Admin adminNew = adminRepository.save(admin);
-                return adminNew;
-            } else {
-                throw new InvalidRootAdminAccessException("");
-            }
+            admin.setId(0);
+            return adminRepository.save(admin);
         }
         return Admin.empty();
     }
@@ -88,7 +81,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         if (clientId != rootId) {
             adminRepository.deleteById(clientId);
         } else {
-            throw new InvalidRootAdminAccessException("");
+            throw new InvalidRootAdminAccessException("You aren't authorized to delete root administrator.");
         }
     }
 
@@ -132,13 +125,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Company updateCompany(Company company) {
-        final Optional<Client> optionalClient = clientRepository.findById(company.getId());
-        if(!optionalClient.isPresent()){
-            throw new invalidIdException("Invalid id: " + company.getId());
-        }
-        if(!(optionalClient.get() instanceof Company)){
-            throw new NoSuchCompanyException("");
-        }
+        checkCompany(company.getId());
         CompanyServiceImpl companyServiceImpl = context.getBean(CompanyServiceImpl.class);
         companyServiceImpl.setClientId(company.getId());
         return companyServiceImpl.update(company);
@@ -182,13 +169,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public Customer updateCustomer(Customer customer) {
-        final Optional<Client> optionalClient = clientRepository.findById(customer.getId());
-        if(!optionalClient.isPresent()){
-            throw new invalidIdException("Invalid id: " + customer.getId());
-        }
-        if(!(optionalClient.get() instanceof Customer)){
-            throw new NoSuchCustomerException("");
-        }
+        checkCustomer(customer.getId());
         CustomerServiceImpl customerServiceImpl = context.getBean(CustomerServiceImpl.class);
         customerServiceImpl.setClientId(customer.getId());
         return customerServiceImpl.update(customer);
@@ -285,22 +266,21 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             admin.checkPassword(findById());
             return adminRepository.save(admin);
         } else {
-            throw new InvalidRootAdminAccessException("");
+            throw new InvalidRootAdminAccessException("You aren't authorized to update root administrator.");
         }
     }
 
     private void checkCustomer(long customerId) {
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
         if (!optionalCustomer.isPresent()) {
-            throw new NoSuchCustomerException("");
+            throw new NoSuchCustomerException(String.format("The given id: %s doesn't exist or isn't a customer!",customerId));
         }
     }
 
     private void checkCompany(long companyId) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (!optionalCompany.isPresent()) {
-
-            throw new NoSuchCompanyException("");
+            throw new NoSuchCompanyException(String.format("The given id: %s doesn't exist or isn't a company!",companyId));
         }
     }
 

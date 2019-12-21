@@ -1,6 +1,5 @@
 package com.aryeh.CouponSystem.rest.controller;
 
-import com.aryeh.CouponSystem.Service.AbsService;
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
 import com.aryeh.CouponSystem.data.entity.Admin;
 import com.aryeh.CouponSystem.data.entity.ClientType;
@@ -8,7 +7,6 @@ import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.InvalidAccessException;
-import com.aryeh.CouponSystem.rest.ex.InvalidLoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
