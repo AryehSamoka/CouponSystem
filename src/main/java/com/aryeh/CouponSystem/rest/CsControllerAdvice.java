@@ -80,11 +80,4 @@ public class CsControllerAdvice {
     public CsErrorResponse handleRootAdminAccess(InvalidCouponAccessException ex) {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
-
-    @ExceptionHandler(invalidIdException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    public CsErrorResponse handleInvalidUpdate(invalidIdException ex) {
-        return CsErrorResponse.of(HttpStatus.NOT_FOUND, ex.getMessage());
-    }
 }
