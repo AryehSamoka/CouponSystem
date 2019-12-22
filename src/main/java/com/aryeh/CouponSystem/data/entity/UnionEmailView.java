@@ -18,7 +18,7 @@ import java.io.Serializable;
 )
 @org.hibernate.annotations.Synchronize({"Client", "Company"})
 @Table(name = "union_email_view")
-public class UnionEmailsView implements Serializable {
+public class UnionEmailView implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "my_view_id")

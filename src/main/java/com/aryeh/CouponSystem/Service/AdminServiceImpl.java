@@ -29,13 +29,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private AdminRepository adminRepository;
     private Environment env;
     private ApplicationContext context;
-    private UnionEmailsViewRepository unionEmailsViewRepository;
+    private UnionEmailViewRepository unionEmailViewRepository;
 
 
     @Autowired
     public AdminServiceImpl(ClientRepository clientRepository, CompanyRepository companyRepository, CouponRepository couponRepository,
                             CustomerRepository customerRepository, AdminRepository adminRepository,
-                            Environment env, ApplicationContext context, UnionEmailsViewRepository unionEmailsViewRepository) {
+                            Environment env, ApplicationContext context, UnionEmailViewRepository unionEmailViewRepository) {
         this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
         this.couponRepository = couponRepository;
@@ -43,7 +43,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         this.adminRepository = adminRepository;
         this.env = env;
         this.context = context;
-        this.unionEmailsViewRepository = unionEmailsViewRepository;
+        this.unionEmailViewRepository = unionEmailViewRepository;
     }
 
     @PostConstruct
@@ -211,8 +211,8 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public List<UnionEmailsView> getEmailsCompsAndCustoms() {
-        return unionEmailsViewRepository.findAll();
+    public List<String> getEmailsCompsAndCustoms() {
+        return unionEmailViewRepository.findAllEmails();
     }
 
     public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory(){

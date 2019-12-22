@@ -170,7 +170,7 @@ public class AdminController implements ApplicationContextAware {
     }
 
     @GetMapping("/{token}/all_emails_comps_customs")
-    public ResponseEntity<List<UnionEmailsView>> getEmailsCompsAndCustoms(@PathVariable String token) {
+    public ResponseEntity<List<String>> getEmailsCompsAndCustoms(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.getEmailsCompsAndCustoms());
