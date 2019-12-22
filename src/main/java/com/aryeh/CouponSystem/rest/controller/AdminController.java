@@ -1,10 +1,7 @@
 package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
-import com.aryeh.CouponSystem.data.entity.Admin;
-import com.aryeh.CouponSystem.data.entity.ClientType;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Customer;
+import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.InvalidAccessException;
 import org.springframework.beans.BeansException;
@@ -173,7 +170,7 @@ public class AdminController implements ApplicationContextAware {
     }
 
     @GetMapping("/{token}/all_emails_comps_customs")
-    public ResponseEntity<List<String>> getEmailsCompsAndCustoms(@PathVariable String token) {
+    public ResponseEntity<List<UnionEmailsView>> getEmailsCompsAndCustoms(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.getEmailsCompsAndCustoms());

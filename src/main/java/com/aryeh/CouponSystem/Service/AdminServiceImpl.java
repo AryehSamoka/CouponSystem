@@ -1,16 +1,12 @@
 package com.aryeh.CouponSystem.Service;
 
-import com.aryeh.CouponSystem.data.entity.Admin;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Coupon;
-import com.aryeh.CouponSystem.data.entity.Customer;
+import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +29,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private AdminRepository adminRepository;
     private Environment env;
     private ApplicationContext context;
+    private UnionEmailsViewRepository unionEmailsViewRepository;
 
 
     @Autowired
     public AdminServiceImpl(ClientRepository clientRepository, CompanyRepository companyRepository, CouponRepository couponRepository,
                             CustomerRepository customerRepository, AdminRepository adminRepository,
-                            Environment env, ApplicationContext context) {
+                            Environment env, ApplicationContext context, UnionEmailsViewRepository unionEmailsViewRepository) {
         this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
         this.couponRepository = couponRepository;
@@ -46,6 +43,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         this.adminRepository = adminRepository;
         this.env = env;
         this.context = context;
+        this.unionEmailsViewRepository = unionEmailsViewRepository;
     }
 
     @PostConstruct
@@ -213,11 +211,8 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public List<String> getEmailsCompsAndCustoms() {
-        List<String> allEmails = new ArrayList<>();
-        allEmails.addAll(companyRepository.findAllEmails());
-        allEmails.addAll(customerRepository.findAllEmails());
-        return allEmails;
+    public List<UnionEmailsView> getEmailsCompsAndCustoms() {
+        return unionEmailsViewRepository.findAll();
     }
 
     public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory(){

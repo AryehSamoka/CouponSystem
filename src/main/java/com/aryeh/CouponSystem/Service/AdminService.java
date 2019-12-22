@@ -3,6 +3,7 @@ package com.aryeh.CouponSystem.Service;
 import com.aryeh.CouponSystem.data.entity.Admin;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
+import com.aryeh.CouponSystem.data.entity.UnionEmailsView;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface AdminService {
 
     List<Integer> findAllCategories();
 
-    List<String> getEmailsCompsAndCustoms();
+    List<UnionEmailsView> getEmailsCompsAndCustoms();
 
     List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory();
 
