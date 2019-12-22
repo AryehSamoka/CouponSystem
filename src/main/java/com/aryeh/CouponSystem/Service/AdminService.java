@@ -3,6 +3,7 @@ package com.aryeh.CouponSystem.Service;
 import com.aryeh.CouponSystem.data.entity.Admin;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 
@@ -48,4 +49,6 @@ public interface AdminService {
     List<Integer[]> CountPairsByCategory();
 
     void InsertRandomValuesToDB();
+
+    void checkRootAdmin();
 }

@@ -36,7 +36,6 @@ public class CouponCleanerTask implements Runnable {
                 Thread.sleep(DAY_IN_MILLIS);
             } catch (InterruptedException e) {
                 System.out.println("Coupon cleaner interrupted");
-                e.printStackTrace();
             }
         }
         stopped = true ;

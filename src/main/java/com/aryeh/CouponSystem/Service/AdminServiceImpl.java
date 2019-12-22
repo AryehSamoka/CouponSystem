@@ -10,6 +10,7 @@ import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -249,7 +250,12 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             insertCustomerCoupon(couponIds, newCustomer.getId());
         }
     }
-
+    @Override
+    public void checkRootAdmin(){
+        if(rootId != clientId){
+            throw new InvalidRootAdminAccessException("Only root admin is authorized to close application");
+        }
+    }
 
     private void insertRootAdmin() {
         Admin rootAdmin = new Admin(env.getProperty("adminRoot.username"), env.getProperty("adminRoot.password"));

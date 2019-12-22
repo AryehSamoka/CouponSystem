@@ -7,18 +7,28 @@ import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.InvalidAccessException;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PreDestroy;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
-public class AdminController {
+public class AdminController implements ApplicationContextAware {
+    private static final Map<String, String> SHUTDOWN_MESSAGE = Collections
+            .unmodifiableMap(Collections.singletonMap("message", "Shutting down, bye..."));
+    private static final long HALF_SECOND_MILLIS = 500;
     private Map<String, ClientSession> tokensMap;
+    private ConfigurableApplicationContext context;
 
     @Autowired
     public AdminController(@Qualifier("tokens") Map<String, ClientSession> tokensMap) {
@@ -52,6 +62,29 @@ public class AdminController {
         }
 
         return ResponseEntity.ok(Admin.empty());
+    }
+
+    @PostMapping("/{token}/close_application")
+    public ResponseEntity<Map<String, String>> closeApplication(@PathVariable String token) {
+        final AdminServiceImpl service = getService(token);
+        service.checkRootAdmin();
+        try {
+            return ResponseEntity.ok(SHUTDOWN_MESSAGE);
+        }finally {
+            Thread thread = new Thread(this::performShutdown);
+            thread.setContextClassLoader(getClass().getClassLoader());
+            thread.start();
+        }
+    }
+
+    private void performShutdown() {
+        try {
+            Thread.sleep(HALF_SECOND_MILLIS);
+        }
+        catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        this.context.close();
     }
 
     @PostMapping("/{token}/company")
@@ -171,6 +204,13 @@ public class AdminController {
         AdminServiceImpl service = getService(token);
         service.InsertRandomValuesToDB();
         return ResponseEntity.ok("succeeded");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        if (context instanceof ConfigurableApplicationContext) {
+            this.context = (ConfigurableApplicationContext) context;
+        }
     }
 
     private AdminServiceImpl getService(String token) {

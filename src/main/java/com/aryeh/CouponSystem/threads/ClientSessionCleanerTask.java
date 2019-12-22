@@ -23,7 +23,6 @@ public class ClientSessionCleanerTask implements Runnable {
                 Thread.sleep(TEN_SECONDS_IN_MILLIS);
             } catch (InterruptedException e) {
                 System.out.println("Client session cleaner interrupted");
-                e.printStackTrace();
             }
 
             iterateOverTokensMap();
