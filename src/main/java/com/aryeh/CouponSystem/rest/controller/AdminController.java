@@ -196,6 +196,13 @@ public class AdminController implements ApplicationContextAware {
         return ResponseEntity.ok(service.CountPairsByCategory());
     }
 
+    @GetMapping("/{token}/{email}/password_by_email")
+    public ResponseEntity<String> findPasswordByEmail(@PathVariable String token, @PathVariable String email) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findPasswordByEmail(email));
+    }
+
     @PostMapping("/{token}/insert_random_values_to_DB")
     public ResponseEntity<String> InsertRandomValuesToDB(@PathVariable String token) {
         AdminServiceImpl service = getService(token);

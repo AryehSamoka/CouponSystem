@@ -5,6 +5,7 @@ import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCustomerException;
+import com.aryeh.CouponSystem.rest.ex.invalidEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -29,13 +30,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private AdminRepository adminRepository;
     private Environment env;
     private ApplicationContext context;
-    private UnionEmailViewRepository unionEmailViewRepository;
+    private UnionClientViewRepository unionClientViewRepository;
 
 
     @Autowired
     public AdminServiceImpl(ClientRepository clientRepository, CompanyRepository companyRepository, CouponRepository couponRepository,
                             CustomerRepository customerRepository, AdminRepository adminRepository,
-                            Environment env, ApplicationContext context, UnionEmailViewRepository unionEmailViewRepository) {
+                            Environment env, ApplicationContext context, UnionClientViewRepository unionClientViewRepository) {
         this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
         this.couponRepository = couponRepository;
@@ -43,7 +44,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         this.adminRepository = adminRepository;
         this.env = env;
         this.context = context;
-        this.unionEmailViewRepository = unionEmailViewRepository;
+        this.unionClientViewRepository = unionClientViewRepository;
     }
 
     @PostConstruct
@@ -212,7 +213,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     @Override
     @Transactional
     public List<String> getEmailsCompsAndCustoms() {
-        return unionEmailViewRepository.findAllEmails();
+        return unionClientViewRepository.findAllEmails();
     }
 
     public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory(){
@@ -245,6 +246,17 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             insertCustomerCoupon(couponIds, newCustomer.getId());
         }
     }
+
+    @Override
+    @Transactional
+    public String findPasswordByEmail(String email){
+        final Optional<String> optionalPassword = unionClientViewRepository.findPasswordByEmail(email);
+        if(!optionalPassword.isPresent()){
+            throw new invalidEmailException(String.format("The given email: %s isn't a companies or customer's", email));
+        }
+        return optionalPassword.get();
+    }
+
     @Override
     public void checkRootAdmin(){
         if(rootId != clientId){

@@ -80,4 +80,11 @@ public class CsControllerAdvice {
     public CsErrorResponse handleRootAdminAccess(InvalidCouponAccessException ex) {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
+
+    @ExceptionHandler(invalidEmailException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public CsErrorResponse handleInvalidEmail(invalidEmailException ex) {
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
 }

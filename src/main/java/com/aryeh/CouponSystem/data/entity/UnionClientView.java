@@ -13,12 +13,12 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Subselect(value = "SELECT c.id as my_view_id , c.email from client c inner join company on c.id=company.id union " +
-        "SELECT d.id as my_view_id , d.email from client d inner join customer on d.id=customer.id"
+@Subselect(value = "SELECT cl1.id as my_view_id, cl1.email, cl1.password from client cl1 inner join company co on cl1.id=co.id union " +
+        "SELECT cl2.id as my_view_id , cl2.email, cl2.password from client cl2 inner join customer cu on cl2.id=cu.id"
 )
 @org.hibernate.annotations.Synchronize({"Client", "Company"})
-@Table(name = "union_email_view")
-public class UnionEmailView implements Serializable {
+@Table(name = "union_client_view")
+public class UnionClientView implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "my_view_id")
@@ -26,6 +26,9 @@ public class UnionEmailView implements Serializable {
     @NotNull
     @Column(name = "email")
     private String email;
+    @NotNull
+    @Column(name = "password")
+    private String password;
 
     @JsonIgnore
     public Long getMyViewId() {
@@ -42,5 +45,13 @@ public class UnionEmailView implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

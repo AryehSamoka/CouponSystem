@@ -50,4 +50,6 @@ public interface AdminService {
     void InsertRandomValuesToDB();
 
     void checkRootAdmin();
+
+    String findPasswordByEmail(String email);
 }
