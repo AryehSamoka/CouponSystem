@@ -6,9 +6,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.context.ApplicationContext;
 
-import javax.persistence.*;
-
-import static com.aryeh.CouponSystem.data.entity.ClientType.ADMIN;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "admin")

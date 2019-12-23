@@ -1,10 +1,10 @@
 package com.aryeh.CouponSystem.rest;
 
 import com.aryeh.CouponSystem.data.entity.CsErrorResponse;
-import com.aryeh.CouponSystem.rest.controller.LoginController;
 import com.aryeh.CouponSystem.rest.controller.AdminController;
 import com.aryeh.CouponSystem.rest.controller.CompanyController;
 import com.aryeh.CouponSystem.rest.controller.CustomerController;
+import com.aryeh.CouponSystem.rest.controller.LoginController;
 import com.aryeh.CouponSystem.rest.ex.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

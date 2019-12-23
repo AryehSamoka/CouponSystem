@@ -2,7 +2,6 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Coupon;
-import com.aryeh.CouponSystem.data.entity.Customer;
 
 import java.time.LocalDate;
 import java.util.List;

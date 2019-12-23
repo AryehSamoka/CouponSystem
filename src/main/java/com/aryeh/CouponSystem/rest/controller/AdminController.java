@@ -1,7 +1,10 @@
 package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
-import com.aryeh.CouponSystem.data.entity.*;
+import com.aryeh.CouponSystem.data.entity.Admin;
+import com.aryeh.CouponSystem.data.entity.ClientType;
+import com.aryeh.CouponSystem.data.entity.Company;
+import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.InvalidAccessException;
 import org.springframework.beans.BeansException;
@@ -13,7 +16,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PreDestroy;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

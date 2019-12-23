@@ -1,6 +1,9 @@
 package com.aryeh.CouponSystem.Service;
 
-import com.aryeh.CouponSystem.data.entity.*;
+import com.aryeh.CouponSystem.data.entity.Admin;
+import com.aryeh.CouponSystem.data.entity.Company;
+import com.aryeh.CouponSystem.data.entity.Coupon;
+import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.data.repository.*;
 import com.aryeh.CouponSystem.rest.ex.InvalidRootAdminAccessException;
 import com.aryeh.CouponSystem.rest.ex.NoSuchCompanyException;
