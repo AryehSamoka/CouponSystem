@@ -12,8 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
@@ -27,10 +27,10 @@ public class Company extends Client {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private Set<Coupon> coupons;
+    private List<Coupon> coupons;
 
     public Company() {
-        coupons = new HashSet<>();
+        coupons = new ArrayList<>();
     }
 
     public Company(String name, String email, String password) {
@@ -82,11 +82,11 @@ public class Company extends Client {
         this.email = email;
     }
 
-    public Set<Coupon> getCoupons() {
+    public List<Coupon> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(Set<Coupon> jsonCoupons) {
+    public void setCoupons(List<Coupon> jsonCoupons) {
         coupons = jsonCoupons;
 
         for (Coupon coupon : coupons) {

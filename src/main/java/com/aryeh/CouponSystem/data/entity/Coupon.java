@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
@@ -42,10 +42,10 @@ public class Coupon {
             inverseJoinColumns = @JoinColumn(name = "customer_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})}
             )
-    private Set<Customer> customers;
+    private List<Customer> customers;
 
     public Coupon() {
-        customers = new HashSet<>();
+        customers = new ArrayList<>();
     }
 
     public Coupon(Company company, String title, LocalDate startDate, LocalDate endDate, int category, int amount,
@@ -150,11 +150,11 @@ public class Coupon {
         this.imageURL = imageURL;
     }
 
-    public Set<Customer> getCustomers() {
+    public List<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(Set<Customer> customers) {
+    public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
 

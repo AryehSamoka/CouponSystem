@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -29,10 +29,10 @@ public class Customer extends Client{
             inverseJoinColumns = @JoinColumn(name = "coupon_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames={"customer_id", "coupon_id"})}
             )
-    private Set<Coupon> coupons;
+    private List<Coupon> coupons;
 
     public Customer() {
-        coupons = new HashSet<>();
+        coupons = new ArrayList<>();
     }
 
     public Customer(String firstName, String lastName, String email, String password) {
@@ -94,11 +94,11 @@ public class Customer extends Client{
         this.password = password;
     }
 
-    public Set<Coupon> getCoupons() {
+    public List<Coupon> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(Set<Coupon> coupons) {
+    public void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
     }
 

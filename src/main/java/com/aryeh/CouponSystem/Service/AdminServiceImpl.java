@@ -108,7 +108,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
             company.setId(0);
             /*A company can be created with his own coupons but can't update coupons of other companies.*/
-            Set<Coupon> coupons = company.getCoupons();
+            List<Coupon> coupons = company.getCoupons();
             for (Coupon coupon : coupons) {
                 coupon.setId(0);
             }
@@ -163,7 +163,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             customer.setId(0);
 
             /*A customer can't be created with coupons.*/
-            customer.setCoupons(Collections.emptySet());
+            customer.setCoupons(Collections.emptyList());
 
             Customer customerNew = customerRepository.save(customer);
             return customerNew;
