@@ -39,12 +39,6 @@ public class CompanyController {
         return ResponseEntity.ok(service.update(company));
     }
 
-    @GetMapping("/{token}/coupons")
-    ResponseEntity<List<Coupon>> findCompanyCoupons(@PathVariable String token) {
-        CompanyServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.findCompanyCoupons());
-    }
-
     @DeleteMapping("/{token}")
     public ResponseEntity<Company> deleteCompanyByToken(@PathVariable String token) {
         CompanyServiceImpl service = getService(token);
@@ -80,6 +74,12 @@ public class CompanyController {
         service.deleteCoupon(couponId);
 
         return ResponseEntity.ok(Coupon.empty());
+    }
+
+    @GetMapping("/{token}/coupons")
+    ResponseEntity<List<Coupon>> findCompanyCoupons(@PathVariable String token) {
+        CompanyServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.findCompanyCoupons());
     }
 
     @GetMapping("/{token}/coupons/{category}/category")
