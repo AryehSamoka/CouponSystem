@@ -32,6 +32,6 @@ public class LoginController {
         synchronized (tokensMap) {
             tokensMap.remove(token);
         }
-        return ResponseEntity.ok((HttpStatus.ACCEPTED));
+        return ResponseEntity.accepted().body("You're logged out");
     }
 }
