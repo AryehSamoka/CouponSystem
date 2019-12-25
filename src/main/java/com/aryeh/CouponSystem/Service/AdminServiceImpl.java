@@ -181,6 +181,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    @Transactional
     public Customer getCustomerById(long customerId) {
         CustomerServiceImpl service = context.getBean(CustomerServiceImpl.class);
         service.setClientId(customerId);
