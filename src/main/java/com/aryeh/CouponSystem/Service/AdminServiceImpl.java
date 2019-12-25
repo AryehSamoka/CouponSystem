@@ -26,7 +26,6 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private static final int MIN_COUPONS_AMOUNT = 30;
     private long clientId;
     private long rootId;
-    private ClientRepository clientRepository;
     private final CompanyRepository companyRepository;
     private final CouponRepository couponRepository;
     private final CustomerRepository customerRepository;
@@ -37,10 +36,9 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
 
     @Autowired
-    public AdminServiceImpl(ClientRepository clientRepository, CompanyRepository companyRepository, CouponRepository couponRepository,
+    public AdminServiceImpl(CompanyRepository companyRepository, CouponRepository couponRepository,
                             CustomerRepository customerRepository, AdminRepository adminRepository,
                             Environment env, ApplicationContext context, UnionClientViewRepository unionClientViewRepository) {
-        this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
         this.couponRepository = couponRepository;
         this.customerRepository = customerRepository;
