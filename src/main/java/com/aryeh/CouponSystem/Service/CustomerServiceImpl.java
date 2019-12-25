@@ -66,7 +66,7 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
         Coupon coupon = optionalCoupon.get();
         if (coupon.getAmount() <= 0) {
-            throw new ZeroCouponAmountException(String.format("Their aren't any coupons with id: %s left for you we're sorry!",couponId));
+            throw new ZeroCouponAmountException(String.format("Their aren't any coupons with id: %s, left for you we're sorry!",couponId));
         }
         Customer customer = findById();
         customer.addCoupon(coupon);
