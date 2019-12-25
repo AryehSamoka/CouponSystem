@@ -73,7 +73,7 @@ public class CsSystem {
 
         ClientSession clientSession = setupClientSession(client);
 
-        return clientSessionWithToken(clientSession);
+        return clientSessionIntoMap(clientSession);
     }
 
     private Client getClient(String userName, String password) {
@@ -105,7 +105,7 @@ public class CsSystem {
         return clientSession;
     }
 
-    private String[] clientSessionWithToken(ClientSession clientSession) {
+    private String[] clientSessionIntoMap(ClientSession clientSession) {
         String token = generateToken();
         synchronized (tokensMap) {
             tokensMap.put(token, clientSession);
