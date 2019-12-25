@@ -10,8 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    Optional<Customer> findByEmailAndPassword(String email, String password);
-
     @Query("select cu from Customer cu left join cu.coupons co where co is null ")
     List<Customer> findAllCustomersWithoutCoupons();
 
