@@ -63,7 +63,7 @@ public class AdminController implements ApplicationContextAware {
         return ResponseEntity.ok(Admin.empty());
     }
 
-    @PostMapping("/{token}/close_application_with_root_admin")
+    @PostMapping("/{token}/close_application_by_root_admin")
     public ResponseEntity<Map<String, String>> closeApplicationByRootAdmin(@PathVariable String token) {
         final AdminServiceImpl service = getService(token);
         service.checkRootAdmin();
