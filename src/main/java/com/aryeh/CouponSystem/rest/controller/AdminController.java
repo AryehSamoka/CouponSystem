@@ -6,7 +6,8 @@ import com.aryeh.CouponSystem.data.entity.ClientType;
 import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
 import com.aryeh.CouponSystem.rest.ClientSession;
-import com.aryeh.CouponSystem.rest.ex.InvalidAccessException;
+import com.aryeh.CouponSystem.rest.ex.IllegalTokenException;
+import com.aryeh.CouponSystem.rest.ex.InvalidTokenException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -222,9 +223,9 @@ public class AdminController implements ApplicationContextAware {
     private AdminServiceImpl getService(String token) {
         ClientSession clientSession = tokensMap.get(token);
         if (null == clientSession) {
-            throw new InvalidAccessException(String.format("your token: %s is illegal!", token));
+            throw new IllegalTokenException(String.format("your token: %s is illegal!", token));
         }else if(clientSession.getClientType() != ClientType.ADMIN){
-            throw new InvalidAccessException(String.format("You aren't authorized as %s but as %s!",
+            throw new InvalidTokenException(String.format("You aren't authorized as %s but as %s!",
                     ClientType.ADMIN, clientSession.getClientType()));
         }else {
             clientSession.accessed();

@@ -24,10 +24,17 @@ public class CsControllerAdvice {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
-    @ExceptionHandler(InvalidAccessException.class)
+    @ExceptionHandler(InvalidTokenException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public CsErrorResponse handleInvalidAccess(InvalidAccessException ex) {
+    public CsErrorResponse handleInvalidToken(InvalidTokenException ex) {
+        return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalTokenException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public CsErrorResponse handleIllegalToken(IllegalTokenException ex) {
         return CsErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
