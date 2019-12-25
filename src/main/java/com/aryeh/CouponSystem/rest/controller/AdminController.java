@@ -34,7 +34,7 @@ public class AdminController implements ApplicationContextAware {
         this.tokensMap = tokensMap;
     }
 
-    @PostMapping("/{token}/admin")
+    @PostMapping("/{token}")
     public ResponseEntity<Admin> saveAdmin(@PathVariable String token, @RequestBody Admin admin) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.createAdmin(admin));
