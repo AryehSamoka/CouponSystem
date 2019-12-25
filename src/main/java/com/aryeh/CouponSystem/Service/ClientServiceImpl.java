@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class clientServiceImpl implements clientService {
+public class ClientServiceImpl implements clientService {
     private ClientRepository clientRepository;
 
     @Autowired
-    public clientServiceImpl(ClientRepository clientRepository) {
+    public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
