@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/company")
+@RequestMapping("/api/company/{token}")
 public class CompanyController {
     private Map<String, ClientSession> tokensMap;
 
@@ -27,20 +27,20 @@ public class CompanyController {
         this.tokensMap = tokensMap;
     }
 
-    @GetMapping("/{token}")
+    @GetMapping
     public ResponseEntity<Company> getCompanyByToken(@PathVariable String token) {
         CompanyServiceImpl service = getService(token);
         Company company = service.findById();
         return ResponseEntity.ok(company);
     }
 
-    @PutMapping("/{token}")
+    @PutMapping
     public ResponseEntity<Company> updateCompany(@PathVariable String token, @RequestBody Company company) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.update(company));
     }
 
-    @DeleteMapping("/{token}")
+    @DeleteMapping
     public ResponseEntity<Company> deleteCompanyByToken(@PathVariable String token) {
         CompanyServiceImpl service = getService(token);
         service.deleteById();
@@ -51,25 +51,25 @@ public class CompanyController {
         return ResponseEntity.ok(Company.empty());
     }
 
-    @PostMapping("/{token}/coupon")
+    @PostMapping("/coupon")
     public ResponseEntity<Coupon> addCoupon(@PathVariable String token, @RequestBody Coupon coupon) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.addCoupon(coupon));
     }
 
-    @PostMapping("/{token}/coupons")
+    @PostMapping("/coupons")
     public ResponseEntity<Company> addCoupons(@PathVariable String token, @RequestBody List<Coupon> coupons) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.addCoupons(coupons));
     }
 
-    @PutMapping("/{token}/coupon")
+    @PutMapping("/coupon")
     public ResponseEntity<Coupon> updateCoupon(@PathVariable String token, @RequestBody Coupon coupon) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.updateCoupon(coupon));
     }
 
-    @DeleteMapping("/{token}/{couponId}/coupon")
+    @DeleteMapping("/coupon/{couponId}")
     public ResponseEntity<Coupon> deleteCouponById(@PathVariable String token, @PathVariable long couponId) {
         CompanyServiceImpl service = getService(token);
         service.deleteCoupon(couponId);
@@ -77,32 +77,32 @@ public class CompanyController {
         return ResponseEntity.ok(Coupon.empty());
     }
 
-    @GetMapping("/{token}/coupons")
+    @GetMapping("/coupons")
     ResponseEntity<List<Coupon>> findCompanyCoupons(@PathVariable String token) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCompanyCoupons());
     }
 
-    @GetMapping("/{token}/coupons/{category}/category")
+    @GetMapping("/coupons/category/{category}")
     ResponseEntity<List<Coupon>> findCompanyCouponsByCategory(@PathVariable String token, @PathVariable int category) {
         CompanyServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findCompanyCouponsByCategory(category));
     }
 
-    @GetMapping("/{token}/coupons/{price}/price")
+    @GetMapping("/coupons/price/{price}")
     ResponseEntity<List<Coupon>> findCompanyCouponsLessThan(@PathVariable String token, @PathVariable double price) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCompanyCouponsLessThan(price));
     }
 
-    @GetMapping("/{token}/coupons/{date}/end_date")
+    @GetMapping("/coupons/end-date/{date}")
     ResponseEntity<List<Coupon>> findCompanyCouponsBeforeDate(@PathVariable String token, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCompanyCouponsBeforeDate(date));
     }
 
-    @GetMapping("/{token}/emails_my_customers")
+    @GetMapping("/emails-my-customers")
     ResponseEntity<List<String>> findEmailsMyCustomers(@PathVariable String token){
         CompanyServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findEmailsMyCustomers());

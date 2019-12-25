@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/{token}")
 public class AdminController implements ApplicationContextAware {
     private static final Map<String, String> SHUTDOWN_MESSAGE = Collections
             .unmodifiableMap(Collections.singletonMap("message", "Shutting down, bye..."));
@@ -35,25 +35,25 @@ public class AdminController implements ApplicationContextAware {
         this.tokensMap = tokensMap;
     }
 
-    @PostMapping("/{token}")
+    @PostMapping
     public ResponseEntity<Admin> saveAdmin(@PathVariable String token, @RequestBody Admin admin) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.createAdmin(admin));
     }
 
-    @GetMapping("/{token}")
+    @GetMapping
     public ResponseEntity<Admin> findAdmin(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findById());
     }
 
-    @PutMapping("/{token}")
+    @PutMapping
     public ResponseEntity<Admin> updateAdmin(@PathVariable String token, @RequestBody Admin admin) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.update(admin));
     }
 
-    @DeleteMapping("/{token}")
+    @DeleteMapping
     public ResponseEntity<Admin> deleteAdminByToken(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
         service.deleteById();
@@ -64,7 +64,7 @@ public class AdminController implements ApplicationContextAware {
         return ResponseEntity.ok(Admin.empty());
     }
 
-    @PostMapping("/{token}/close_application_by_root_admin")
+    @PostMapping("/close-application-by-root-admin")
     public ResponseEntity<Map<String, String>> closeApplicationByRootAdmin(@PathVariable String token) {
         final AdminServiceImpl service = getService(token);
         service.checkRootAdmin();
@@ -87,99 +87,99 @@ public class AdminController implements ApplicationContextAware {
         this.context.close();
     }
 
-    @PostMapping("/{token}/company")
+    @PostMapping("/company")
     public ResponseEntity<Company> saveCompany(@PathVariable String token, @RequestBody Company company) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.createCompany(company));
     }
 
-    @GetMapping("/{token}/{companyId}/company")
+    @GetMapping("/company/{companyId}")
     public ResponseEntity<Company> getCompany(@PathVariable String token,  @PathVariable long companyId) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.getCompanyById(companyId));
     }
 
-    @PutMapping("/{token}/company")
+    @PutMapping("/company")
     public ResponseEntity<Company> updateCompany(@PathVariable String token, @RequestBody Company company) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.updateCompany(company));
     }
 
-    @DeleteMapping("/{token}/{companyId}/company")
+    @DeleteMapping("/company/{companyId}")
     public ResponseEntity<Company> deleteCompany(@PathVariable String token, @PathVariable long companyId) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.deleteCompanyById(companyId));
     }
 
-    @GetMapping("/{token}/all_companies")
+    @GetMapping("/all-companies")
     public ResponseEntity<List<Company>> getAllCompanies(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCompanies());
     }
 
-    @GetMapping("/{token}/all_companies_without_coupons")
+    @GetMapping("/all-companies-without-coupons")
     public ResponseEntity<List<Company>> getAllCompaniesWithoutCoupons(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
     }
 
-    @PostMapping("/{token}/customer")
+    @PostMapping("/customer")
     public ResponseEntity<Customer> saveCustomer(@PathVariable String token, @RequestBody Customer customer) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.createCustomer(customer));
     }
 
-    @GetMapping("/{token}/{customerId}/customer")
+    @GetMapping("/customer/{customerId}")
     public ResponseEntity<Customer> getCustomer(@PathVariable String token,  @PathVariable long customerId) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.getCustomerById(customerId));
     }
 
-    @PutMapping("/{token}/customer")
+    @PutMapping("/customer")
     public ResponseEntity<Customer> updateCustomer(@PathVariable String token, @RequestBody Customer customer) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.updateCustomer(customer));
     }
 
-    @DeleteMapping("/{token}/{customerId}/customer")
+    @DeleteMapping("/customer/{customerId}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable String token, @PathVariable long customerId) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.deleteCustomerById(customerId));
     }
 
-    @GetMapping("/{token}/all_customers")
+    @GetMapping("/all-customers")
     public ResponseEntity<List<Customer>> getAllCustomers(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCustomers());
     }
 
-    @GetMapping("/{token}/all_customers_without_coupons")
+    @GetMapping("/all-customers-without-coupons")
     public ResponseEntity<List<Customer>> getAllCustomersWithoutCoupons(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCustomersWithoutCoupons());
     }
 
-    @GetMapping("/{token}/all_categories")
+    @GetMapping("/all-categories")
     public ResponseEntity<List<Integer>> getAllCategories(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findAllCategories());
     }
 
-    @GetMapping("/{token}/all_emails_comps_customs")
+    @GetMapping("/all-emails-comps-customs")
     public ResponseEntity<List<String>> getEmailsCompsAndCustoms(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.getEmailsCompsAndCustoms());
     }
 
-    @GetMapping("/{token}/pairs_emails_comps_customs_ordered_by_category")
+    @GetMapping("/pairs-emails-comps-customs-ordered-by-category")
     public ResponseEntity<List<String[]>> findPairsEmailsOfCompsCustomersOrderedByCategory(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
@@ -192,21 +192,21 @@ public class AdminController implements ApplicationContextAware {
      * @param token
      * @return
      */
-    @GetMapping("/{token}/count_pairs_by_category")
+    @GetMapping("/count-pairs-by-category")
     public ResponseEntity<List<Integer[]>> CountPairsByCategory(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.CountPairsByCategory());
     }
 
-    @GetMapping("/{token}/{email}/password_by_email")
+    @GetMapping("/password-by-email/{email}")
     public ResponseEntity<String> findPasswordByEmail(@PathVariable String token, @PathVariable String email) {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findPasswordByEmail(email));
     }
 
-    @PostMapping("/{token}/insert_random_values_to_DB")
+    @PostMapping("/insert-random-values-to-DB")
     public ResponseEntity<String> InsertRandomValuesToDB(@PathVariable String token) {
         AdminServiceImpl service = getService(token);
         service.InsertRandomValuesToDB();

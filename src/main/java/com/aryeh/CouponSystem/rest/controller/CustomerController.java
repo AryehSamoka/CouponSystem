@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/api/customer/{token}")
 public class CustomerController {
     private Map<String, ClientSession> tokensMap;
 
@@ -25,7 +25,7 @@ public class CustomerController {
         this.tokensMap = tokensMap;
     }
 
-    @GetMapping("/{token}")
+    @GetMapping
     public ResponseEntity<Customer> getCustomerById(@PathVariable String token) {
         CustomerServiceImpl service = getService(token);
         Customer customer = service.findById();
@@ -37,13 +37,13 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    @PutMapping("/{token}")
+    @PutMapping
     public ResponseEntity<Customer> updateCustomer(@PathVariable String token, @RequestBody Customer customer) {
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.update(customer));
     }
 
-    @DeleteMapping("/{token}")
+    @DeleteMapping
     public ResponseEntity<Customer> deleteCustomerById(@PathVariable String token) {
         CustomerServiceImpl service = getService(token);
         service.deleteById();
@@ -54,31 +54,31 @@ public class CustomerController {
         return ResponseEntity.ok(Customer.empty());
     }
 
-    @PostMapping("/{token}/{couponId}/coupon")
+    @PostMapping("/coupon/{couponId}")
     public ResponseEntity<Customer> addCoupon(@PathVariable String token, @PathVariable long couponId) {
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.addCoupon(couponId));
     }
 
-    @GetMapping("/{token}/coupons")
+    @GetMapping("/coupons")
     ResponseEntity<List<Coupon>> findCustomerCoupons(@PathVariable String token) {
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCustomerCoupons());
     }
 
-    @GetMapping("/{token}/coupons/{category}/category")
+    @GetMapping("/coupons/category/{category}")
     ResponseEntity<List<Coupon>> findCustomerCouponsByCategory(@PathVariable String token, @PathVariable int category) {
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCustomerCouponsByCategory(category));
     }
 
-    @GetMapping("/{token}/coupons/{price}/price")
+    @GetMapping("/coupons/price/{price}")
     ResponseEntity<List<Coupon>> findCustomerCouponsLessThan(@PathVariable String token, @PathVariable double price) {
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findCustomerCouponsLessThan(price));
     }
 
-    @GetMapping("/{token}/emails_my_companies")
+    @GetMapping("/emails-my-companies")
     ResponseEntity<List<String>> findEmailsMyCompanies(@PathVariable String token){
         CustomerServiceImpl service = getService(token);
         return ResponseEntity.ok(service.findEmailsMyCompanies());
