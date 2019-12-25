@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "coupon")
+@JsonIgnoreProperties(value = {"company_id"},allowGetters = true)
 public class Coupon {
     public static final long NO_ID = -1;
 
