@@ -41,8 +41,8 @@ public class CouponCleanerTask implements Runnable {
     }
 
     public void stop(Thread t) {
-        t.interrupt();
         run = false;
+        t.interrupt();
         while(!stopped);
     }
 }
