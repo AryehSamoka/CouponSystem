@@ -125,16 +125,16 @@ public class AdminController implements ApplicationContextAware {
         return ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
     }
 
-    @GetMapping("/{token}/{customerId}/customer")
-    public ResponseEntity<Customer> getCustomer(@PathVariable String token,  @PathVariable long customerId) {
-        AdminServiceImpl service = getService(token);
-        return ResponseEntity.ok(service.getCustomerById(customerId));
-    }
-
     @PostMapping("/{token}/customer")
     public ResponseEntity<Customer> saveCustomer(@PathVariable String token, @RequestBody Customer customer) {
         AdminServiceImpl service = getService(token);
         return ResponseEntity.ok(service.createCustomer(customer));
+    }
+
+    @GetMapping("/{token}/{customerId}/customer")
+    public ResponseEntity<Customer> getCustomer(@PathVariable String token,  @PathVariable long customerId) {
+        AdminServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.getCustomerById(customerId));
     }
 
     @PutMapping("/{token}/customer")
