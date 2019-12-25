@@ -24,7 +24,6 @@ public class CouponCleanerTask implements Runnable {
     public void run() {
 
         while (run) {
-            System.out.println("coupon cleaner");
             List<Coupon> expiredCoupons = customerService.findExpiredCoupons();
             Iterator<Coupon> it = expiredCoupons.iterator();
 

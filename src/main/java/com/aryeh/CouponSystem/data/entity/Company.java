@@ -3,9 +3,7 @@ package com.aryeh.CouponSystem.data.entity;
 import com.aryeh.CouponSystem.Service.CompanyServiceImpl;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.context.ApplicationContext;
 
 import javax.persistence.CascadeType;
@@ -15,8 +13,6 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @Entity
 @Table(name = "company")
 public class Company extends Client {
@@ -34,6 +30,7 @@ public class Company extends Client {
     }
 
     public Company(String name, String email, String password) {
+        this();
         this.name = name;
         this.email = email;
         this.password = password;
