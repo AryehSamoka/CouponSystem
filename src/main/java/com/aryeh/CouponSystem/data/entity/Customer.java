@@ -113,5 +113,6 @@ public class Customer extends Client{
         service.setClientId(id);
         clientSession.setService(service);
         clientSession.setClientType(ClientType.CUSTOMER);
+        clientSession.accessed();
     }
 }

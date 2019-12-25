@@ -101,9 +101,7 @@ public class CsSystem {
 
     private ClientSession setupClientSession(Client client) {
         ClientSession clientSession = context.getBean(ClientSession.class);
-
         client.setClientSession(context, clientSession);
-        clientSession.accessed();
         return clientSession;
     }
 

@@ -97,5 +97,6 @@ public class Company extends Client {
         service.setClientId(id);
         clientSession.setService(service);
         clientSession.setClientType(ClientType.COMPANY);
+        clientSession.accessed();
     }
 }
