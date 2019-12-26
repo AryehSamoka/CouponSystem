@@ -1,0 +1,1569 @@
+{
+	"info": {
+		"_postman_id": "0253f4d0-fd1f-416e-987c-a8a7d491c937",
+		"name": "CouponSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "login root admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/login?userName=admin&password=1234",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/logout/b554e5a2c397490",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"logout",
+								"b554e5a2c397490"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shutdown",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/06067ece369c4f5/close_application_by_root_admin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"06067ece369c4f5",
+								"close_application_by_root_admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"ad2.com\",\n\t\"password\":\"1111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/109d1aec2c3d49c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"109d1aec2c3d49c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/8b8779aa649b44c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"8b8779aa649b44c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"ad2.com\"\n\t\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/ea88c86d08294b5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"ea88c86d08294b5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/4a1b08e689c14fb",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"4a1b08e689c14fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"cu3\",\n\t\"email\":\"cu3@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/e3d2c14a95c2490/company",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"e3d2c14a95c2490",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create company with coupons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"cu4\",\n\t\"email\":\"cu4@g.com\",\n\t\"password\":\"1111\",\n\t\"coupons\":[{\n            \"title\": \"cu4 coupon1\",\n            \"start_date\": \"2019-06-06\",\n            \"end_date\": \"2019-12-07\",\n            \"category\": 5,\n            \"amount\": 16,\n            \"description\": \"the best\",\n            \"price\": 100.0,\n            \"image_url\": \"w2@com\"\n},{\n            \"title\": \"cu4 coupon2\",\n            \"start_date\": \"2019-06-06\",\n            \"end_date\": \"2019-12-07\",\n            \"category\": 20,\n            \"amount\": 16,\n            \"description\": \"the best\",\n            \"price\": 100.0,\n            \"image_url\": \"w2@com\"\n},{\n            \"title\": \"cu4 coupon3\",\n            \"start_date\": \"2019-06-06\",\n            \"end_date\": \"2019-12-07\",\n            \"category\": 30,\n            \"amount\": 16,\n            \"description\": \"the best\",\n            \"price\": 100.0,\n            \"image_url\": \"w2@com\"\n},{\n            \"title\": \"cu4 coupon4\",\n            \"start_date\": \"2019-06-06\",\n            \"end_date\": \"2019-12-07\",\n            \"category\": 201,\n            \"amount\": 16,\n            \"description\": \"the best\",\n            \"price\": 100.0,\n            \"image_url\": \"w2@com\"\n}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/a84a404dd9cb4c3/company",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"a84a404dd9cb4c3",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/e0454e47d320437/2/company",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"e0454e47d320437",
+								"2",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update company",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"name\":\"cu1\",\n\t\"email\":\"cu1@g.com\",\n\t\"password\":\"1234\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/888ae833f2e1487/company",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"888ae833f2e1487",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete company",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"name\":\"cu1\",\n\t\"email\":\"cu1@g.com\",\n\t\"password\":\"1234\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/4228986c72cf4e6/2/company",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"4228986c72cf4e6",
+								"2",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all companies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/c1acd4a2a9f641d/all_companies",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"c1acd4a2a9f641d",
+								"all_companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all companies without coupons at all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/3e3d2e7a21c849e/all_companies_without_coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"3e3d2e7a21c849e",
+								"all_companies_without_coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/d8e5a4e1e9d2440/80/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"d8e5a4e1e9d2440",
+								"80",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu2\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu2@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/51a95b9dfa7447b/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"51a95b9dfa7447b",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":7,\n\t\"first_name\":\"cus3\",\n\t\"last_name\":\"l178910\",\n\t\"email\":\"cus3.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/d5bf166a27a549f/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"d5bf166a27a549f",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/9270a8644080487/7/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"9270a8644080487",
+								"7",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/c1acd4a2a9f641d/all_customers",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"c1acd4a2a9f641d",
+								"all_customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all customers without coupons at all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/ac2b081d9ec2453/all_customers_without_coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"ac2b081d9ec2453",
+								"all_customers_without_coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/ac2b081d9ec2453/all_categories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"ac2b081d9ec2453",
+								"all_categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all emails companies and customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/1d95d077e7064c5/all_emails_comps_customs",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"1d95d077e7064c5",
+								"all_emails_comps_customs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pairs emails of companies with customers ordered by category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/ac2b081d9ec2453/pairs_emails_comps_customs_ordered_by_category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"ac2b081d9ec2453",
+								"pairs_emails_comps_customs_ordered_by_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "count pairs of companies and customers by same category ordered by count desc.",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/8e0d0a0e3dda431/count_pairs_by_category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"8e0d0a0e3dda431",
+								"count_pairs_by_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert random values to DB",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/0726e87de980413/insert_random_values_to_DB",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"0726e87de980413",
+								"insert_random_values_to_DB"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find password by email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/88806ed5d2934dc/30515@gmail.com/password_by_email",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"88806ed5d2934dc",
+								"30515@gmail.com",
+								"password_by_email"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "login company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/login?userName=9defc@gmail.com&password=2041e4f",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "9defc@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "2041e4f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/bb35987b01a6482",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"bb35987b01a6482"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update company",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\t\"name\":\"c2\",\n\t\"email\":\"c2@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/company/044fa2958bd54f9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"044fa2958bd54f9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete company by token",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/bc1c6eb8d8a04f6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"bc1c6eb8d8a04f6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add coupon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"title\": \"my coupon100\",\r\n            \"start_date\": \"2019-06-06\",\r\n          \r\n            \"category\": 3,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/company/61b6a11f773a48a/coupon",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"61b6a11f773a48a",
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add coupons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \r\n            \"category\": 5,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-11-30\",\r\n            \"category\": 20,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-11-30\",\r\n            \"category\": 30,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-11-30\",\r\n            \"category\": 201,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/company/68d5207222bb42d/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"68d5207222bb42d",
+								"coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update coupon",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n                \"id\": 75,\r\n                \"title\": \"03548\",\r\n                \"category\": 2,\r\n                \"amount\": 0,\r\n                \"description\": \"03548, a78a1\",\r\n                \"price\": 302.0,\r\n             \r\n                \"start_date\": \"2019-12-25\",\r\n                \"end_date\": \"2020-02-07\",\r\n                \"image_url\": \"03548@image.com\"\r\n            }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/company/6fc8801dcf4a406/coupon",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"6fc8801dcf4a406",
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete coupon by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"title\": \"my coupon100\",\r\n            \"start_date\": \"2019-06-06\",\r\n          \r\n            \"category\": 3,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/company/a129b2b266fc479/6/coupon",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"a129b2b266fc479",
+								"6",
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get coupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/ebd9190f3eff4fa/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"ebd9190f3eff4fa",
+								"coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get coupons by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/7371d7a9a066412/coupons/1/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"7371d7a9a066412",
+								"coupons",
+								"1",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get coupons less then price.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/5a1e03c4fbae465/coupons/200/price",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"5a1e03c4fbae465",
+								"coupons",
+								"200",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get coupons before given end date.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/db8c76d88a93402/coupons/2020-03-30/end_date",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"db8c76d88a93402",
+								"coupons",
+								"2020-03-30",
+								"end_date"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get emails my customers for certain company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/company/1e0cc49c65824bc/emails_my_customers",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"company",
+								"1e0cc49c65824bc",
+								"emails_my_customers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "login customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/login?userName=627.765@gmail.com&password=0b80d2d",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "627.765@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "0b80d2d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/df49a9eb1477423",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"df49a9eb1477423"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/3b66097ffca9493",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"3b66097ffca9493"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/customer/b7de0201f4bc4d5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"b7de0201f4bc4d5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add coupon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/4a65be03191c44f/2/coupon",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"4a65be03191c44f",
+								"2",
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer coupons",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/bdb860bf8316492/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"bdb860bf8316492",
+								"coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer coupons by category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/bdb860bf8316492/coupons/9/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"bdb860bf8316492",
+								"coupons",
+								"9",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer coupons less then given price",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/bdb860bf8316492/coupons/900/price",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"bdb860bf8316492",
+								"coupons",
+								"900",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get emails my companies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/customer/bdb860bf8316492/emails_my_companies",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"bdb860bf8316492",
+								"emails_my_companies"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
