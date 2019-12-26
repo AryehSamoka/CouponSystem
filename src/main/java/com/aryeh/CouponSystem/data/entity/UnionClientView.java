@@ -3,6 +3,7 @@ package com.aryeh.CouponSystem.data.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
+import org.hibernate.annotations.Synchronize;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +14,12 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Subselect(value = "SELECT cl1.id as my_view_id, cl1.email, cl1.password from client cl1 inner join company co on cl1.id=co.id union " +
-        "SELECT cl2.id as my_view_id , cl2.email, cl2.password from client cl2 inner join customer cu on cl2.id=cu.id"
+@Subselect(value = "SELECT cl1.id as my_view_id, cl1.email, cl1.password " +
+        "from client cl1 inner join company co on cl1.id=co.id union " +
+        "SELECT cl2.id as my_view_id , cl2.email, cl2.password " +
+        "from client cl2 inner join customer cu on cl2.id=cu.id"
 )
-@org.hibernate.annotations.Synchronize({"Client", "Company"})
+@Synchronize({"Client", "Company"})
 @Table(name = "union_client_view")
 public class UnionClientView implements Serializable {
     private static final long serialVersionUID = 1L;
