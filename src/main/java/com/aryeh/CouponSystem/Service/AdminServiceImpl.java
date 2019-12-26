@@ -260,6 +260,12 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     }
 
     @Override
+    @Transactional
+    public Set<Set<String>> pairsCompaniesSameCustomer(){
+        return companyRepository.pairsCompaniesSameCustomer();
+    }
+
+    @Override
     public void checkRootAdmin(){
         if(rootId != clientId){
             throw new InvalidRootAdminAccessException("Only root admin is authorized to close application");

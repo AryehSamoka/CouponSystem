@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/admin/{token}")
@@ -204,6 +205,13 @@ public class AdminController implements ApplicationContextAware {
         AdminServiceImpl service = getService(token);
 
         return ResponseEntity.ok(service.findPasswordByEmail(email));
+    }
+
+    @GetMapping("/pairs-companies-same-customer")
+    public ResponseEntity<Set<Set<String>>> pairsCompaniesSameCustomer(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.pairsCompaniesSameCustomer());
     }
 
     @PostMapping("/insert-random-values-to-DB")

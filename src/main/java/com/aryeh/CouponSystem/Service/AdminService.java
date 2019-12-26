@@ -5,6 +5,8 @@ import com.aryeh.CouponSystem.data.entity.Company;
 import com.aryeh.CouponSystem.data.entity.Customer;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface AdminService {
     Admin createAdmin(Admin admin);
@@ -52,4 +54,6 @@ public interface AdminService {
     void checkRootAdmin();
 
     String findPasswordByEmail(String email);
+
+    Set<Set<String>> pairsCompaniesSameCustomer();
 }
