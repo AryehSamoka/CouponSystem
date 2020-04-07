@@ -58,6 +58,13 @@ public class CustomerServiceImpl extends AbsService implements CustomerService {
 
     @Override
     @Transactional
+    public List<Coupon> findAllOtherCoupons(){
+        System.out.println(clientId);
+        return couponRepository.getAllOtherCoupons(clientId);
+    }
+
+    @Override
+    @Transactional
     public Customer addCoupon(long couponId) {
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponId);
         if (!optionalCoupon.isPresent()) {

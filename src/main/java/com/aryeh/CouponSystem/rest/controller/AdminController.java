@@ -1,10 +1,7 @@
 package com.aryeh.CouponSystem.rest.controller;
 
 import com.aryeh.CouponSystem.Service.AdminServiceImpl;
-import com.aryeh.CouponSystem.data.entity.Admin;
-import com.aryeh.CouponSystem.data.entity.ClientType;
-import com.aryeh.CouponSystem.data.entity.Company;
-import com.aryeh.CouponSystem.data.entity.Customer;
+import com.aryeh.CouponSystem.data.entity.*;
 import com.aryeh.CouponSystem.rest.ClientSession;
 import com.aryeh.CouponSystem.rest.ex.IllegalTokenException;
 import com.aryeh.CouponSystem.rest.ex.InvalidTokenException;
@@ -22,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/admin/{token}")
 public class AdminController implements ApplicationContextAware {
@@ -121,10 +119,23 @@ public class AdminController implements ApplicationContextAware {
     }
 
     @GetMapping("/all-companies-without-coupons")
-    public ResponseEntity<List<Company>> getAllCompaniesWithoutCoupons(@PathVariable String token) {
+    public ResponseEntity<List<Company>> getAllCompaniesWithoutCoupons(@PathVariable String token){
         AdminServiceImpl service = getService(token);
 
-        return ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
+        return  ResponseEntity.ok(service.findAllCompaniesWithoutCoupons());
+    }
+
+    @GetMapping("/all-companies-with-no-coupons")
+    public ResponseEntity<List<Company>> getAllCompaniesWithNoCoupons(@PathVariable String token) {
+        AdminServiceImpl service = getService(token);
+
+        return ResponseEntity.ok(service.findAllCompaniesWithNoCoupons());
+    }
+
+    @GetMapping("/company-coupons/{companyId}")
+    public ResponseEntity<List<Coupon>> getCompanyCoupons(@PathVariable String token, @PathVariable long companyId){
+        AdminServiceImpl service = getService(token);
+        return  ResponseEntity.ok(service.findCompanyCoupons(companyId));
     }
 
     @PostMapping("/customer")

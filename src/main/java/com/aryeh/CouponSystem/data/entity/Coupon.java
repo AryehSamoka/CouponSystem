@@ -48,6 +48,20 @@ public class Coupon {
     }
 
     public Coupon(Company company, String title, LocalDate startDate, LocalDate endDate, int category, int amount,
+                  String description, double price) {
+        this();
+        this.company = company;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.category = category;
+        this.amount = amount;
+        this.description = description;
+        this.price = price;
+        this.imageURL = "";
+    }
+
+    public Coupon(Company company, String title, LocalDate startDate, LocalDate endDate, int category, int amount,
                   String description, double price, String imageURL) {
         this();
         this.company = company;

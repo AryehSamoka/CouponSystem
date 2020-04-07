@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/customer/{token}")
 public class CustomerController {
@@ -52,6 +53,12 @@ public class CustomerController {
         }
 
         return ResponseEntity.ok(Customer.empty());
+    }
+
+    @GetMapping("/all-other-coupons")
+    public ResponseEntity<List<Coupon>> getAllOtherCoupons(@PathVariable String token){
+        CustomerServiceImpl service = getService(token);
+        return ResponseEntity.ok(service.findAllOtherCoupons());
     }
 
     @PostMapping("/coupon/{couponId}")

@@ -11,8 +11,11 @@ import java.util.Set;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    @Query("from Company t1 left join t1.coupons t2 where t2.id is null")
+    @Query("select new Company(t1.id, t1.name, t1.email) from Company t1")
     List<Company> findAllCompaniesWithoutCoupons();
+
+    @Query("from Company t1 left join t1.coupons t2 where t2.id is null")
+    List<Company> findAllCompaniesWithNoCoupons();
 
     @Query("select distinct t1.email from Customer as t1 join t1.coupons as t2 join t2.company as t3 where t3.id=:companyId")
     List<String> findEmailsMyCustomers(long companyId);

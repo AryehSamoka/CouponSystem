@@ -29,6 +29,13 @@ public class Company extends Client {
         coupons = new ArrayList<>();
     }
 
+    public Company(long id, String name, String email){
+        this();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     public Company(String name, String email, String password) {
         this();
         this.name = name;

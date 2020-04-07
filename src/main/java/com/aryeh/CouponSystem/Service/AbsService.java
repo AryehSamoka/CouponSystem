@@ -1,5 +1,9 @@
 package com.aryeh.CouponSystem.Service;
 
+import com.aryeh.CouponSystem.data.entity.Coupon;
+
+import java.util.List;
+
 public abstract class AbsService {
     protected long clientId;
 

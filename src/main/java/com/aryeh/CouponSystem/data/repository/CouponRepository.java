@@ -31,4 +31,8 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     @Query("select distinct category from Coupon")
     List<Integer> findAllCategories();
+
+    @Query("select distinct c from Customer as cr right join cr.coupons as c where c.amount>0 and c not in " +
+            "(select c from Customer as cr join cr.coupons as c where cr.id=:customerId) order by c.id")
+    List<Coupon> getAllOtherCoupons(long customerId);
 }

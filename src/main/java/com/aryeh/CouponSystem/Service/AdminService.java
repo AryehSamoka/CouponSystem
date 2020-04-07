@@ -2,6 +2,7 @@ package com.aryeh.CouponSystem.Service;
 
 import com.aryeh.CouponSystem.data.entity.Admin;
 import com.aryeh.CouponSystem.data.entity.Company;
+import com.aryeh.CouponSystem.data.entity.Coupon;
 import com.aryeh.CouponSystem.data.entity.Customer;
 
 import java.util.List;
@@ -28,6 +29,10 @@ public interface AdminService {
     List<Company> findAllCompanies();
 
     List<Company> findAllCompaniesWithoutCoupons();
+
+    List<Coupon> findCompanyCoupons(long companyId);
+
+    List<Company> findAllCompaniesWithNoCoupons();
 
     Customer getCustomerById(long customerId);
 

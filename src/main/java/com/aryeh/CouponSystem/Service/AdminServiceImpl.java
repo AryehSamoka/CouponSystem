@@ -156,6 +156,18 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
+    public List<Coupon> findCompanyCoupons(long companyId) {
+        return couponRepository.findByCompanyId(companyId);
+    }
+
+    @Override
+    @Transactional
+    public List<Company> findAllCompaniesWithNoCoupons() {
+        return companyRepository.findAllCompaniesWithNoCoupons();
+    }
+
+    @Override
+    @Transactional
     public Customer createCustomer(Customer customer) {
         if (customer != null) {
             customer.setId(0);
@@ -206,6 +218,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         return customerRepository.findAllCustomersWithoutCoupons();
     }
 
+
     @Override
     @Transactional
     public List<Integer> findAllCategories() {
@@ -218,11 +231,11 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         return unionClientViewRepository.findAllEmails();
     }
 
-    public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory(){
+    public List<String[]> findPairsEmailsOfCompsCustomersOrderedByCategory() {
         return adminRepository.findPairsEmailsOfCompsCustomersOrderedByCategory();
     }
 
-    public List<Integer[]> CountPairsByCategory(){
+    public List<Integer[]> CountPairsByCategory() {
         return adminRepository.CountPairsByCategory();
     }
 
@@ -237,7 +250,8 @@ public class AdminServiceImpl extends AbsService implements AdminService {
             int coupons = (int) (Math.random() * (4 + 1));
             for (AtomicInteger j = new AtomicInteger(); j.get() < coupons; j.getAndIncrement()) {
                 Coupon coupon = randomCoupon(newCompany);
-                couponIds.add(couponRepository.save(coupon).getId());
+
+                couponIds.add(coupon.getId());
             }
         }
 
@@ -251,9 +265,9 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public String findPasswordByEmail(String email){
+    public String findPasswordByEmail(String email) {
         final Optional<String> optionalPassword = unionClientViewRepository.findPasswordByEmail(email);
-        if(!optionalPassword.isPresent()){
+        if (!optionalPassword.isPresent()) {
             throw new invalidEmailException(String.format("The given email: %s isn't a companies or customer's", email));
         }
         return optionalPassword.get();
@@ -261,13 +275,13 @@ public class AdminServiceImpl extends AbsService implements AdminService {
 
     @Override
     @Transactional
-    public Set<Set<String>> pairsCompaniesSameCustomer(){
+    public Set<Set<String>> pairsCompaniesSameCustomer() {
         return companyRepository.pairsCompaniesSameCustomer();
     }
 
     @Override
-    public void checkRootAdmin(){
-        if(rootId != clientId){
+    public void checkRootAdmin() {
+        if (rootId != clientId) {
             throw new InvalidRootAdminAccessException("Only root admin is authorized to close application");
         }
     }
@@ -296,14 +310,14 @@ public class AdminServiceImpl extends AbsService implements AdminService {
     private void checkCustomer(long customerId) {
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
         if (!optionalCustomer.isPresent()) {
-            throw new NoSuchCustomerException(String.format("The given id: %s doesn't exist or isn't a customer!",customerId));
+            throw new NoSuchCustomerException(String.format("The given id: %s doesn't exist or isn't a customer!", customerId));
         }
     }
 
     private void checkCompany(long companyId) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (!optionalCompany.isPresent()) {
-            throw new NoSuchCompanyException(String.format("The given id: %s doesn't exist or isn't a company!",companyId));
+            throw new NoSuchCompanyException(String.format("The given id: %s doesn't exist or isn't a company!", companyId));
         }
     }
 
@@ -323,7 +337,7 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         return new Company(name, email, password);
     }
 
-    private static Coupon randomCoupon(Company company) {
+    private Coupon randomCoupon(Company company) {
         int category = 1 + (int) (Math.random() * (9 + 1));
         String title = UUID.randomUUID().toString().substring(0, 5);
         LocalDate startDate = LocalDate.now();
@@ -332,9 +346,9 @@ public class AdminServiceImpl extends AbsService implements AdminService {
         int amount = MIN_COUPONS_AMOUNT + (int) (Math.random() * (100 + 1));
         String description = title + ", " + UUID.randomUUID().toString().substring(0, 5);
         double price = 10 + (int) (Math.random() * (990 + 1));
-        String image = title + "@image.com";
-
-        return new Coupon(company, title, startDate, endDate, category, amount, description, price, image);
+        Coupon coupon = couponRepository.save(new Coupon(company, title, startDate, endDate, category, amount, description, price));
+        coupon.setImageURL("https://thumbs.dreamstime.com/b/d-17756" + (1000 + coupon.getId()) + ".jpg");
+        return coupon;
     }
 
     private static Customer randomCustomer() {
