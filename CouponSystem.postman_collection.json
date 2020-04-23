@@ -63,7 +63,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/admin/06067ece369c4f5/close_application_by_root_admin",
+							"raw": "localhost:8080/api/admin/66ee18ab48554f0/close-application-by-root-admin",
 							"host": [
 								"localhost"
 							],
@@ -71,8 +71,8 @@
 							"path": [
 								"api",
 								"admin",
-								"06067ece369c4f5",
-								"close_application_by_root_admin"
+								"66ee18ab48554f0",
+								"close-application-by-root-admin"
 							]
 						}
 					},
@@ -92,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"ad2.com\",\n\t\"password\":\"1111\"\n}",
+							"raw": "{\n\t\"email\":\"ad3.com\",\n\t\"password\":\"1111\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -100,7 +100,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/109d1aec2c3d49c",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8",
 							"host": [
 								"localhost"
 							],
@@ -108,7 +108,7 @@
 							"path": [
 								"api",
 								"admin",
-								"109d1aec2c3d49c"
+								"14e376058ee94e8"
 							]
 						}
 					},
@@ -120,7 +120,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/admin/8b8779aa649b44c",
+							"raw": "localhost:8080/api/admin/8abeb0be8043402",
 							"host": [
 								"localhost"
 							],
@@ -128,7 +128,7 @@
 							"path": [
 								"api",
 								"admin",
-								"8b8779aa649b44c"
+								"8abeb0be8043402"
 							]
 						}
 					},
@@ -212,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/e3d2c14a95c2490/company",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/company",
 							"host": [
 								"localhost"
 							],
@@ -220,7 +220,7 @@
 							"path": [
 								"api",
 								"admin",
-								"e3d2c14a95c2490",
+								"14e376058ee94e8",
 								"company"
 							]
 						}
@@ -249,7 +249,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/a84a404dd9cb4c3/company",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/company",
 							"host": [
 								"localhost"
 							],
@@ -257,7 +257,7 @@
 							"path": [
 								"api",
 								"admin",
-								"a84a404dd9cb4c3",
+								"14e376058ee94e8",
 								"company"
 							]
 						}
@@ -270,7 +270,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/admin/e0454e47d320437/2/company",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/company/2",
 							"host": [
 								"localhost"
 							],
@@ -278,9 +278,9 @@
 							"path": [
 								"api",
 								"admin",
-								"e0454e47d320437",
-								"2",
-								"company"
+								"14e376058ee94e8",
+								"company",
+								"2"
 							]
 						}
 					},
@@ -300,7 +300,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\":2,\n\t\"name\":\"cu1\",\n\t\"email\":\"cu1@g.com\",\n\t\"password\":\"1234\"\n\t\n}",
+							"raw": "{\r\n    \"id\": 106,\r\n    \"email\": \"cu4@g.com\",\r\n    \"name\": \"cu4\",\r\n    \"coupons\": [\r\n        {\r\n            \"id\": 91,\r\n            \"title\": \"cu4 coupon1\",\r\n            \"category\": 5,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 106,\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-12-07\",\r\n            \"image_url\": \"w2@com\"\r\n        },\r\n        {\r\n            \"id\": 92,\r\n            \"title\": \"cu4 coupon2\",\r\n            \"category\": 20,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 106,\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-12-07\",\r\n            \"image_url\": \"w2@com\"\r\n        },\r\n        {\r\n            \"id\": 93,\r\n            \"title\": \"cu4 coupon3\",\r\n            \"category\": 30,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 106,\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-12-07\",\r\n            \"image_url\": \"w2@com\"\r\n        },\r\n        {\r\n            \"id\": 94,\r\n            \"title\": \"cu4 coupon4\",\r\n            \"category\": 201,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 106,\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-12-07\",\r\n            \"image_url\": \"w2@com\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -308,7 +308,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/888ae833f2e1487/company",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/company",
 							"host": [
 								"localhost"
 							],
@@ -316,7 +316,7 @@
 							"path": [
 								"api",
 								"admin",
-								"888ae833f2e1487",
+								"14e376058ee94e8",
 								"company"
 							]
 						}
@@ -345,7 +345,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/4228986c72cf4e6/2/company",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/company/105",
 							"host": [
 								"localhost"
 							],
@@ -353,9 +353,9 @@
 							"path": [
 								"api",
 								"admin",
-								"4228986c72cf4e6",
-								"2",
-								"company"
+								"14e376058ee94e8",
+								"company",
+								"105"
 							]
 						}
 					},
@@ -386,7 +386,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/c1acd4a2a9f641d/all_companies",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/all-companies",
 							"host": [
 								"localhost"
 							],
@@ -394,15 +394,15 @@
 							"path": [
 								"api",
 								"admin",
-								"c1acd4a2a9f641d",
-								"all_companies"
+								"623acf9fd0744a2",
+								"all-companies"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "get all companies without coupons at all",
+					"name": "get all companies without coupons",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -426,7 +426,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/3e3d2e7a21c849e/all_companies_without_coupons",
+							"raw": "localhost:8080/api/admin/f466193cc4ff47f/all-companies-without-coupons",
 							"host": [
 								"localhost"
 							],
@@ -434,8 +434,70 @@
 							"path": [
 								"api",
 								"admin",
-								"3e3d2e7a21c849e",
-								"all_companies_without_coupons"
+								"f466193cc4ff47f",
+								"all-companies-without-coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Company coupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/admin/2e0ecd485b654ce/company-coupons/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"2e0ecd485b654ce",
+								"company-coupons",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all companies with no coupons at all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/d2a810c67a6648c/all-companies-with-no-coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"d2a810c67a6648c",
+								"all-companies-with-no-coupons"
 							]
 						}
 					},
@@ -447,7 +509,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/admin/d8e5a4e1e9d2440/80/customer",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/customer/80",
 							"host": [
 								"localhost"
 							],
@@ -455,9 +517,9 @@
 							"path": [
 								"api",
 								"admin",
-								"d8e5a4e1e9d2440",
-								"80",
-								"customer"
+								"14e376058ee94e8",
+								"customer",
+								"80"
 							]
 						}
 					},
@@ -485,7 +547,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/51a95b9dfa7447b/customer",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/customer",
 							"host": [
 								"localhost"
 							],
@@ -493,7 +555,7 @@
 							"path": [
 								"api",
 								"admin",
-								"51a95b9dfa7447b",
+								"14e376058ee94e8",
 								"customer"
 							]
 						}
@@ -514,7 +576,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\":7,\n\t\"first_name\":\"cus3\",\n\t\"last_name\":\"l178910\",\n\t\"email\":\"cus3.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"raw": "{\r\n    \"id\": 80,\r\n    \"email\": \"139.65b@gmail.com\",\r\n    \"coupons\": [\r\n        {\r\n            \"id\": 4,\r\n            \"title\": \"f6f09\",\r\n            \"category\": 18,\r\n            \"amount\": 93,\r\n            \"description\": \"f6f09, 8d06b\",\r\n            \"price\": 70.0,\r\n            \"company_id\": 3,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2019-12-29\",\r\n            \"image_url\": \"f6f09@image.com\"\r\n        },\r\n        {\r\n            \"id\": 7,\r\n            \"title\": \"5ae81\",\r\n            \"category\": 3,\r\n            \"amount\": 61,\r\n            \"description\": \"5ae81, 23e4d\",\r\n            \"price\": 298.0,\r\n            \"company_id\": 5,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-01-19\",\r\n            \"image_url\": \"5ae81@image.com\"\r\n        },\r\n        {\r\n            \"id\": 9,\r\n            \"title\": \"a123e\",\r\n            \"category\": 7,\r\n            \"amount\": 102,\r\n            \"description\": \"a123e, 3c87a\",\r\n            \"price\": 480.0,\r\n            \"company_id\": 6,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-01-05\",\r\n            \"image_url\": \"a123e@image.com\"\r\n        },\r\n        {\r\n            \"id\": 44,\r\n            \"title\": \"897d8\",\r\n            \"category\": 10,\r\n            \"amount\": 115,\r\n            \"description\": \"897d8, 10fdd\",\r\n            \"price\": 128.0,\r\n            \"company_id\": 24,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-16\",\r\n            \"image_url\": \"897d8@image.com\"\r\n        },\r\n        {\r\n            \"id\": 68,\r\n            \"title\": \"98e95\",\r\n            \"category\": 1,\r\n            \"amount\": 118,\r\n            \"description\": \"98e95, 8db43\",\r\n            \"price\": 920.0,\r\n            \"company_id\": 35,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-30\",\r\n            \"image_url\": \"98e95@image.com\"\r\n        },\r\n        {\r\n            \"id\": 84,\r\n            \"title\": \"2caee\",\r\n            \"category\": 2,\r\n            \"amount\": 124,\r\n            \"description\": \"2caee, d727e\",\r\n            \"price\": 91.0,\r\n            \"company_id\": 48,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-01-31\",\r\n            \"image_url\": \"2caee@image.com\"\r\n        }\r\n    ],\r\n    \"first_name\": \"1139\",\r\n    \"last_name\": \"65b\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -522,7 +584,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/d5bf166a27a549f/customer",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/customer",
 							"host": [
 								"localhost"
 							],
@@ -530,7 +592,7 @@
 							"path": [
 								"api",
 								"admin",
-								"d5bf166a27a549f",
+								"14e376058ee94e8",
 								"customer"
 							]
 						}
@@ -559,7 +621,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/9270a8644080487/7/customer",
+							"raw": "localhost:8080/api/admin/14e376058ee94e8/customer/107",
 							"host": [
 								"localhost"
 							],
@@ -567,9 +629,9 @@
 							"path": [
 								"api",
 								"admin",
-								"9270a8644080487",
-								"7",
-								"customer"
+								"14e376058ee94e8",
+								"customer",
+								"107"
 							]
 						}
 					},
@@ -600,7 +662,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/c1acd4a2a9f641d/all_customers",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/all-customers",
 							"host": [
 								"localhost"
 							],
@@ -608,8 +670,8 @@
 							"path": [
 								"api",
 								"admin",
-								"c1acd4a2a9f641d",
-								"all_customers"
+								"623acf9fd0744a2",
+								"all-customers"
 							]
 						}
 					},
@@ -640,7 +702,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/ac2b081d9ec2453/all_customers_without_coupons",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/all-customers-without-coupons",
 							"host": [
 								"localhost"
 							],
@@ -648,8 +710,8 @@
 							"path": [
 								"api",
 								"admin",
-								"ac2b081d9ec2453",
-								"all_customers_without_coupons"
+								"623acf9fd0744a2",
+								"all-customers-without-coupons"
 							]
 						}
 					},
@@ -680,7 +742,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/ac2b081d9ec2453/all_categories",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/all-categories",
 							"host": [
 								"localhost"
 							],
@@ -688,8 +750,8 @@
 							"path": [
 								"api",
 								"admin",
-								"ac2b081d9ec2453",
-								"all_categories"
+								"623acf9fd0744a2",
+								"all-categories"
 							]
 						}
 					},
@@ -720,7 +782,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/1d95d077e7064c5/all_emails_comps_customs",
+							"raw": "localhost:8080/api/admin/959d4c77fca34ea/all-emails-comps-customs",
 							"host": [
 								"localhost"
 							],
@@ -728,8 +790,8 @@
 							"path": [
 								"api",
 								"admin",
-								"1d95d077e7064c5",
-								"all_emails_comps_customs"
+								"959d4c77fca34ea",
+								"all-emails-comps-customs"
 							]
 						}
 					},
@@ -760,7 +822,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/ac2b081d9ec2453/pairs_emails_comps_customs_ordered_by_category",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/pairs-emails-comps-customs-ordered-by-category",
 							"host": [
 								"localhost"
 							],
@@ -768,8 +830,8 @@
 							"path": [
 								"api",
 								"admin",
-								"ac2b081d9ec2453",
-								"pairs_emails_comps_customs_ordered_by_category"
+								"623acf9fd0744a2",
+								"pairs-emails-comps-customs-ordered-by-category"
 							]
 						}
 					},
@@ -800,7 +862,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/admin/8e0d0a0e3dda431/count_pairs_by_category",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/count-pairs-by-category",
 							"host": [
 								"localhost"
 							],
@@ -808,8 +870,8 @@
 							"path": [
 								"api",
 								"admin",
-								"8e0d0a0e3dda431",
-								"count_pairs_by_category"
+								"623acf9fd0744a2",
+								"count-pairs-by-category"
 							]
 						}
 					},
@@ -821,7 +883,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/admin/0726e87de980413/insert_random_values_to_DB",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/insert-random-values-to-DB",
 							"host": [
 								"localhost"
 							],
@@ -829,8 +891,8 @@
 							"path": [
 								"api",
 								"admin",
-								"0726e87de980413",
-								"insert_random_values_to_DB"
+								"623acf9fd0744a2",
+								"insert-random-values-to-DB"
 							]
 						}
 					},
@@ -842,7 +904,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/admin/88806ed5d2934dc/30515@gmail.com/password_by_email",
+							"raw": "localhost:8080/api/admin/623acf9fd0744a2/password-by-email/c6357@gmail.com",
 							"host": [
 								"localhost"
 							],
@@ -850,9 +912,49 @@
 							"path": [
 								"api",
 								"admin",
-								"88806ed5d2934dc",
-								"30515@gmail.com",
-								"password_by_email"
+								"623acf9fd0744a2",
+								"password-by-email",
+								"c6357@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get pairs companies same customer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\":\"cu8\",\n\t\"last_name\":\"l1789\",\n\t\"email\":\"cu8@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/admin/33bed95bcf3a4bd/pairs-companies-same-customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"33bed95bcf3a4bd",
+								"pairs-companies-same-customer"
 							]
 						}
 					},
@@ -870,7 +972,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/login?userName=9defc@gmail.com&password=2041e4f",
+							"raw": "localhost:8080/api/login?userName=790b4@gmail.com&password=7275e39",
 							"host": [
 								"localhost"
 							],
@@ -882,11 +984,11 @@
 							"query": [
 								{
 									"key": "userName",
-									"value": "9defc@gmail.com"
+									"value": "790b4@gmail.com"
 								},
 								{
 									"key": "password",
-									"value": "2041e4f"
+									"value": "7275e39"
 								}
 							]
 						}
@@ -899,7 +1001,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/bb35987b01a6482",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443",
 							"host": [
 								"localhost"
 							],
@@ -907,7 +1009,7 @@
 							"path": [
 								"api",
 								"company",
-								"bb35987b01a6482"
+								"ba3a33e6ad25443"
 							]
 						}
 					},
@@ -927,7 +1029,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\n\t\"name\":\"c2\",\n\t\"email\":\"c2@g.com\",\n\t\"password\":\"1111\"\n\t\n}",
+							"raw": "{\r\n    \"id\": 40,\r\n    \"email\": \"9defc@gmail.com\",\r\n    \"name\": \"9defc\",\r\n    \"coupons\": [\r\n        {\r\n            \"id\": 73,\r\n            \"title\": \"ba0c0\",\r\n            \"category\": 3,\r\n            \"amount\": 97,\r\n            \"description\": \"ba0c0, dd68c\",\r\n            \"price\": 104.0,\r\n            \"company_id\": 40,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-28\",\r\n            \"image_url\": \"ba0c0@image.com\"\r\n        },\r\n        {\r\n            \"id\": 74,\r\n            \"title\": \"e65ea\",\r\n            \"category\": 3,\r\n            \"amount\": 115,\r\n            \"description\": \"e65ea, cca6d\",\r\n            \"price\": 268.0,\r\n            \"company_id\": 40,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-01-05\",\r\n            \"image_url\": \"e65ea@image.com\"\r\n        },\r\n        {\r\n            \"id\": 75,\r\n            \"title\": \"03548\",\r\n            \"category\": 2,\r\n            \"amount\": 0,\r\n            \"description\": \"03548, a78a1\",\r\n            \"price\": 302.0,\r\n            \"company_id\": 40,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-02-07\",\r\n            \"image_url\": \"03548@image.com\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -935,7 +1037,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/company/044fa2958bd54f9",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443",
 							"host": [
 								"localhost"
 							],
@@ -943,7 +1045,7 @@
 							"path": [
 								"api",
 								"company",
-								"044fa2958bd54f9"
+								"ba3a33e6ad25443"
 							]
 						}
 					},
@@ -955,7 +1057,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/bc1c6eb8d8a04f6",
+							"raw": "localhost:8080/api/company/0d153367afa34ea",
 							"host": [
 								"localhost"
 							],
@@ -963,7 +1065,7 @@
 							"path": [
 								"api",
 								"company",
-								"bc1c6eb8d8a04f6"
+								"0d153367afa34ea"
 							]
 						}
 					},
@@ -983,7 +1085,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n            \"title\": \"my coupon100\",\r\n            \"start_date\": \"2019-06-06\",\r\n          \r\n            \"category\": 3,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n}",
+							"raw": "{\r\n            \"title\": \"4ba0c0\",\r\n            \"category\": 4,\r\n            \"amount\": 100,\r\n            \"description\": \"ba0c0, dd68c\",\r\n            \"price\": 104.0,\r\n            \"company_id\": 40,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-28\",\r\n            \"image_url\": \"ba0c0@image.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -991,7 +1093,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/company/61b6a11f773a48a/coupon",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupon",
 							"host": [
 								"localhost"
 							],
@@ -999,7 +1101,7 @@
 							"path": [
 								"api",
 								"company",
-								"61b6a11f773a48a",
+								"ba3a33e6ad25443",
 								"coupon"
 							]
 						}
@@ -1020,7 +1122,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \r\n            \"category\": 5,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-11-30\",\r\n            \"category\": 20,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-11-30\",\r\n            \"category\": 30,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2019-11-30\",\r\n            \"category\": 201,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n}]",
+							"raw": "[{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2020-11-30\",\r\n            \"company_id\": 46,\r\n            \"category\": 5,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2020-11-30\",\r\n            \"category\": 20,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 49,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2020-11-30\",\r\n            \"category\": 30,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 46,\r\n            \"image_url\": \"w2@com\"\r\n},{\r\n            \"title\": \"my coupon2\",\r\n            \"start_date\": \"2019-06-06\",\r\n            \"end_date\": \"2020-11-30\",\r\n            \"category\": 201,\r\n            \"amount\": 16,\r\n            \"description\": \"the best\",\r\n            \"price\": 100.0,\r\n            \"company_id\": 42,\r\n            \"image_url\": \"w2@com\"\r\n}]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1028,7 +1130,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/company/68d5207222bb42d/coupons",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupons",
 							"host": [
 								"localhost"
 							],
@@ -1036,7 +1138,7 @@
 							"path": [
 								"api",
 								"company",
-								"68d5207222bb42d",
+								"ba3a33e6ad25443",
 								"coupons"
 							]
 						}
@@ -1057,7 +1159,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n                \"id\": 75,\r\n                \"title\": \"03548\",\r\n                \"category\": 2,\r\n                \"amount\": 0,\r\n                \"description\": \"03548, a78a1\",\r\n                \"price\": 302.0,\r\n             \r\n                \"start_date\": \"2019-12-25\",\r\n                \"end_date\": \"2020-02-07\",\r\n                \"image_url\": \"03548@image.com\"\r\n            }",
+							"raw": " {\r\n    \"id\": 192,\r\n    \"title\": \"4ba0c0\",\r\n    \"category\": 4,\r\n    \"amount\": 110,\r\n    \"description\": \"ba0c0, dd68c\",\r\n    \"price\": 104.0,\r\n    \"company_id\": 40,\r\n    \"start_date\": \"2019-12-25\",\r\n    \"end_date\": \"2020-03-28\",\r\n    \"image_url\": \"ba0c0@image.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1065,7 +1167,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/company/6fc8801dcf4a406/coupon",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupon",
 							"host": [
 								"localhost"
 							],
@@ -1073,7 +1175,7 @@
 							"path": [
 								"api",
 								"company",
-								"6fc8801dcf4a406",
+								"ba3a33e6ad25443",
 								"coupon"
 							]
 						}
@@ -1102,7 +1204,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/company/a129b2b266fc479/6/coupon",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupon/192",
 							"host": [
 								"localhost"
 							],
@@ -1110,9 +1212,9 @@
 							"path": [
 								"api",
 								"company",
-								"a129b2b266fc479",
-								"6",
-								"coupon"
+								"ba3a33e6ad25443",
+								"coupon",
+								"192"
 							]
 						}
 					},
@@ -1124,7 +1226,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/ebd9190f3eff4fa/coupons",
+							"raw": "localhost:8080/api/company/b048da3279134b4/coupons",
 							"host": [
 								"localhost"
 							],
@@ -1132,7 +1234,7 @@
 							"path": [
 								"api",
 								"company",
-								"ebd9190f3eff4fa",
+								"b048da3279134b4",
 								"coupons"
 							]
 						}
@@ -1145,7 +1247,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/7371d7a9a066412/coupons/1/category",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupons/category/2",
 							"host": [
 								"localhost"
 							],
@@ -1153,10 +1255,10 @@
 							"path": [
 								"api",
 								"company",
-								"7371d7a9a066412",
+								"ba3a33e6ad25443",
 								"coupons",
-								"1",
-								"category"
+								"category",
+								"2"
 							]
 						}
 					},
@@ -1168,7 +1270,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/5a1e03c4fbae465/coupons/200/price",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupons/price/200",
 							"host": [
 								"localhost"
 							],
@@ -1176,10 +1278,10 @@
 							"path": [
 								"api",
 								"company",
-								"5a1e03c4fbae465",
+								"ba3a33e6ad25443",
 								"coupons",
-								"200",
-								"price"
+								"price",
+								"200"
 							]
 						}
 					},
@@ -1191,7 +1293,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/db8c76d88a93402/coupons/2020-03-30/end_date",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/coupons/end-date/2020-03-30",
 							"host": [
 								"localhost"
 							],
@@ -1199,10 +1301,10 @@
 							"path": [
 								"api",
 								"company",
-								"db8c76d88a93402",
+								"ba3a33e6ad25443",
 								"coupons",
-								"2020-03-30",
-								"end_date"
+								"end-date",
+								"2020-03-30"
 							]
 						}
 					},
@@ -1214,7 +1316,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/company/1e0cc49c65824bc/emails_my_customers",
+							"raw": "localhost:8080/api/company/ba3a33e6ad25443/emails-my-customers",
 							"host": [
 								"localhost"
 							],
@@ -1222,8 +1324,8 @@
 							"path": [
 								"api",
 								"company",
-								"1e0cc49c65824bc",
-								"emails_my_customers"
+								"ba3a33e6ad25443",
+								"emails-my-customers"
 							]
 						}
 					},
@@ -1289,7 +1391,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/df49a9eb1477423",
+							"raw": "localhost:8080/api/customer/443a0000a6834b6",
 							"host": [
 								"localhost"
 							],
@@ -1297,7 +1399,7 @@
 							"path": [
 								"api",
 								"customer",
-								"df49a9eb1477423"
+								"443a0000a6834b6"
 							]
 						}
 					},
@@ -1317,7 +1419,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"raw": "{\r\n    \"id\": 52,\r\n    \"email\": \"627.765@gmail.com\",\r\n    \"coupons\": [\r\n        {\r\n            \"id\": 3,\r\n            \"title\": \"a3b9b\",\r\n            \"category\": 1,\r\n            \"amount\": 74,\r\n            \"description\": \"a3b9b, 5ccf1\",\r\n            \"price\": 921.0,\r\n            \"company_id\": 3,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-01-29\",\r\n            \"image_url\": \"a3b9b@image.com\"\r\n        },\r\n        {\r\n            \"id\": 4,\r\n            \"title\": \"f6f09\",\r\n            \"category\": 8,\r\n            \"amount\": 93,\r\n            \"description\": \"f6f09, 8d06b\",\r\n            \"price\": 70.0,\r\n            \"company_id\": 3,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2019-12-29\",\r\n            \"image_url\": \"f6f09@image.com\"\r\n        },\r\n        {\r\n            \"id\": 12,\r\n            \"title\": \"16175\",\r\n            \"category\": 8,\r\n            \"amount\": 89,\r\n            \"description\": \"16175, b0805\",\r\n            \"price\": 769.0,\r\n            \"company_id\": 7,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2019-12-27\",\r\n            \"image_url\": \"16175@image.com\"\r\n        },\r\n        {\r\n            \"id\": 18,\r\n            \"title\": \"03a1a\",\r\n            \"category\": 4,\r\n            \"amount\": 106,\r\n            \"description\": \"03a1a, 0d58e\",\r\n            \"price\": 82.0,\r\n            \"company_id\": 9,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2019-12-29\",\r\n            \"image_url\": \"03a1a@image.com\"\r\n        },\r\n        {\r\n            \"id\": 25,\r\n            \"title\": \"febff\",\r\n            \"category\": 10,\r\n            \"amount\": 40,\r\n            \"description\": \"febff, 92fdc\",\r\n            \"price\": 409.0,\r\n            \"company_id\": 15,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-09\",\r\n            \"image_url\": \"febff@image.com\"\r\n        },\r\n        {\r\n            \"id\": 48,\r\n            \"title\": \"8235b\",\r\n            \"category\": 3,\r\n            \"amount\": 111,\r\n            \"description\": \"8235b, 84903\",\r\n            \"price\": 493.0,\r\n            \"company_id\": 25,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-30\",\r\n            \"image_url\": \"8235b@image.com\"\r\n        },\r\n        {\r\n            \"id\": 62,\r\n            \"title\": \"af0e8\",\r\n            \"category\": 10,\r\n            \"amount\": 88,\r\n            \"description\": \"af0e8, 00571\",\r\n            \"price\": 661.0,\r\n            \"company_id\": 32,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-21\",\r\n            \"image_url\": \"af0e8@image.com\"\r\n        },\r\n        {\r\n            \"id\": 67,\r\n            \"title\": \"0fa5c\",\r\n            \"category\": 10,\r\n            \"amount\": 119,\r\n            \"description\": \"0fa5c, 62afd\",\r\n            \"price\": 308.0,\r\n            \"company_id\": 34,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-02\",\r\n            \"image_url\": \"0fa5c@image.com\"\r\n        },\r\n        {\r\n            \"id\": 70,\r\n            \"title\": \"92659\",\r\n            \"category\": 9,\r\n            \"amount\": 83,\r\n            \"description\": \"92659, 99b88\",\r\n            \"price\": 872.0,\r\n            \"company_id\": 37,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-02-11\",\r\n            \"image_url\": \"92659@image.com\"\r\n        },\r\n        {\r\n            \"id\": 73,\r\n            \"title\": \"ba0c0\",\r\n            \"category\": 3,\r\n            \"amount\": 96,\r\n            \"description\": \"ba0c0, dd68c\",\r\n            \"price\": 104.0,\r\n            \"company_id\": 40,\r\n            \"start_date\": \"2019-12-25\",\r\n            \"end_date\": \"2020-03-28\",\r\n            \"image_url\": \"ba0c0@image.com\"\r\n        }\r\n    ],\r\n    \"first_name\": \"627\",\r\n    \"last_name\": \"765\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1325,7 +1427,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/3b66097ffca9493",
+							"raw": "localhost:8080/api/customer/443a0000a6834b6",
 							"host": [
 								"localhost"
 							],
@@ -1333,7 +1435,7 @@
 							"path": [
 								"api",
 								"customer",
-								"3b66097ffca9493"
+								"443a0000a6834b6"
 							]
 						}
 					},
@@ -1345,7 +1447,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/customer/b7de0201f4bc4d5",
+							"raw": "localhost:8080/api/customer/107d018df5c4485",
 							"host": [
 								"localhost"
 							],
@@ -1353,7 +1455,28 @@
 							"path": [
 								"api",
 								"customer",
-								"b7de0201f4bc4d5"
+								"107d018df5c4485"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all other coupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/customer/d9e2cabaa1a043d/all-other-coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								"d9e2cabaa1a043d",
+								"all-other-coupons"
 							]
 						}
 					},
@@ -1381,7 +1504,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/4a65be03191c44f/2/coupon",
+							"raw": "localhost:8080/api/customer/443a0000a6834b6/coupon/6",
 							"host": [
 								"localhost"
 							],
@@ -1389,9 +1512,9 @@
 							"path": [
 								"api",
 								"customer",
-								"4a65be03191c44f",
-								"2",
-								"coupon"
+								"443a0000a6834b6",
+								"coupon",
+								"6"
 							]
 						}
 					},
@@ -1422,7 +1545,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/bdb860bf8316492/coupons",
+							"raw": "localhost:8080/api/customer/443a0000a6834b6/coupons",
 							"host": [
 								"localhost"
 							],
@@ -1430,7 +1553,7 @@
 							"path": [
 								"api",
 								"customer",
-								"bdb860bf8316492",
+								"443a0000a6834b6",
 								"coupons"
 							]
 						}
@@ -1462,7 +1585,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/bdb860bf8316492/coupons/9/category",
+							"raw": "localhost:8080/api/customer/443a0000a6834b6/coupons/category/9",
 							"host": [
 								"localhost"
 							],
@@ -1470,10 +1593,10 @@
 							"path": [
 								"api",
 								"customer",
-								"bdb860bf8316492",
+								"443a0000a6834b6",
 								"coupons",
-								"9",
-								"category"
+								"category",
+								"9"
 							]
 						}
 					},
@@ -1504,7 +1627,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/bdb860bf8316492/coupons/900/price",
+							"raw": "localhost:8080/api/customer/443a0000a6834b6/coupons/price/900",
 							"host": [
 								"localhost"
 							],
@@ -1512,10 +1635,10 @@
 							"path": [
 								"api",
 								"customer",
-								"bdb860bf8316492",
+								"443a0000a6834b6",
 								"coupons",
-								"900",
-								"price"
+								"price",
+								"900"
 							]
 						}
 					},
@@ -1538,7 +1661,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"e16.ea9@gmail.com\",\r\n    \"first_name\": \"eq16\",\r\n    \"last_name\": \"ea9\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1546,7 +1669,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/customer/bdb860bf8316492/emails_my_companies",
+							"raw": "localhost:8080/api/customer/5c106e81ebf54b5/emails-my-companies",
 							"host": [
 								"localhost"
 							],
@@ -1554,8 +1677,8 @@
 							"path": [
 								"api",
 								"customer",
-								"bdb860bf8316492",
-								"emails_my_companies"
+								"5c106e81ebf54b5",
+								"emails-my-companies"
 							]
 						}
 					},
